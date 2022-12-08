@@ -1,15 +1,14 @@
 # Image Converter to Images Module
 # Requirements: ImageMagick (for windows) https://imagemagick.org/script/download.php#windows
-# wand.image info: https://www.pythonpool.com/imagemagick-python/
-# How to: using command line (In progress)
+# How to: using command line
 # Project starter: Martin Alvarez
 
-from wand.image import Image
-# import subprocess, os
+# from wand.image import Image
+import subprocess
 
 
 class Converter:  # Parent class
-    def __int__(self, input_file, output_file):  # **k?
+    def __int__(self, input_file, output_file):  # args, kwargs?
         self.input_file = input_file
         self.output_file = output_file
         # self.convert() # ?
@@ -21,23 +20,16 @@ class Converter:  # Parent class
 class ImageConverter(Converter):  # Child class
     def __init__(self, input_file, output_file):
         self.input_file = input_file
-        self.output_file = output_file  # ask Paolo, is it necessary to repeat this?
+        self.output_file = output_file
 
     def convert(self):  # Convert image to any type
         picture = self.input_file
         output_file = self.output_file
-        name = picture.split('.')
-        convert_picture = Image(filename=picture)
-        convert_picture = convert_picture.convert('png')
-        convert_picture.save(filename=output_file)
-        # convert_picture.save(filename=f'/images/{name[0]}.png')
-        return print(f"Convert image from {name[1]} to {'png'} successfully")
+        command_line = ['magick', f'{picture}', f'{output_file}']
+        return subprocess.Popen(command_line)
+
 
 image_converted = ImageConverter('RickandMorty.jpg', 'RickandMorty.png').convert()
-
-# conv_command = f'ffmpeg -i {source} -r 1 {destination}'
-# b = subprocess.Popen(['ffmpeg',param_input,'file_example_MP4_1920_18MG.mp4','-r','1','image%06d.jpg'])
-# print("The exit code was: %d"%b)
 
 
 class ImageFlip(Converter):  # Child class
@@ -48,12 +40,9 @@ class ImageFlip(Converter):  # Child class
     def convert(self):   # Flip image horizontally
         picture = self.input_file
         output_file = self.output_file
-        name = picture.split('.')
-        flip_picture = Image(filename=picture)
-        flip_picture.flip()
-        flip_picture.save(filename=output_file)
-        # flip_picture.save(filename=f'{name[0]}_flip.{name[1]}')
-        return print(f"Flip image {name[0]} successfully")
+        command_line = ['magick', f'{picture}', '-flip', f'{output_file}']
+        return subprocess.Popen(command_line)
+
 
 image_flip = ImageFlip('RickandMorty.jpg', 'RickandMorty_flip.jpg').convert()
 
@@ -63,15 +52,12 @@ class ImageRotate(Converter):  # Child class
         self.input_file = input_file
         self.output_file = output_file
 
-    def convert(self):  # Rotate image clockwise
+    def convert(self):  # Rotate image clockwise   #Add parameters (grades)
         picture = self.input_file
         output_file = self.output_file
-        name = picture.split('.')
-        rotate_picture = Image(filename=picture)
-        rotate_picture.rotate(45)  # grades
-        rotate_picture.save(filename=output_file)
-        #rotate_picture.save(filename=f'{name[0]}_rotate_{grades}.{name[1]}')
-        return print(f"Rotate image {name[0]} 45° grades successfully")
+        command_line = ['magick', f'{picture}', '-rotate', f'90', f'{output_file}']
+        return subprocess.Popen(command_line)
+
 
 image_rotate = ImageRotate('RickandMorty.jpg', 'RickandMorty_rotate.jpg').convert()
 
@@ -84,15 +70,23 @@ class ImageBN(Converter):  # Child class
     def convert(self):  # Convert image to black and white
         picture = self.input_file
         output_file = self.output_file
-        name = picture.split('.')
-        bn_picture = Image(filename=picture)
-        bn_picture.transform_colorspace('gray')
-        bn_picture.sketch(0.5, 0.0, 98.0)
-        bn_picture.save(filename=output_file)
-        # bn_picture.save(filename=f'{name[0]}_bn.{name[1]}')
-        return print(f"Convert image {name[0]} to black and white successfully")
+        command_line = ['magick', f'{picture}', '-monochrome', f'{output_file}']
+        return subprocess.Popen(command_line)
+
 
 image_bn = ImageBN('RickandMorty.jpg', 'RickandMorty_BN.jpg').convert()
 
 
+class ImageResize(Converter):  # Child class
+    def __init__(self, input_file, output_file):
+        self.input_file = input_file
+        self.output_file = output_file
 
+    def convert(self):  # Resize image to a given % or values
+        picture = self.input_file
+        output_file = self.output_file
+        command_line = ['magick', f'{picture}', '-resize', f'50%', f'{output_file}']
+        return subprocess.Popen(command_line)
+
+
+image_resize = ImageResize('RickandMorty.jpg', 'RickandMorty_resize.jpg').convert()
