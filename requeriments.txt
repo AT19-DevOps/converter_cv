@@ -1,0 +1,36 @@
+Video Converter
+-------------------------
+Who?
+Daniel Villarroel
+
+What?
+- Converts video (any format) to sequence of images (any format).
+- Converts video (any format) to video (any format).
+- Extract audio (any format) from video (any format).
+
+How?
+- Using ffmpeg library.
+- Using command line shell.
+- ffmpeg [global_options] {[input_file_options] -i input_url} ... {[output_file_options] output_url} ...
+
+For testing purpouses it's necessary a video file in the same location as this script.
+
+Requeriments:
+UI, End Point
+----------------------------
+
+Video to images:
+- Source file selector (options to upload video file, paste URL).
+- Output filename field (text box).
+- Output format selector (combo box).
+- Number of fps to process (combo box with a write option).
+- Zipping function 
+
+Video to video:
+- Source file selector (options to upload video file, paste URL).
+- Output filename field (text box).
+- Output format selector (combo box).
+- Encoder/Decoder (combo box).
+
+General functions:
+- Basic operations with files (CRUD)
