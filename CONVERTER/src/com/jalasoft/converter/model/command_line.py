@@ -15,6 +15,7 @@ import subprocess
 
 
 class Command:
+    """Runs a shell command"""
     def __init__(self, cmd):
         self.cmd = cmd
     
