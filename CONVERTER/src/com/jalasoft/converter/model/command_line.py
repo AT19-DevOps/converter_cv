@@ -14,11 +14,11 @@
 import subprocess
 
 
-# Defines Command class criteria
 class Command:
+    """Defines Command class criteria"""
     def __init__(self, cmd):
         self.cmd = cmd
 
-    # Executes the command given
     def run_cmd(self):
+        """Executes the command given"""
         return subprocess.Popen(self.cmd)

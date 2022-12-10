@@ -14,59 +14,59 @@ from CONVERTER.src.com.jalasoft.converter.model.converter import Converter
 from CONVERTER.src.com.jalasoft.converter.model.command_line import Command
 
 
-# Inherits Converter criteria
 class ImageConverter(Converter):
+    """ Inherits Converter criteria"""
     def __init__(self, input_file, output_file):
         super().__init__(input_file, output_file)
 
-    # Converts image to any type, returns the command line
     def convert(self) -> list:
+        """Converts image to any type, returns the command line"""
         command_line = ['magick', f'{self.input_file}', f'{self.output_file}']
         return command_line
 
 
-# Inherits Converter criteria
 class ImageFlip(Converter):
+    """ Inherits Converter criteria"""
     def __init__(self, input_file, output_file):
         super().__init__(input_file, output_file)
 
-    # Flips image horizontally, returns the command line(list) and executes it
     def convert(self) -> list:
+        """Flips image horizontally, returns the command line"""
         command_line = ['magick', f'{self.input_file}', '-flip', f'{self.output_file}']
         return command_line
 
 
-# Inherits Converter criteria
 class ImageRotate(Converter):
+    """ Inherits Converter criteria"""
     def __init__(self, input_file, output_file, grades):
         super().__init__(input_file, output_file)
         self.grades = grades
 
-    # Rotates image clockwise for a given value, returns the command line
     def convert(self) -> list:
+        """Rotates image clockwise for a given value, returns the command line"""
         command_line = ['magick', f'{self.input_file}', '-rotate', f'{self.grades}', f'{self.output_file}']
         return command_line
 
 
-# Inherits Converter criteria
 class ImageBW(Converter):
+    """ Inherits Converter criteria"""
     def __init__(self, input_file, output_file):
         super().__init__(input_file, output_file)
 
-    # Converts image to black and white, returns the command line
     def convert(self) -> list:
+        """Converts image to black and white, returns the command line"""
         command_line = ['magick', f'{self.input_file}', '-monochrome', f'{self.output_file}']
         return command_line
 
 
-# Inherits Converter criteria
 class ImageResize(Converter):
+    """ Inherits Converter criteria"""
     def __init__(self, input_file, output_file, new_size):
         super().__init__(input_file, output_file)
         self.new_size = new_size
 
-    # Resizes image to a given % or values, returns the command line
     def convert(self) -> list:
+        """ Resizes image to a given % or values, returns the command line"""
         command_line = ['magick', f'{self.input_file}', '-resize', f'{self.new_size}', f'{self.output_file}']
         return command_line
 

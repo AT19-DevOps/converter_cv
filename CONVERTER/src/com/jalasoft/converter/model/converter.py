@@ -10,11 +10,13 @@
 # with Jalasoft.
 #
 
-# Defines Converter criteria
+
 class Converter:
+    """Defines Converter criteria"""
     def __init__(self, input_file, output_file):
         self.input_file = input_file
         self.output_file = output_file
 
     def convert(self):
+        """Defines converter method"""
         pass
