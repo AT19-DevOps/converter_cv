@@ -12,12 +12,12 @@ import os
 from CONVERTER.src.com.jalasoft.converter.model.converter import Converter
 
 
-# Inherits Converter criteria
 class SaveOutput(Converter):
+    # Inherits Converter criteria
     def __init__(self, input_file, output_file):
         super().__init__(input_file, output_file)
 
-    # Creates and executes command to save a audio file in a especific path
     def convert(self):
+        # Creates and executes command to save an audio file in a specific path
         cmd = f'MOVE "{self.input_file}" "{self.output_file}"'
         return os.system(cmd)

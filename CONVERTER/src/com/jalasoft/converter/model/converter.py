@@ -10,8 +10,9 @@
 # with Jalasoft.
 #
 
-#defines Converter criteria
-class Converter:  
+
+class Converter:
+    # Defines Converter criteria
     def __init__(self, input_file, output_file):
         self.input_file = input_file
         self.output_file = output_file

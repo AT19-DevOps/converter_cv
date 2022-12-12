@@ -14,13 +14,14 @@
 import subprocess
 import os
 
-#executes commands in the terminal
+
 class Command:
+    # Executes commands in the terminal
     def __init__(self, cmd):
         self.cmd = cmd
 
-    #executes commands
     def run_cmd(self):
+        # Executes commands
         return subprocess.Popen(self.cmd)
 
 
