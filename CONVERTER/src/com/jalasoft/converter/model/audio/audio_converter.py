@@ -12,47 +12,47 @@ from CONVERTER.src.com.jalasoft.converter.model.converter import Converter
 
 
 class AudioConvert(Converter):
-    # Inherits Converter criteria
+    """Inherits Converter criteria"""
     def __init__(self, input_file, output_file):
         super().__init__(input_file, output_file)
 
     def convert(self):
-        # Creates a command to converts audio format
+        """Creates a command to converts audio format"""
         cmd = f'ffmpeg -i {self.input_file} {self.output_file}'
         return cmd
 
 
 class IncreaseVolume(Converter):
-    # Inherits Converter criteria
+    """Inherits Converter criteria"""
     def __init__(self, input_file, output_file, multiplier):
         super().__init__(input_file, output_file)
         self.multiplier = multiplier
 
     def convert(self):
-        # Creates a command to increases the volume of an audio
+        """Creates a command to increases the volume of an audio"""
         cmd = f'ffmpeg -i {self.input_file} -af "volume={self.multiplier}" {self.output_file}'
         return cmd
 
 
 class ExtractAudio(Converter):
-    # Inherits Converter criteria
+    """Inherits Converter criteria"""
     def __init__(self, input_file, output_file):
         super().__init__(input_file, output_file)
 
     def convert(self):
-        # Creates a command to extracts the audio from a video
+        """Creates a command to extracts the audio from a video"""
         cmd = f'ffmpeg -i {self.input_file} -vn {self.output_file}'
         return cmd
 
 
 class MixAudio(Converter):
-    # Inherits Converter criteria
+    """Inherits Converter criteria"""
     def __init__(self, input_file, output_file, second_input):
         super().__init__(input_file, output_file)
         self.second_input = second_input
 
     def convert(self):
-        # Creates a command to mixes two audios
+        """Creates a command to mixes two audios"""
         cmd = f'ffmpeg -i {self.input_file} -i {self.second_input} -filter_complex amerge {self.output_file}'
         return cmd
 

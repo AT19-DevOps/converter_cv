@@ -12,16 +12,13 @@
 #
 
 import subprocess
-import os
 
 
 class Command:
-    # Executes commands in the terminal
+    """Defines Command class criteria"""
     def __init__(self, cmd):
         self.cmd = cmd
 
     def run_cmd(self):
-        # Executes commands
+        """Executes the command given"""
         return subprocess.Popen(self.cmd)
-
-
