@@ -20,3 +20,4 @@ class Converter:
     def convert(self):
         """Defines converter method"""
         pass
+
