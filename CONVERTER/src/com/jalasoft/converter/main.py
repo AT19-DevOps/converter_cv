@@ -1,5 +1,5 @@
 #
-# @restAPI.py Copyright (c) 2022 Jalasoft.
+# @main.py Copyright (c) 2022 Jalasoft.
 # 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
 # All rights reserved.
 #
@@ -10,13 +10,15 @@
 # with Jalasoft.
 #
 
-from flask import Flask, request
-from flask_restful import Resource, Api
+from flask import Flask
+from flask import request
+from flask_restful import Resource
+from flask_restful import Api
 from werkzeug.utils import secure_filename
 import os
 import pandas as pd
 
-PATH = 'CONVERTER/src/com/jalasoft/converter/restAPI/'
+PATH = 'CONVERTER/src/com/jalasoft/converter/'
 UPLOAD_FOLDER = PATH + 'uploads'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
