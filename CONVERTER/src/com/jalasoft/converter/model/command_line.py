@@ -1,7 +1,7 @@
 #
 # @command_line.py Copyright (c) 2022 Jalasoft.
 # 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
-# 
+#
 # All rights reserved.
 #
 # This software is the confidential and proprietary information of
@@ -12,12 +12,14 @@
 #
 
 import subprocess
+import os
 
 
 class Command:
-    """Runs a shell command"""
+    """Defines Command class criteria"""
     def __init__(self, cmd):
         self.cmd = cmd
-    
+
     def run_cmd(self):
-        return subprocess.Popen(self.cmd)
+        """Executes the command given"""
+        return subprocess.Popen(self.cmd, shell=True)

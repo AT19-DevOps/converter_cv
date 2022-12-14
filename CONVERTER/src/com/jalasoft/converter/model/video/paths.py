@@ -11,7 +11,6 @@
 # with Jalasoft.
 #
 
-import subprocess
 import os
 
 

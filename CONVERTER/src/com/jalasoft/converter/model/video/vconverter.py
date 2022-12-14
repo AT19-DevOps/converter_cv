@@ -11,8 +11,8 @@
 # with Jalasoft.
 #
 
-from CONVERTER.src.com.jalasoft.converter.model.command_line import Command
-from CONVERTER.src.com.jalasoft.converter.model.converter import Converter
+from model.converter import Converter
+from model.video.paths import Path
 
 
 class VideoToImages(Converter):
@@ -24,7 +24,7 @@ class VideoToImages(Converter):
     def convert(self):
         """Converts video to a set of images"""
         paths = Path(self.input_file, self.output_file).paths()
-        return  Command(['ffmpeg', '-i', paths[0], '-r', self.fps, paths[1]]).run_cmd()
+        return  " ".join(['ffmpeg', '-i', paths[0], '-r', self.fps, paths[1]])
     
  
 class VideoToVideo(Converter):
@@ -34,7 +34,7 @@ class VideoToVideo(Converter):
     
     def convert(self):
         """Converts video formats"""
-        paths = Path(self.input_file, self.output_file).paths()
-        return  Command(['ffmpeg', '-i', paths[0], '-c:v copy -c:a copy -y', paths[1]]).run_cmd()
+        #paths = Path(self.input_file, self.output_file).paths()
+        return  " ".join(['ffmpeg', '-i', self.input_file, '-c:v copy -c:a copy -y', self.output_file])
 
 
