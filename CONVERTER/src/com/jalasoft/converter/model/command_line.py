@@ -12,6 +12,7 @@
 #
 
 import subprocess
+import os
 
 
 class Command:
@@ -21,5 +22,4 @@ class Command:
 
     def run_cmd(self):
         """Executes the command given"""
-        return subprocess.Popen(self.cmd)
-
+        return subprocess.Popen(self.cmd, shell=True)

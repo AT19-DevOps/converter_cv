@@ -8,8 +8,7 @@
 # accordance with the terms of the license agreement you entered into
 # with Jalasoft.
 
-import os
-from CONVERTER.src.com.jalasoft.converter.model.converter import Converter
+from model.converter import Converter
 
 
 class SaveOutput(Converter):
@@ -19,5 +18,5 @@ class SaveOutput(Converter):
 
     def convert(self):
         """Creates and executes command to save an audio file in a specific path"""
-        cmd = f'MOVE "{self.input_file}" "{self.output_file}"'
-        return os.system(cmd)
+        cmd = f'mv "{self.input_file}" "{self.output_file}"'
+        return cmd

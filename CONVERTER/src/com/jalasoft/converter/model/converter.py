@@ -21,3 +21,4 @@ class Converter:
         """Defines converter method"""
         pass
 
+
