@@ -1,0 +1,8 @@
+pruebas/
+pruebas2.py
+venv/
+.idea/
+__pycache__/
+parameter/
+metadata_geter/
+factory.py
