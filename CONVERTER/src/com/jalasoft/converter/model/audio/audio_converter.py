@@ -47,13 +47,15 @@ class ExtractAudio(Converter):
 
 class MixAudio(Converter):
     """Inherits Converter criteria"""
-    def __init__(self, input_file, output_file, second_input):
+    def __init__(self, input_file, output_file):
         super().__init__(input_file, output_file)
-        self.second_input = second_input
 
     def convert(self):
-        """Creates a command to mixes two audios"""
-        cmd = f'ffmpeg -i {self.input_file} -i {self.second_input} -filter_complex amerge {self.output_file}'
+        list=['ffmpeg']
+        for element in self.input_file:
+            list.append(' -i '+ element)
+        list.append(' -filter_complex amerge '+self.output_file)
+        cmd =''.join(list)
         return cmd
 
 

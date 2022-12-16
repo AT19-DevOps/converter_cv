@@ -18,5 +18,5 @@ class SaveOutput(Converter):
 
     def convert(self):
         """Creates and executes command to save an audio file in a specific path"""
-        cmd = f'mv "{self.input_file}" "{self.output_file}"'
+        cmd = f'MOVE "{self.input_file}" "{self.output_file}"' #mv en vez de MOVE
         return cmd

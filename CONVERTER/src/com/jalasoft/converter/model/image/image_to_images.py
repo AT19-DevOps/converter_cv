@@ -70,3 +70,15 @@ class ImageResize(Converter):
         command_line = ['magick', f'{self.input_file}', '-resize', f'{self.new_size}', f'{self.output_file}']
         return " ".join(command_line)
 
+
+class PdfImage(Converter):
+    """Inherits Converter criteria"""
+    def __init__(self, input_file, output_file, quality):
+        super().__init__(input_file, output_file)
+        self.quality = quality
+    
+    def convert(self) -> list:
+        """Converts all pages of PDF to images, return the command line"""
+        command_line = ['convert', '-density', '150', '-antialias',f'{self.input_file}', '-resize', '1024x', '-quality', f'{self.quality}',f'{self.output_file}']
+        return " ".join(command_line)
+
