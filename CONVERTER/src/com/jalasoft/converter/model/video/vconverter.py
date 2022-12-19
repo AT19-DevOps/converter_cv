@@ -11,8 +11,9 @@
 # with Jalasoft.
 #
 
-from model.converter import Converter
-from model.video.paths import Path
+from AT19_CONVERTER.CONVERTER.src.com.jalasoft.converter.model.converter import Converter
+from AT19_CONVERTER.CONVERTER.src.com.jalasoft.converter.model.video.paths import Path
+
 
 
 class VideoToImages(Converter):
