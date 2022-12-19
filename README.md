@@ -23,4 +23,9 @@
 
     <https://exiftool.org>
 
+* Installation Tesseract (for Windows) for download
+
+  <https://github.com/UB-Mannheim/tesseract/wiki>
+
+
 Have a nice day! :christmas_tree: :sparkles:
