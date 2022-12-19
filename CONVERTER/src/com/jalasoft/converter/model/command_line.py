@@ -21,9 +21,5 @@ class Command:
 
     def run_cmd(self):
         """Executes the command given"""
-        proc = subprocess.Popen(self.cmd, shell=True)
-        try:
-            outs, errs = proc.communicate(timeout=8)
-        except TimeoutError:
-            proc.kill()
-            outs , errs = proc.communicate()
+        return subprocess.Popen(self.cmd, shell=True)
+
