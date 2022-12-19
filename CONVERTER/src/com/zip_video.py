@@ -12,14 +12,13 @@
 import zipfile
 import os
 
-def zipFiles():
-    """Zipfiles"""
-    file_path = "/AT19_CONVERTER/CONVERTER/src/com/jalasoft/converter/uploads/video"
-    zip = zipfile.ZipFile('Compress.zip', 'w')
-    matchlist = ['.png', '.txt', '.pdf', '.py', '.jpg']
-    for archivo in os.listdir(file_path):
-        for ext in matchlist:
-            if archivo.endswith(ext):
+
+file_path = "/AT19_CONVERTER/CONVERTER/src/com/jalasoft/converter/uploads/video"
+zip = zipfile.ZipFile('Compress.zip', 'w')
+matchlist = ['.png', '.txt', '.pdf', '.py', '.jpg']
+for archivo in os.listdir(file_path):
+    for ext in matchlist:
+        if archivo.endswith(ext):
                 zip.write(os.path.join(file_path, archivo))
 
-    zip.close()
+zip.close()

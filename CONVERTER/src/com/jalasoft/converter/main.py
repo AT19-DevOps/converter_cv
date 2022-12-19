@@ -25,9 +25,12 @@ from werkzeug.utils import secure_filename
 import os
 import pandas as pd
 
+
 PATH = 'C:/converters/AT19_CONVERTER/CONVERTER/src/com/jalasoft/converter/'
+PATH = 'D:/jalasoft/programing_101/obj_recognizer_project/AT19_CONVERTER/CONVERTER/src/com/jalasoft/converter/'
 UPLOAD_FOLDER = PATH + 'uploads'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'mp4'}
+
 
 def allowed_file(file):
     file = file.split('.')
@@ -35,10 +38,10 @@ def allowed_file(file):
         return True
     return False
 
+
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 api = Api(app)
-
 
 class RestAPI(Resource):
     """Convert Video to Image"""
@@ -56,7 +59,6 @@ class RestAPI(Resource):
                 'output_file': output_file,
                 'fps': fps,
             })
-
             input_video = os.path.join("uploads", input_file.filename)
             tmp = Command(VideoToImages(input_video, output_file, fps).convert()).run_cmd()
             return {'data': new_data.to_dict()}, 200
