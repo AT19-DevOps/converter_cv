@@ -12,7 +12,6 @@
 #
 
 import subprocess
-import os
 
 
 class Command:

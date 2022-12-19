@@ -18,15 +18,17 @@ from werkzeug.utils import secure_filename
 import os
 import pandas as pd
 
-PATH = 'CONVERTER/src/com/jalasoft/converter/'
+PATH = 'D:/jalasoft/programing_101/obj_recognizer_project/AT19_CONVERTER/CONVERTER/src/com/jalasoft/converter/'
 UPLOAD_FOLDER = PATH + 'uploads'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+
 
 def allowed_file(file):
     file = file.split('.')
     if file[1] in ALLOWED_EXTENSIONS:
         return True
     return False
+
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
