@@ -12,13 +12,21 @@
 import zipfile
 import os
 
+# Path folder compress
+file_path = "C:/converters/AT19_CONVERTER/CONVERTER/src/com/jalasoft/converter/uploads/video"
 
-file_path = "/AT19_CONVERTER/CONVERTER/src/com/jalasoft/converter/uploads/video"
+# CZipfile object creation, Zipfile naming
 zip = zipfile.ZipFile('Compress.zip', 'w')
+
+# filtration of files
 matchlist = ['.png', '.txt', '.pdf', '.py', '.jpg']
+
+# Filtration of files to be compressed according to file extension
 for archivo in os.listdir(file_path):
     for ext in matchlist:
+        # Validate file extension with list
         if archivo.endswith(ext):
-                zip.write(os.path.join(file_path, archivo))
+            zip.write(os.path.join(file_path, archivo))
 
 zip.close()
+

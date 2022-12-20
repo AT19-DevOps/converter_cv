@@ -27,7 +27,6 @@ import pandas as pd
 
 
 PATH = 'C:/converters/AT19_CONVERTER/CONVERTER/src/com/jalasoft/converter/'
-PATH = 'D:/jalasoft/programing_101/obj_recognizer_project/AT19_CONVERTER/CONVERTER/src/com/jalasoft/converter/'
 UPLOAD_FOLDER = PATH + 'uploads'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'mp4'}
 
