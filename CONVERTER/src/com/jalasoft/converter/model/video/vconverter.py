@@ -11,9 +11,11 @@
 # with Jalasoft.
 #
 
-from AT19_CONVERTER.CONVERTER.src.com.jalasoft.converter.model.converter import Converter
-from AT19_CONVERTER.CONVERTER.src.com.jalasoft.converter.model.video.paths import Path
+#from AT19_CONVERTER.CONVERTER.src.com.jalasoft.converter.model.converter import Converter
+#from AT19_CONVERTER.CONVERTER.src.com.jalasoft.converter.model.video.paths import Path
 
+from model.converter import Converter
+from model.video.paths import Path
 
 
 class VideoToImages(Converter):
@@ -24,8 +26,9 @@ class VideoToImages(Converter):
         
     def convert(self):
         """Converts video to a set of images"""
-        paths = Path(self.input_file, self.output_file).paths()
-        return  " ".join(['ffmpeg', '-i', paths[0], '-r', self.fps, paths[1]])
+        paths = Path(self.input_file, self.output_file).paths() #llama al path que acabamos de ver de la clase
+        return  " ".join(['ffmpeg', '-i', paths[0], '-r', self.fps, paths[1]])#path 0 source, path1 es el destination
+      
     
  
 class VideoToVideo(Converter):
