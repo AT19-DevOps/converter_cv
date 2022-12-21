@@ -14,8 +14,6 @@ import os
 
 import shutil
 
-
-
 class Zipfiles:
     def __init__(self, upath, folder_to_zip, name_of_zip):
         self.upath = upath

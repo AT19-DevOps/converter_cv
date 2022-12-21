@@ -22,6 +22,7 @@ from flask import Flask
 from flask import request
 from flask_restful import Resource
 from flask_restful import Api
+from flask import send_from_directory
 from werkzeug.utils import secure_filename
 import os
 
@@ -43,33 +44,29 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 api = Api(app)
 
 @app.route("/fabian", methods=['POST'])
-class RestAPI(Resource):
-    """Convert Video to Image"""
-
-    def post(self):
-        """POST method"""
-        input_file = request.files["input_file"]
-        output_file = request.form.get("output_file")
-        fps = request.form.get("fps")
-        
-        if input_file and allowed_file(input_file.filename):
-
-            filename = secure_filename(input_file.filename)
-            zip_name = filename.split(".")[0]
-            input_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            input_video = os.path.join(UPLOAD_FOLDER, input_file.filename)
-
-            tmp = Command(VideoToImages(input_video, output_file, fps).convert()).run_cmd()
-            tmp_zip = Zipfiles(UPLOAD_FOLDER , input_video.split(".")[0], zip_name).compress()
-
-            url='http://localhost:5000/download/zip/' + tmp_zip
+def post():
+    """POST method"""
+    input_file = request.files["input_file"]
+    output_file = request.form.get("output_file")
+    fps = request.form.get("fps")
+    
+    if input_file and allowed_file(input_file.filename):
+        filename = secure_filename(input_file.filename)
+        zip_name = filename.split(".")[0]
+        input_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        input_video = os.path.join(UPLOAD_FOLDER, input_file.filename)
+        tmp = Command(VideoToImages(input_video, output_file, fps).convert()).run_cmd()
+        tmp_zip = Zipfiles(UPLOAD_FOLDER , input_video.split(".")[0], zip_name).compress()
+        url='http://localhost:5000/download/zip/' + tmp_zip
+   
+        return {'url_link': url} 
        
-            return {'url_link': url} #en vez de data url_data, devolver la url
 
-
-            #crear el api del downloader debe ser con un get
-
-#api.add_resource(RestAPI, '/fabian')
+@app.route("/download/zip/<string:file_name>", methods=['GET'])
+def imagen(file_name):
+    print (UPLOAD_FOLDER)
+    print (file_name)
+    return send_from_directory(directory=UPLOAD_FOLDER ,path=file_name,as_attachment=True)
 
 
 if __name__ == '__main__':
