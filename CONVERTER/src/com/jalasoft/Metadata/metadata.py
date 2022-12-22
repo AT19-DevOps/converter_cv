@@ -16,11 +16,11 @@ import json
 
 
 class ExifTool(object):
-    """The metadata class"""
+    """Obtiene metadatos"""
     sentinel = "{ready}\r\n"
 
     def __init__(self, executable="exiftool(-k).exe"):
-        """Configure the exiftool(-k).exe"""    
+        """Configures the exiftool(-k).exe"""    
         self.executable = executable
         self.process = subprocess.Popen(
             [self.executable, "-stay_open", "True",  "-@", "-"],
@@ -28,12 +28,12 @@ class ExifTool(object):
             stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 
     def __exit__(self, exc_type, exc_value, traceback):
-        """Complete the metadata process"""  
+        """Completes the metadata process"""  
         self.process.stdin.write("-stay_open\nFalse\n")
         self.process.stdin.flush()
 
     def execute(self, *args):
-        """The executor that is calling our tool, the sentinal is like a mark that tells us the end of the file, it is practically asking if it has not finished, that is, the end has this structure {ready}\r\n, it loads files and reads them metadata"""  
+        """Calls our tool, it loads files and reads them metadata"""  
         args = args + ("-execute\n",)
         self.process.stdin.write(str.join("\n", args))
         self.process.stdin.flush()
@@ -44,5 +44,5 @@ class ExifTool(object):
         return output[:-len(self.sentinel)]
 
     def get_metadata(self, *filenames):
-        """The metadata loads in a jeyson and that prints"""  
+        """Loads metadata in a jeyson and that prints"""  
         return json.loads(self.execute("-G", "-j", "-n", *filenames))
