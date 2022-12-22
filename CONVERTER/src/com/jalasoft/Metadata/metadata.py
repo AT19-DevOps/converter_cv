@@ -1,7 +1,7 @@
 #
-# @image_to_images.py Copyright (c) 2021 Jalasoft.
+# @metadata.py Copyright (c) 2022 Jalasoft.
 # 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
-# # All rights reserved.
+# All rights reserved.
 #
 # This software is the confidential and proprietary information of
 # Jalasoft, ("Confidential Information"). You shall not
@@ -14,11 +14,13 @@ import subprocess
 import os
 import json
 
-class ExifTool(object):
 
+class ExifTool(object):
+    """The metadata class"""
     sentinel = "{ready}\r\n"
 
     def __init__(self, executable="exiftool(-k).exe"):
+        """You are configuring the exiftool(-k).exe"""    
         self.executable = executable
         self.process = subprocess.Popen(
             [self.executable, "-stay_open", "True",  "-@", "-"],
@@ -26,10 +28,12 @@ class ExifTool(object):
             stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 
     def __exit__(self, exc_type, exc_value, traceback):
+        """Complete the metadata process"""  
         self.process.stdin.write("-stay_open\nFalse\n")
         self.process.stdin.flush()
 
     def execute(self, *args):
+        """The executor that is calling our tool, the sentinal is like a mark that tells us the end of the file, it is practically asking if it has not finished, that is, the end has this structure {ready}\r\n, it loads files and reads them metadata"""  
         args = args + ("-execute\n",)
         self.process.stdin.write(str.join("\n", args))
         self.process.stdin.flush()
@@ -40,12 +44,5 @@ class ExifTool(object):
         return output[:-len(self.sentinel)]
 
     def get_metadata(self, *filenames):
+        """The metadata loads in a jeyson and that prints"""  
         return json.loads(self.execute("-G", "-j", "-n", *filenames))
-
-# ##Testing ExifTool
-# exiftooll = ExifTool()
-# metadata =  exiftooll.get_metadata("avion.jpg")
-
-# print(str(metadata[0]))
-
-# tag = metadata
