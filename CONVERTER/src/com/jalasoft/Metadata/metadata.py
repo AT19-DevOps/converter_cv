@@ -20,7 +20,7 @@ class ExifTool(object):
     sentinel = "{ready}\r\n"
 
     def __init__(self, executable="exiftool(-k).exe"):
-        """You are configuring the exiftool(-k).exe"""    
+        """Configure the exiftool(-k).exe"""    
         self.executable = executable
         self.process = subprocess.Popen(
             [self.executable, "-stay_open", "True",  "-@", "-"],
