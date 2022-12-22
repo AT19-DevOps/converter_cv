@@ -24,9 +24,9 @@ class Path:
     def paths(self):
         """Returns path strings, used only in VideoToImages  """
         BASE_DIR = os.getcwd()
-        destination_dir = os.path.join(BASE_DIR, self.input_file.split(".")[0])#uniendo base dir con (video.mp4), solo toma video y forma la carpeta destino
-        source = os.path.join(BASE_DIR, self.input_file)#toma el base dir y se lo pone al nombre video, construye la ruta cpmpleta al archivo video mp4
-        if not os.path.exists(destination_dir): os.mkdir(destination_dir)# si no existe destinatio dir que se creo en la 27 solo la ruta
-        destination = os.path.join(destination_dir, '%06d.' + self.output_file)#va a crear el directorio, va hacer el grupo de archivos que se va a crear, 06d significa un numero de 6 digitos
+        destination_dir = os.path.join(BASE_DIR, self.input_file.split(".")[0])
+        source = os.path.join(BASE_DIR, self.input_file)
+        if not os.path.exists(destination_dir): os.mkdir(destination_dir)
+        destination = os.path.join(destination_dir, '%06d.' + self.output_file)
         print(source, "\n", destination)
         return [source, destination] 
