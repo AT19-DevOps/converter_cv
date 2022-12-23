@@ -17,7 +17,7 @@ from flask import blueprints
 from model.command_line import Command
 from model.video.vconverter import VideoToImages
 from model.video.vconverter import VideoToVideo
-from common.zip_video import Zipfiles
+from common.zip_file import ZipFiles
 from model.image.image_to_images import ImageConverter
 from model.image.image_to_images import ImageFlip
 import os
@@ -45,6 +45,7 @@ routes_files = blueprints.Blueprint('routes_files', __name__)
 
 
 def allowed_file(file):
+    """Check if the file is allowed"""
     file = file.split('.')
     if file[1] in ALLOWED_EXTENSIONS:
         return True
@@ -53,8 +54,10 @@ def allowed_file(file):
 
 @routes_files.get("/download")
 def download_zip():
-    file_name=request.args["file_name"]
+    """Download file"""
+    file_name = request.args["file_name"]
     return send_from_directory(directory=UPLOAD_FOLDER, path=file_name, as_attachment=True)
+    # Poner en carpeta download o public
 
 
 @routes_files.post("/videotoimage/zip")
@@ -68,30 +71,29 @@ def video_to_image():
         zip_name = filename.split(".")[0]
         input_file.save(os.path.join(UPLOAD_FOLDER, filename))
         input_video = os.path.join(UPLOAD_FOLDER, input_file.filename)
-        tmp = Command(VideoToImages(input_video, output_file, fps).convert()).run_cmd()
-        tmp_zip = Zipfiles(UPLOAD_FOLDER, input_video.split(".")[0], zip_name).compress()
-        url ='http://localhost:5000/download?file_name=' + tmp_zip
+        Command(VideoToImages(input_video, output_file, fps).convert()).run_cmd()
+        tmp_zip = ZipFiles(UPLOAD_FOLDER, input_video.split(".")[0], zip_name).compress()
+        url = 'http://localhost:5000/download?file_name=' + tmp_zip  # Ver lo del localhost al venv
         return url
+
 
 @routes_files.post("/videotovideo")
 def video_to_video():
-    """Convert from video to image --> hay q revisar"""
+    """Convert from video to another type of video --> hay q revisar"""
     input_file = request.files["input_file"]
     output_file = request.args["output_file"]
     if input_file and allowed_file(input_file.filename):
         filename = secure_filename(input_file.filename)
-        #zip_name = filename.split(".")[0]
         input_file.save(os.path.join(UPLOAD_FOLDER, filename))
         input_video = os.path.join(UPLOAD_FOLDER, input_file.filename)
-        tmp = Command(VideoToVideo(input_video, output_file).convert()).run_cmd()
-        #tmp_zip = Zipfiles(UPLOAD_FOLDER, input_video.split(".")[0], zip_name).compress()
-        url ='http://localhost:5000/download?file_name=' 
+        Command(VideoToVideo(input_video, output_file).convert()).run_cmd()
+        url = 'http://localhost:5000/download?file_name='
         return url
 
 
 @routes_files.post("/imagetoimage")
 def image_to_image():
-    """Convert from image to image"""
+    """Convert image to another type of image"""
     input_file = request.files["input_file"]
     output_file = request.args["output_file"]
     if input_file and allowed_file(input_file.filename):
@@ -100,14 +102,14 @@ def image_to_image():
         input_file.save(os.path.join(UPLOAD_FOLDER, filename))
         input_image = os.path.join(UPLOAD_FOLDER, input_file.filename)
         output_image = os.path.join(UPLOAD_FOLDER,(image_name+ output_file))
-        tmp = Command(ImageConverter(input_image, output_image).convert()).run_cmd()
-        url ='http://localhost:5000/download?file_name=' + image_name + output_file
+        Command(ImageConverter(input_image, output_image).convert()).run_cmd()
+        url = 'http://localhost:5000/download?file_name=' + image_name + output_file
         return url
 
 
 @routes_files.post("/imageflip")
 def imageflip():
-    """Convert from image to flip image"""
+    """Convert image to flipped image"""
     input_file = request.files["input_file"]
     output_file = request.args["output_file"]
     if input_file and allowed_file(input_file.filename):
@@ -116,6 +118,6 @@ def imageflip():
         input_file.save(os.path.join(UPLOAD_FOLDER, filename))
         input_image = os.path.join(UPLOAD_FOLDER, input_file.filename)
         output_image = os.path.join(UPLOAD_FOLDER,(image_name+ output_file))
-        tmp = Command(ImageFlip(input_image, output_image).convert()).run_cmd()
-        url ='http://localhost:5000/download?file_name=' + image_name + output_file
+        Command(ImageFlip(input_image, output_image).convert()).run_cmd()
+        url = 'http://localhost:5000/download?file_name=' + image_name + output_file
         return url

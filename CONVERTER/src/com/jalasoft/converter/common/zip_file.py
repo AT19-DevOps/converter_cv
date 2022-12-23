@@ -14,13 +14,15 @@ import shutil
 import os
 
 
-class Zipfiles:
+class ZipFiles:
+    """Defines ZipFiles criteria"""
     def __init__(self, upath, folder_to_zip, name_of_zip):
         self.upath = upath
         self.folder_to_zip = folder_to_zip
         self.name_of_zip = name_of_zip
     
     def compress(self):
+        """Defines compress method"""
         shutil.make_archive(self.name_of_zip, "zip", self.folder_to_zip)
         name = self.name_of_zip + '.zip'
         shutil.move(name, os.path.join(self.upath, name))
