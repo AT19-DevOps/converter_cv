@@ -13,12 +13,13 @@
     }
   ],
   "tags": [
-    {
-      "name": "Video to Images",
-      "description": "Convert video to images"
-    },
+
     {
       "name": "Download",
+      "description": "Download converted file"
+    },
+    {
+      "name": "Video to Images",
       "description": "Convert video to images"
     },
     {
@@ -43,12 +44,50 @@
     }
   ],
   "paths": {
+    "/download": {
+  	    "get":  {
+            "tags": [
+              "Download"
+            ],
+            "summary": "Get converted file",
+            "description": "Download converted file",
+            "operationId": "get.download",
+            "parameters": [
+
+              {
+                "in": "query",
+                "name": "file_name",
+                "schema": {
+                  "type": "string",
+                  "example": "file"
+                },
+                "description": "Please insert the file you want to download:"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Successful operation",
+                "content": {
+                  "image/png": {
+                    "schema": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Invalid operation"
+            }
+                }
+      },
     "/videotoimage/zip": {
       "post": {
         "tags": [
           "Video to Images"
         ],
-        "summary": "Get images from a video",
+        "summary": "Get images from a video in a zip file",
         "description": "Convert inserted video to a given image type",
         "operationId": "post.videotoimages",
         "requestBody": {
@@ -111,44 +150,6 @@
         }
       }
       },
-    "/download": {   
-  	    "get":  {
-            "tags": [
-              "Download"
-            ],
-            "summary": "download files.",
-            "description": "Coming soon",
-            "operationId": "get.videotoimages",
-            "parameters": [
-  
-              {
-                "in": "query",
-                "name": "file_name",
-                "schema": {
-                  "type": "string",
-                  "example": "algo.zip"
-                },
-                "description": "Please insert the output type of the image that you prefer:"
-              }
-            ],
-            "responses": {
-              "200": {
-                "description": "Successful operation",
-                "content": {
-                  "image/png": {
-                    "schema": {
-                      "type": "string",
-                      "format": "binary"
-                    }
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Invalid operation"
-            }
-                }
-      },
     "/videotovideo": {
       "post": {
         "tags": [
@@ -205,30 +206,8 @@
             "description": "Invalid video supplied"
           }
         }
-      },
-      "get": {
-        "tags": [
-          "Video to Video"
-        ],
-        "summary": "Get Video to Videos (optional)",
-        "description": "Coming soon",
-        "operationId": "get.videotoimages",
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-            }
-          },
-          "400": {
-            "description": "Invalid username/password supplied"
-          }
-        }
+      }
+
       },
     "/imagetoimage": {
       "post": {
@@ -286,30 +265,7 @@
             "description": "Invalid image supplied"
           }
         }
-      },
-      "get": {
-        "tags": [
-          "Image to Image"
-        ],
-        "summary": "Get Image to Images (optional)",
-        "description": "Coming soon",
-        "operationId": "get.imagetoimages",
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-            }
-          },
-          "400": {
-            "description": "Invalid operation"
-          }
-        }
+      }
       },
     "/imageflip": {
       "post": {
@@ -367,30 +323,8 @@
             "description": "Invalid image supplied"
           }
         }
-      },
-      "get": {
-        "tags": [
-          "Image flip"
-        ],
-        "summary": "Get Image to Images (optional)",
-        "description": "Coming soon",
-        "operationId": "get.imagetoimages",
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-            }
-          },
-          "400": {
-            "description": "Invalid operation"
-          }
-        }
+      }
+
       },
     "/audiotoaudio": {
       "post": {
@@ -567,6 +501,18 @@
 
   "components": {
      "schemas": {
+       "Download": {
+         "required": [
+           "file"
+         ],
+         "type": "object",
+         "properties": {
+           "fps": {
+             "type": "string",
+             "example": "file"
+           }
+         }
+       },
        "videotoimages": {
          "required": [
            "input_file",
@@ -662,7 +608,7 @@
            }
          }
        },
-        "audioincreasedvolume": {
+       "audioincreasedvolume": {
          "required": [
            "input_file",
            "output_file"

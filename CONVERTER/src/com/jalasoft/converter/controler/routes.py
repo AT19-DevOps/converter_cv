@@ -21,14 +21,28 @@ from model.audio.audio_converter import *
 from model.image.image_to_images import *
 from model.audio.save_outputs import *
 import os
+from flask_swagger_ui import get_swaggerui_blueprint
+
 
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'mp4', 'avi'}
 # PATH = r'D:\machine_learning\AT19_CONVERTER\CONVERTER\src\com\jalasoft\converter'
-PATH = r'C:\Users\hp\Documents\projects_prog_101\AT19_CONVERTER\CONVERTER\src\com\jalasoft\converter'
-UPLOAD_FOLDER = os.path.join(PATH,'uploads')
+# PATH = r'C:\Users\hp\Documents\projects_prog_101\AT19_CONVERTER\CONVERTER\src\com\jalasoft\converter'
+PATH = r'C:\Users\GamerStoreCbba\PycharmProjects\AT19_CONVERTER5\CONVERTER\src\com\jalasoft\converter'
+UPLOAD_FOLDER = os.path.join(PATH, 'uploads')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
+SWAGGER_URL = '/swagger'
+API_URL = '/static/swagger.json'
+SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "Prueba"
+    }
+)
+
 routes_files = blueprints.Blueprint('routes_files', __name__)
+
 
 def allowed_file(file):
     file = file.split('.')
@@ -36,10 +50,12 @@ def allowed_file(file):
         return True
     return False
 
+
 @routes_files.get("/download")
 def download_zip():
     file_name=request.args["file_name"]
     return send_from_directory(directory=UPLOAD_FOLDER, path=file_name, as_attachment=True)
+
 
 @routes_files.post("/videotoimage/zip")
 def video_to_image():
@@ -56,6 +72,7 @@ def video_to_image():
         tmp_zip = Zipfiles(UPLOAD_FOLDER, input_video.split(".")[0], zip_name).compress()
         url ='http://localhost:5000/download?file_name=' + tmp_zip
         return url
+
 @routes_files.post("/videotovideo")
 def video_to_video():
     """Convert from video to image --> hay q revisar"""
@@ -70,6 +87,8 @@ def video_to_video():
         #tmp_zip = Zipfiles(UPLOAD_FOLDER, input_video.split(".")[0], zip_name).compress()
         url ='http://localhost:5000/download?file_name=' 
         return url
+
+
 @routes_files.post("/imagetoimage")
 def image_to_image():
     """Convert from image to image"""
@@ -84,6 +103,8 @@ def image_to_image():
         tmp = Command(ImageConverter(input_image, output_image).convert()).run_cmd()
         url ='http://localhost:5000/download?file_name=' + image_name + output_file
         return url
+
+
 @routes_files.post("/imageflip")
 def imageflip():
     """Convert from image to flip image"""
