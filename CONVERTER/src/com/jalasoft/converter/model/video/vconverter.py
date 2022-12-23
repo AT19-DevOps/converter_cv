@@ -38,7 +38,7 @@ class VideoToVideo(Converter):
     
     def convert(self):
         """Converts video formats"""
-        #paths = Path(self.input_file, self.output_file).paths()
-        return  " ".join(['ffmpeg', '-i', self.input_file, '-c:v copy -c:a copy -y', self.output_file])
+        paths = Path(self.input_file, self.output_file).paths()
+        return  " ".join(['ffmpeg', '-i',  paths[0], '-c:v copy -c:a copy -y', paths[1]])
 
 

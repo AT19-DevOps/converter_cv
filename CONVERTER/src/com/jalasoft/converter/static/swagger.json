@@ -18,6 +18,10 @@
       "description": "Convert video to images"
     },
     {
+      "name": "Download",
+      "description": "Convert video to images"
+    },
+    {
       "name": "Video to Video",
       "description": "Convert video to another type of video"
     },
@@ -105,35 +109,46 @@
             "description": "Invalid video supplied"
           }
         }
+      }
       },
-
-        "get": {
-          "tags": [
-            "Video to Images"
-          ],
-          "summary": "Get Video to images (optional)",
-          "description": "Coming soon",
-          "operationId": "get.videotoimages",
-
-          "responses": {
-            "200": {
-              "description": "Successful operation",
-              "content": {
-                "image/png": {
-                  "schema": {
-                    "type": "string",
-                    "format": "binary"
+    "/download": {   
+  	    "get":  {
+            "tags": [
+              "Download"
+            ],
+            "summary": "download files.",
+            "description": "Coming soon",
+            "operationId": "get.videotoimages",
+            "parameters": [
+  
+              {
+                "in": "query",
+                "name": "file_name",
+                "schema": {
+                  "type": "string",
+                  "example": "algo.zip"
+                },
+                "description": "Please insert the output type of the image that you prefer:"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Successful operation",
+                "content": {
+                  "image/png": {
+                    "schema": {
+                      "type": "string",
+                      "format": "binary"
+                    }
                   }
                 }
               }
+            },
+            "400": {
+              "description": "Invalid operation"
             }
-          },
-          "400": {
-            "description": "Invalid operation"
-          }
-        }
+                }
       },
-
     "/videotovideo": {
       "post": {
         "tags": [
@@ -214,9 +229,8 @@
             "description": "Invalid username/password supplied"
           }
         }
-    },
-
-      "/imagetoimage": {
+      },
+    "/imagetoimage": {
       "post": {
         "tags": [
           "Image to Image"
@@ -378,7 +392,7 @@
           }
         }
       },
-     "/audiotoaudio": {
+    "/audiotoaudio": {
       "post": {
         "tags": [
           "Audio to Audio"
