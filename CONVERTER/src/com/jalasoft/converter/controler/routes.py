@@ -22,12 +22,13 @@ from model.image.image_to_images import *
 from model.audio.save_outputs import *
 import os
 
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'mp4'}
-PATH = r'D:\machine_learning\AT19_CONVERTER\CONVERTER\src\com\jalasoft\converter'
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'mp4', 'avi'}
+# PATH = r'D:\machine_learning\AT19_CONVERTER\CONVERTER\src\com\jalasoft\converter'
+PATH = r'C:\Users\GamerStoreCbba\PycharmProjects\AT19_CONVERTER4\CONVERTER\src\com\jalasoft\converter'
 UPLOAD_FOLDER = os.path.join(PATH,'uploads')
-os.makedirs(UPLOAD_FOLDER, exist_ok = True)
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-routes_files = blueprints.Blueprint('routes_files',__name__)
+routes_files = blueprints.Blueprint('routes_files', __name__)
 
 def allowed_file(file):
     file = file.split('.')
@@ -35,27 +36,29 @@ def allowed_file(file):
         return True
     return False
 
-
-@routes_files.get("/download/zip/<string:file_name>")
 def download_zip(file_name):
     return send_from_directory(directory=UPLOAD_FOLDER, path=file_name, as_attachment=True)
+
+# # @routes_files.get("/download/zip/<string:file_name>")
+# @routes_files.get("/videoimage/zip")
+# def get():
+#     return download_zip()
 
 
 @routes_files.post("/videotoimage/zip")
 def video_to_image():
     """Convert from video to image --> .zip"""
+    print("entrando")
     input_file = request.files["input_file"]
-    output_file = request.form.get("output_file")
-    fps = request.form.get("fps")
-    
+    output_file = request.args["output_file"]
+    fps = request.args["fps"]
+    print(input_file, output_file, fps)
     if input_file and allowed_file(input_file.filename):
         filename = secure_filename(input_file.filename)
         zip_name = filename.split(".")[0]
         input_file.save(os.path.join(UPLOAD_FOLDER, filename))
         input_video = os.path.join(UPLOAD_FOLDER, input_file.filename)
         tmp = Command(VideoToImages(input_video, output_file, fps).convert()).run_cmd()
-        tmp_zip = Zipfiles(UPLOAD_FOLDER , input_video.split(".")[0], zip_name).compress()
-        url='http://localhost:5000/download/zip/' + tmp_zip
-   
-        return {'url_link': url} 
-        
+        tmp_zip = Zipfiles(UPLOAD_FOLDER, input_video.split(".")[0], zip_name).compress()
+        url ='http://localhost:5000/download/zip/' + tmp_zip
+        return download_zip(tmp_zip)
