@@ -15,11 +15,11 @@ from werkzeug.utils import secure_filename
 from flask import send_from_directory
 from flask import blueprints
 from model.command_line import Command
-from model.video.vconverter import *
+from model.video.vconverter import VideoToImages
+from model.video.vconverter import VideoToVideo
 from common.zip_video import Zipfiles
-from model.audio.audio_converter import *
-from model.image.image_to_images import *
-from model.audio.save_outputs import *
+from model.image.image_to_images import ImageConverter
+from model.image.image_to_images import ImageFlip
 import os
 from flask_swagger_ui import get_swaggerui_blueprint
 
