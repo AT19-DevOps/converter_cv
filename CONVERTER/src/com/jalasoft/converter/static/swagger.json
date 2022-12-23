@@ -82,7 +82,7 @@
             }
                 }
       },
-    "/videotoimage/zip": {
+    "/videotoimagee/zip": {
       "post": {
         "tags": [
           "Video to Images"

@@ -11,9 +11,6 @@
 # with Jalasoft.
 #
 
-#from AT19_CONVERTER.CONVERTER.src.com.jalasoft.converter.model.converter import Converter
-#from AT19_CONVERTER.CONVERTER.src.com.jalasoft.converter.model.video.paths import Path
-
 from model.converter import Converter
 from model.video.paths import Path
 
@@ -37,7 +34,5 @@ class VideoToVideo(Converter):
     
     def convert(self):
         """Converts video formats"""
-        paths = Path(self.input_file, self.output_file).paths()
-        return " ".join(['ffmpeg', '-i',  paths[0], '-c:v copy -c:a copy -y', paths[1]])
-
-
+        # paths = Path(self.input_file, self.output_file).paths()
+        return " ".join(['ffmpeg', '-i',  self.input_file, '-c:v copy -c:a copy -y', self.output_file])
