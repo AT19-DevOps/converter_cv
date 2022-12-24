@@ -63,7 +63,7 @@ class VideoToZipImage(Resource):
             input_video = os.path.join(UPLOAD_FOLDER, input_file.filename)
             Command(VideoToImages(input_video, output_file, fps).convert()).run_cmd()
             tmp_zip = ZipFiles(UPLOAD_FOLDER, input_video.split(".")[0], zip_name, RESPONSE_FOLDER).compress()
-            url = 'http://localhost:5000/download?file_name=' + tmp_zip  # Ver lo del localhost al venv
+            url = 'http://localhost:5000/download?file_name=' + tmp_zip 
             return url
 
 
