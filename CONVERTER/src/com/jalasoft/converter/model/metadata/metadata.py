@@ -16,7 +16,7 @@ import json
 
 
 class ExifTool(object):
-    """Obtiene metadatos"""
+    """Gets metadata"""
     sentinel = "{ready}\r\n"
 
     def __init__(self, executable="exiftool(-k).exe"):

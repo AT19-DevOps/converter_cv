@@ -27,5 +27,6 @@
 
   <https://github.com/UB-Mannheim/tesseract/wiki>
 
+Configure line 27 of routes.py (i.e.: PATH = r'C:\Users... \converter')
 
 Have a nice day! :christmas_tree: :sparkles:
