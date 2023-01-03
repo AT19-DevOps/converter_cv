@@ -10,26 +10,17 @@
 # with Jalasoft.
 #
 
+
 from model.converter import Converter
 
 
 class ImageToTextConvert(Converter):
     """ Inherits Converter criteria"""
-    def __init__(self, input_file, output_file):
+    def __init__(self, input_file, output_file, lang):
         super().__init__(input_file, output_file)
+        self.lang = lang
 
     def convert(self) -> list:
         """Converts an image with text in a text file"""
-        command_line = ['tesseract', f'{self.input_file}', f'{self.output_file}', '-l', 'eng+spa']
-        return " ".join(command_line)
-
-
-class ImageToPDFConvert(Converter):
-    """ Inherits Converter criteria"""
-    def __init__(self, input_file, output_file):
-        super().__init__(input_file, output_file)
-
-    def convert(self) -> list:
-        """Converts an image with text in a pdf file"""
-        command_line = ['tesseract', f'{self.input_file}', f'{self.output_file}', '-l', 'eng+spa', 'pdf']
+        command_line = ['tesseract', f'{self.input_file}', f'{self.output_file}', '-l', self.lang]
         return " ".join(command_line)

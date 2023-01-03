@@ -27,6 +27,6 @@ class Path:
         destination_dir = os.path.join(BASE_DIR, self.input_file.split(".")[0])
         source = os.path.join(BASE_DIR, self.input_file)
         if not os.path.exists(destination_dir): os.mkdir(destination_dir)
-        destination = os.path.join(destination_dir, self.output_file)
+        destination = os.path.join(destination_dir, '%06d.' + self.output_file)
         print(source, "\n", destination)
         return [source, destination] 

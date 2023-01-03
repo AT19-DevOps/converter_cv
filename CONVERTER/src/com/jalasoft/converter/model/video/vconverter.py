@@ -24,9 +24,9 @@ class VideoToImages(Converter):
     def convert(self):
         """Converts video to a set of images"""
         paths = Path(self.input_file, self.output_file).paths()
-        return  " ".join(['ffmpeg', '-i', paths[0], '-r', self.fps, paths[1]])
+        return " ".join(['ffmpeg', '-i', paths[0], '-r', self.fps, paths[1]])
+      
     
- 
 class VideoToVideo(Converter):
     """Converts any video format to another video format""" 
     def __init__(self, input_file, output_file):
@@ -34,7 +34,5 @@ class VideoToVideo(Converter):
     
     def convert(self):
         """Converts video formats"""
-        #paths = Path(self.input_file, self.output_file).paths()
-        return  " ".join(['ffmpeg', '-i', self.input_file, '-c:v copy -c:a copy -y', self.output_file])
-
-
+        # paths = Path(self.input_file, self.output_file).paths()
+        return " ".join(['ffmpeg', '-i',  self.input_file, '-c:v copy -c:a copy -y', self.output_file])
