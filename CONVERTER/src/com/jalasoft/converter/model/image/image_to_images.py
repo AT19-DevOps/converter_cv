@@ -21,7 +21,7 @@ class ImageConverter(Converter):
 
     def convert(self) -> list:
         """Converts image to any type, returns the command line"""
-        command_line = ['magick.exe', f'{self.input_file}', f'{self.output_file}']
+        command_line = ['magick', f'{self.input_file}', f'{self.output_file}']
         return " ".join(command_line)
 
 

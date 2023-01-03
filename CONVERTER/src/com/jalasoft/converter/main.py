@@ -18,7 +18,7 @@ from werkzeug.utils import secure_filename
 import os
 import pandas as pd
 
-PATH = 'D:/jalasoft/programing_101/obj_recognizer_project/AT19_CONVERTER/CONVERTER/src/com/jalasoft/converter/'
+PATH = 'CONVERTER/src/com/jalasoft/converter/'
 UPLOAD_FOLDER = PATH + 'uploads'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 

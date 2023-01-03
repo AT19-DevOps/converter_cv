@@ -1,0 +1,5 @@
+.idea
+venv/
+pruebas/
+pruebas2.py
+__pycache__/
