@@ -186,9 +186,9 @@ class VideoToAudio(Resource):
 
 
 class AudioMixAudio(Resource):
-    """Defines audio to audio class"""
+    """Defines audio mix audio class"""
     def post(self):
-        """Convert audio to another type of audio"""
+        """Mixes two audios"""
         input_file_1 = request.files["input_file_1"]
         input_file_2 = request.files["input_file_2"]
         output_file = request.args["output_file"]

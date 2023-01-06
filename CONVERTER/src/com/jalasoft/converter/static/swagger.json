@@ -568,10 +568,10 @@
           "Audio Mix Audio"
         ],
         "summary": "Get audio file mixing two audios",
-        "description": "Joins two audio files in one audio file",
+        "description": "Mix two audio files in one audio file",
         "operationId": "post.audiomixaudio",
         "requestBody": {
-          "description": "Please insert the video file to extract the audio:",
+          "description": "Please insert the audio files to mix:",
           "content": {
 
             "multipart/form-data": {
@@ -602,7 +602,7 @@
               "type": "string",
               "example": ".mp3"
             },
-            "description": "Please insert the output type of the audio file obtained from mixing the both audios:"
+            "description": "Please insert the output name of the audio file obtained from mixing the both audios:"
           }
         ],
         "responses": {
@@ -611,7 +611,7 @@
             "content": {
               "multipart/form-data": {
                 "schema": {
-                  "$ref": "#/components/schemas/audiomixtaudio"
+                  "$ref": "#/components/schemas/audiomixaudio"
                 }
               }
             }
