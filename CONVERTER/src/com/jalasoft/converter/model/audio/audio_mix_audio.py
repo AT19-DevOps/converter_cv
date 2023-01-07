@@ -1,4 +1,4 @@
-# @save_outputs.py Copyright (c) 2022 Jalasoft.
+# @audio_mix_audio.py Copyright (c) 2022 Jalasoft.
 # 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
 # All rights reserved.
 #
@@ -11,12 +11,15 @@
 from model.converter import Converter
 
 
-class SaveOutput(Converter):
+class MixAudio(Converter):
     """Inherits Converter criteria"""
     def __init__(self, input_file, output_file):
         super().__init__(input_file, output_file)
 
     def convert(self):
-        """Creates and executes command to save an audio file in a specific path"""
-        cmd = f'MOVE "{self.input_file}" "{self.output_file}"' #mv en vez de MOVE
+        list=['ffmpeg']
+        for element in self.input_file:
+            list.append(' -i '+ element)
+        list.append(' -filter_complex amerge '+self.output_file)
+        cmd =''.join(list)
         return cmd

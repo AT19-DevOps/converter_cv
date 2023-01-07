@@ -1,5 +1,5 @@
 #
-# @image_to_pdf.py Copyright (c) 2021 Jalasoft.
+# @image_resize.py Copyright (c) 2022 Jalasoft.
 # 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
 # # All rights reserved.
 #
@@ -10,17 +10,16 @@
 # with Jalasoft.
 #
 
-
 from model.converter import Converter
 
 
-class ImageToPDFConvert(Converter):
+class ImageResize(Converter):
     """ Inherits Converter criteria"""
-    def __init__(self, input_file, output_file, lang):
+    def __init__(self, input_file, output_file, new_size):
         super().__init__(input_file, output_file)
-        self.lang = lang
+        self.new_size = new_size
 
     def convert(self) -> list:
-        """Converts an image with text in a pdf file"""
-        command_line = ['tesseract', f'{self.input_file}', f'{self.output_file}', '-l', self.lang, 'pdf']
+        """ Resizes image to a given % or values, returns the command line"""
+        command_line = ['magick', f'{self.input_file}', '-resize', f'{self.new_size}', f'{self.output_file}']
         return " ".join(command_line)

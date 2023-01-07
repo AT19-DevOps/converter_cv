@@ -11,20 +11,19 @@
 #
 
 from flask import request
-from werkzeug.utils import secure_filename
 from flask import send_from_directory
-from model.command_line import Command
-from model.video.vconverter import VideoToImages
-from model.video.vconverter import VideoToVideo
-from common.zip_file import ZipFiles
-from model.image.image_to_images import ImageConverter
-from model.image.image_to_images import ImageFlip
-from flask_swagger_ui import get_swaggerui_blueprint
-from common.allowed_files import AllowedExtensions
 from flask_restful import Resource
+from flask_swagger_ui import get_swaggerui_blueprint
+from werkzeug.utils import secure_filename
 import os
 
-PATH = r'C:\Users\GamerStoreCbba\PycharmProjects\AT19_CONVERTER5\CONVERTER\src\com\jalasoft\converter'
+from model.audio import AudioConvert, MixAudio, IncreaseVolume
+from model.image import ImageBW, ImageConverter, ImageFlip, ImageResize, ImageRotate, ImageToPDFConvert, ImageToTextConvert, PdfImage
+from model.video import VideoToImages, VideoToVideo
+from common import Command, ZipFiles, AllowedExtensions
+
+
+PATH = os.path.join(os.getcwd(), 'workdir')
 UPLOAD_FOLDER = os.path.join(PATH, 'uploads')
 RESPONSE_FOLDER = os.path.join(PATH, 'responses')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -53,18 +52,24 @@ class VideoToZipImage(Resource):
     """Defines video to zip class"""
     def post(self):
         """Create zip file containing image from video"""
-        input_file = request.files["input_file"]
-        output_file = request.args["output_file"]
-        fps = request.args["fps"]
-        if input_file and AllowedExtensions().allowed_extension(input_file.filename):
-            filename = secure_filename(input_file.filename)
-            zip_name = filename.split(".")[0]
-            input_file.save(os.path.join(UPLOAD_FOLDER, filename))
-            input_video = os.path.join(UPLOAD_FOLDER, input_file.filename)
-            Command(VideoToImages(input_video, output_file, fps).convert()).run_cmd()
-            tmp_zip = ZipFiles(UPLOAD_FOLDER, input_video.split(".")[0], zip_name, RESPONSE_FOLDER).compress()
+        files = validate_inputs('')
+        if files:
+            output_format = str(request.args["output_file"])
+            fps = str(request.args["fps"])
+            file_in = files[0]
+            os.makedirs(file_in.split('.')[0], exist_ok=True)
+            file_out = file_in.split('.')[0] + '/%06d.' + output_format
+            Command(VideoToImages(file_in, file_out, fps).convert()).run_cmd()
+            tmp_zip = ZipFiles(UPLOAD_FOLDER, file_in.split('.')[0], file_in.split('.')[0], RESPONSE_FOLDER).compress()
             url = 'http://localhost:5000/download?file_name=' + tmp_zip 
             return url
+            # filename = secure_filename(input_file.filename)
+            # zip_name = filename.split(".")[0]
+            # input_file.save(os.path.join(UPLOAD_FOLDER, filename))
+            # input_video = os.path.join(UPLOAD_FOLDER, input_file.filename)
+            # Command(VideoToImages(input_video, output_file, fps).convert()).run_cmd()
+            # tmp_zip = ZipFiles(UPLOAD_FOLDER, input_video.split(".")[0], zip_name, RESPONSE_FOLDER).compress()
+            # return url
 
 
 class VideoToZip(Resource):
@@ -89,31 +94,24 @@ class VideoToVid(Resource):
     """Defines video to another type of video class"""
     def post(self):
         """Convert video to another type of video"""
-        input_file = request.files["input_file"]
-        output_file = request.args["output_file"]
-        if input_file and AllowedExtensions().allowed_extension(input_file.filename):
-            filename = secure_filename(input_file.filename)
-            video_name = filename.split(".")[0]
-            input_file.save(os.path.join(UPLOAD_FOLDER, filename))
-            input_video = os.path.join(UPLOAD_FOLDER, input_file.filename)
-            Command(VideoToVideo(input_video, RESPONSE_FOLDER + "/" + video_name + output_file).convert()).run_cmd()
-            url = 'http://localhost:5000/download?file_name=' + video_name + output_file
+        files = validate_inputs('')
+        if files:
+            output_format = str(request.args["output_file"])
+            file_in, file_out, url = files[0], files[1], files[2]
+            file_out = file_out.split('.')[0] + '.' + output_format
+            Command(VideoToVideo(file_in, file_out).convert()).run_cmd()
             return url
+
 
 
 class ImageToImage(Resource):
     """Defines image to image class"""
     def post(self):
         """Convert image to another type of image"""
-        input_file = request.files["input_file"]
-        output_file = request.args["output_file"]
-        if input_file and AllowedExtensions().allowed_extension(input_file.filename):
-            filename = secure_filename(input_file.filename)
-            image_name = filename.split(".")[0]
-            input_file.save(os.path.join(UPLOAD_FOLDER, filename))
-            input_image = os.path.join(UPLOAD_FOLDER, input_file.filename)
-            Command(ImageConverter(input_image, RESPONSE_FOLDER + "/" + image_name + output_file).convert()).run_cmd()
-            url = 'http://localhost:5000/download?file_name=' + image_name + output_file
+        files = validate_inputs('imToim-')
+        if files:
+            file_in, file_out, url = files[0], files[1], files[2]
+            Command(ImageConverter(file_in, file_out).convert()).run_cmd()
             return url
 
 
@@ -121,13 +119,98 @@ class ImageFlipper(Resource):
     """Defines image flipper class"""
     def post(self):
         """Convert image to flipped image"""
-        input_file = request.files["input_file"]
-        output_file = request.args["output_file"]
-        if input_file and AllowedExtensions().allowed_extension(input_file.filename):
-            filename = secure_filename(input_file.filename)
-            image_name = filename.split(".")[0]
-            input_file.save(os.path.join(UPLOAD_FOLDER, filename))
-            input_image = os.path.join(UPLOAD_FOLDER, input_file.filename)
-            Command(ImageFlip(input_image, RESPONSE_FOLDER + "/" + image_name + output_file).convert()).run_cmd()
-            url = 'http://localhost:5000/download?file_name=' + image_name + output_file
+        files = validate_inputs('imFlip-')
+        if files:
+            file_in, file_out, url = files[0], files[1], files[2]
+            Command(ImageFlip(file_in, file_out).convert()).run_cmd()
             return url
+
+
+class ImageBlackWhite(Resource):
+    """Defines image to black and white class"""
+    def post(self):
+        """Convert image to black and white image"""
+        files = validate_inputs('imBW-')
+        if files:
+            file_in, file_out, url = files[0], files[1], files[2]
+            Command(ImageBW(file_in, file_out).convert()).run_cmd()
+            return url
+
+class ImageResizer(Resource):
+    """Defines image to black and white class"""
+    def post(self):
+        """Convert image to black and white image"""
+        files = validate_inputs('imSize-')
+        if files:
+            file_in, file_out, url = files[0], files[1], files[2]
+            new_size = request.args["new_size"]
+            Command(ImageResize(file_in, file_out, new_size).convert()).run_cmd()
+            return url
+
+
+class ImageRotater(Resource):
+    """Defines image to black and white class"""
+    def post(self):
+        """Convert image to black and white image"""
+        files = validate_inputs('imRot-')
+        if files:
+            file_in, file_out, url = files[0], files[1], files[2]
+            grades = int(request.args["grades"])
+            Command(ImageRotate(file_in, file_out, grades).convert()).run_cmd()
+            return url
+
+
+class ImageToPdf(Resource):
+    """Defines image to black and white class"""
+    def post(self):
+        """Convert image to black and white image"""
+        files = validate_inputs('imPDF-')
+        if files:
+            file_in, file_out, url = files[0], files[1].split('.')[0], files[2]
+            lang = request.args["lang"]
+            Command(ImageToPDFConvert(file_in, file_out, lang).convert()).run_cmd()
+            return url
+
+
+class ImageToText(Resource):
+    """Defines image to black and white class"""
+    def post(self):
+        """Convert image to black and white image"""
+        files = validate_inputs('imTXT-')
+        if files:
+            file_in, file_out, url = files[0], files[1].split('.')[0], files[2]
+            lang = request.args["lang"]
+            Command(ImageToTextConvert(file_in, file_out, lang).convert()).run_cmd()
+            return url
+
+
+class PdfToImage(Resource):
+    """Defines image to black and white class"""
+    def post(self):
+        """Convert image to black and white image"""
+        files = validate_inputs('imJpg-')
+        if files:
+            file_in, file_out, url = files[0], files[1], files[2]
+            quality = request.args["quality"]
+            Command(PdfImage(file_in, file_out, quality).convert()).run_cmd()
+            return url
+
+
+def validate_inputs(file_prefix):
+    input_file = request.files["input_file"]
+    output_file = request.args["output_file"]
+    fileOut = '.' + str(output_file) if str(output_file)[0] != '.' else str(output_file)
+    if input_file and AllowedExtensions().allowed_extension(input_file.filename):
+        filename = secure_filename(input_file.filename)
+        input_file.save(os.path.join(UPLOAD_FOLDER, filename))
+        fileIn = os.path.join(UPLOAD_FOLDER, input_file.filename)
+        if file_prefix == 'imJpg-':
+            fileOut = file_prefix + filename.split('.')[0] + '-%4d' + str(fileOut)
+        else:
+            fileOut = file_prefix + filename.split('.')[0] + str(fileOut)
+        url = 'http://localhost:5000/download?file_name=' + fileOut
+        fileOut = os.path.join(RESPONSE_FOLDER, fileOut)
+        
+        return [fileIn, fileOut, url]
+
+    else: raise FileNotFoundError('ConverterError: Invalid input file')

@@ -10,6 +10,7 @@
 # with Jalasoft.
 #
 
+
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'mp4', 'avi'}
 
 

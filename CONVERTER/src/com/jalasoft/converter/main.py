@@ -12,14 +12,10 @@
 
 from flask import Flask
 from controler.routes import SWAGGER_URL
-from controler.routes import SWAGGERUI_BLUEPRINT
 from flask_restful import Api
-from controler.routes import VideoToZipImage
-from controler.routes import ImageToImage
-from controler.routes import VideoToVid
-from controler.routes import ImageFlipper
-from controler.routes import Download
-from controler.routes import VideoToZip
+from controler.routes import SWAGGERUI_BLUEPRINT
+from controler.routes import Download, VideoToZipImage, VideoToZip, VideoToVid, ImageToImage, ImageFlipper, ImageBlackWhite, ImageResizer, ImageRotater, ImageToPdf, ImageToText, PdfToImage
+
 
 app = Flask(__name__)
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
@@ -29,6 +25,12 @@ api.add_resource(VideoToZip, '/videotoimage/zip')
 api.add_resource(VideoToVid, '/videotovideo')
 api.add_resource(ImageToImage, '/imagetoimage')
 api.add_resource(ImageFlipper, '/imageflip')
+api.add_resource(ImageBlackWhite, '/imagebw')
+api.add_resource(ImageResizer, '/imageresize')
+api.add_resource(ImageRotater, '/imagerotate')
+api.add_resource(ImageToPdf, '/imagetopdf')
+api.add_resource(ImageToText, '/imagetotext')
+api.add_resource(PdfToImage, '/pdftoimage')
 api.add_resource(Download, '/download')
 
 if __name__ == '__main__':

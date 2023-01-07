@@ -24,9 +24,21 @@ class ZipFiles:
     
     def compress(self):
         """Defines compress method"""
-        shutil.make_archive(self.name_of_zip, "zip", self.folder_to_zip)
+        shutil.make_archive(self.name_of_zip, "zip", 'images' + self.folder_to_zip)
         name = self.name_of_zip + '.zip'
         shutil.move(name, os.path.join(self.destination, name))
         return name
 
 
+# import os, shutil
+# def make_archive(source, destination):
+#         base = os.path.basename(destination)
+#         name = base.split('.')[0]
+#         format = base.split('.')[1]
+#         archive_from = os.path.dirname(source)
+#         archive_to = os.path.basename(source.strip(os.sep))
+#         print(source, destination, archive_from, archive_to)
+#         shutil.make_archive(name, format, archive_from, archive_to)
+#         shutil.move('%s.%s'%(name,format), destination)
+
+# make_archive('/path/to/folder', '/path/to/folder.zip')

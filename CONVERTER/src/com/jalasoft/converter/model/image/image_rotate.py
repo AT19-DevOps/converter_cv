@@ -1,5 +1,5 @@
 #
-# @image_to_pdf.py Copyright (c) 2021 Jalasoft.
+# @image_rotate.py Copyright (c) 2022 Jalasoft.
 # 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
 # # All rights reserved.
 #
@@ -10,17 +10,16 @@
 # with Jalasoft.
 #
 
-
 from model.converter import Converter
 
 
-class ImageToPDFConvert(Converter):
+class ImageRotate(Converter):
     """ Inherits Converter criteria"""
-    def __init__(self, input_file, output_file, lang):
+    def __init__(self, input_file, output_file, grades):
         super().__init__(input_file, output_file)
-        self.lang = lang
+        self.grades = grades
 
     def convert(self) -> list:
-        """Converts an image with text in a pdf file"""
-        command_line = ['tesseract', f'{self.input_file}', f'{self.output_file}', '-l', self.lang, 'pdf']
+        """Rotates image clockwise for a given value, returns the command line"""
+        command_line = ['magick', f'{self.input_file}', '-rotate', f'{self.grades}', f'{self.output_file}']
         return " ".join(command_line)

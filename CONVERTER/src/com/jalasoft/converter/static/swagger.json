@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "FLDSMDFR",
-    "description": "FLDSMDFR Converter is a simple, smart and elegant tool with a lot of categories of units that are used in daily life. This is the only Converter that has such a wide range of unit conversion features with very simple and easy to use interface.",
+    "title": "Convert and Recognition Studio",
+    "description": "C&R Studio. Is a simple, smart and elegant tool with a lot of categories of units that are used in daily life. This is the only Converter that has such a wide range of unit conversion features with very simple and easy to use interface.",
 
     "version": "1.0.11"
   },
@@ -33,6 +33,30 @@
     {
       "name": "Image flip",
       "description": "Convert image to a flipped image"
+    },
+    {
+      "name": "Image black and white",
+      "description": "Convert image to a black and white image"
+    },
+    {
+      "name": "Image Resizer",
+      "description": "Resize image"
+    },
+    {
+      "name": "Image Rotater",
+      "description": "Rotates n-deggres an image"
+    },
+    {
+      "name": "Image to PDF",
+      "description": "Converts an image into a PDF file"
+    },
+    {
+      "name": "Image to text",
+      "description": "Converts an image into a text file"
+    },
+    {
+      "name": "PDF to Image",
+      "description": "Converts a PDF file to image"
     },
     {
       "name": "Audio to Audio",
@@ -118,7 +142,7 @@
             "name": "output_file",
             "schema": {
               "type": "string",
-              "example": ".png"
+              "example": "png"
             },
             "description": "Please insert the output type of the image that you prefer:"
           },
@@ -186,7 +210,7 @@
             "name": "output_file",
             "schema": {
               "type": "string",
-              "example": ".avi"
+              "example": "avi"
             },
             "description": "Please insert the output type of the video that you prefer:"
           }
@@ -245,7 +269,7 @@
             "name": "output_file",
             "schema": {
               "type": "string",
-              "example": ".jpg"
+              "example": "jpg"
             },
             "description": "Please insert the output type of the image that you prefer:"
           }
@@ -303,7 +327,7 @@
             "name": "output_file",
             "schema": {
               "type": "string",
-              "example": ".jpg"
+              "example": "jpg"
             },
             "description": "Please insert the output type of the flipped image that you prefer:"
           }
@@ -325,6 +349,405 @@
         }
       }
 
+      },
+    "/imagebw": {
+      "post": {
+        "tags": [
+          "Image black and white"
+        ],
+        "summary": "Get black image",
+        "description": "Converts inserted image to a flipped image",
+        "operationId": "post.imagebw",
+        "requestBody": {
+          "description": "Please upload an image to convert to black and white:",
+          "content": {
+
+            "multipart/form-data": {
+
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "input_file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+
+                }
+              }
+
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+
+          {
+            "in": "query",
+            "name": "output_file",
+            "schema": {
+              "type": "string",
+              "example": "jpg"
+            },
+            "description": "Please set the preferred output of the black and white image:"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/imagetoimage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid image supplied"
+          }
+        }
+      }
+
+      },
+    "/imageresize": {
+      "post": {
+        "tags": [
+          "Image Resizer"
+        ],
+        "summary": "Resizes an image",
+        "description": "Change the size of an inserted image",
+        "operationId": "post.imageresize",
+        "requestBody": {
+          "description": "Please upload an image to resize:",
+          "content": {
+
+            "multipart/form-data": {
+
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "input_file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+
+                }
+              }
+
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+
+          {
+            "in": "query",
+            "name": "output_file",
+            "schema": {
+              "type": "string",
+              "example": "jpg"
+            },
+            "description": "Please set the preferred output:"
+          },
+          {
+            "in": "query",
+            "name": "new_size",
+            "schema": {
+              "type": "string",
+              "example": "50"
+            },
+            "description": "Please set the preferred size percentage output:"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/imagetoimage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid image supplied"
+          }
+        }
+      }
+
+      },
+    "/imagerotate": {
+        "post": {
+          "tags": [
+            "Image Rotater"
+          ],
+          "summary": "Rotates an image n-grades",
+          "description": "Rotates an image n-grades",
+          "operationId": "post.imagerotate",
+          "requestBody": {
+            "description": "Please upload an image to rotate:",
+            "content": {
+  
+              "multipart/form-data": {
+  
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "input_file": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+  
+                  }
+                }
+  
+              }
+            },
+            "required": true
+          },
+          "parameters": [
+  
+            {
+              "in": "query",
+              "name": "output_file",
+              "schema": {
+                "type": "string",
+                "example": "jpg"
+              },
+              "description": "Please set the preferred output of the black and white image:"
+            },
+            {
+              "in": "query",
+              "name": "grades",
+              "schema": {
+                "type": "string",
+                "example": "45"
+              },
+              "description": "Please set the degrees to rotate the image:"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "multipart/form-data": {
+                  "schema": {
+                    "$ref": "#/components/schemas/imagetoimage"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Invalid image supplied"
+            }
+          }
+        }
+  
+      },
+    "/imagetopdf": {
+        "post": {
+          "tags": [
+            "Image to PDF"
+          ],
+          "summary": "Image to PDF",
+          "description": "Converts an image into PDF file",
+          "operationId": "post.imagetopdf",
+          "requestBody": {
+            "description": "Please upload an image to covert:",
+            "content": {
+  
+              "multipart/form-data": {
+  
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "input_file": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+  
+                  }
+                }
+  
+              }
+            },
+            "required": true
+          },
+          "parameters": [
+  
+            {
+              "in": "query",
+              "name": "output_file",
+              "schema": {
+                "type": "string",
+                "example": "pdf"
+              },
+              "description": "Please set the preferred output:"
+            },
+            {
+              "in": "query",
+              "name": "lang",
+              "schema": {
+                "type": "string",
+                "example": "eng"
+              },
+              "description": "Please set the language output (default 'eng'):"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "multipart/form-data": {
+                  "schema": {
+                    "$ref": "#/components/schemas/imagetoimage"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Invalid image supplied"
+            }
+          }
+        }
+  
+      },
+    "/imagetotext": {
+        "post": {
+          "tags": [
+            "Image to text"
+          ],
+          "summary": "Image to text",
+          "description": "Converts an image into txt file",
+          "operationId": "post.imagetotext",
+          "requestBody": {
+            "description": "Please upload an image to covert:",
+            "content": {
+  
+              "multipart/form-data": {
+  
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "input_file": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+  
+                  }
+                }
+  
+              }
+            },
+            "required": true
+          },
+          "parameters": [
+  
+            {
+              "in": "query",
+              "name": "output_file",
+              "schema": {
+                "type": "string",
+                "example": "txt"
+              },
+              "description": "Please set the output:"
+            },
+            {
+              "in": "query",
+              "name": "lang",
+              "schema": {
+                "type": "string",
+                "example": "eng"
+              },
+              "description": "Please set the language output (default 'eng'):"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "multipart/form-data": {
+                  "schema": {
+                    "$ref": "#/components/schemas/imagetoimage"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Invalid image supplied"
+            }
+          }
+        }
+  
+      },
+    "/pdftoimage": {
+        "post": {
+          "tags": [
+            "PDF to Image"
+          ],
+          "summary": "PDF to Image",
+          "description": "Converts PDF file to an image",
+          "operationId": "post.pdftoimage",
+          "requestBody": {
+            "description": "Please upload an image to covert:",
+            "content": {
+  
+              "multipart/form-data": {
+  
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "input_file": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+  
+                  }
+                }
+  
+              }
+            },
+            "required": true
+          },
+          "parameters": [
+  
+            {
+              "in": "query",
+              "name": "output_file",
+              "schema": {
+                "type": "string",
+                "example": "jpg"
+              },
+              "description": "Please set the output:"
+            },
+            {
+              "in": "query",
+              "name": "quality",
+              "schema": {
+                "type": "string",
+                "example": "50"
+              },
+              "description": "Please set the quality output:"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "multipart/form-data": {
+                  "schema": {
+                    "$ref": "#/components/schemas/imagetoimage"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Invalid image supplied"
+            }
+          }
+        }
+  
       },
     "/audiotoaudio": {
       "post": {
@@ -362,7 +785,7 @@
             "name": "output_file",
             "schema": {
               "type": "string",
-              "example": ".mp3"
+              "example": "mp3"
             },
             "description": "Please insert the output type of the audio file that you prefer:"
           }
@@ -443,7 +866,7 @@
             "name": "output_file",
             "schema": {
               "type": "string",
-              "example": ".mp3"
+              "example": "mp3"
             },
             "description": "Please insert the output type of the audio file with increased volume that you prefer:"
           },
@@ -512,7 +935,7 @@
              "example": "file"
            }
          }
-       },
+      },
        "videotoimages": {
          "required": [
            "input_file",
@@ -528,14 +951,14 @@
            },
            "output_file": {
              "type": "string",
-             "example": ".jpg"
+             "example": "jpg"
            },
            "fps": {
              "type": "string",
              "example": "1"
            }
          }
-       },
+      },
        "videotovideo": {
          "required": [
            "input_file",
@@ -550,10 +973,10 @@
            },
            "output_file": {
              "type": "string",
-             "example": ".avi"
+             "example": "avi"
            }
          }
-       },
+      },
        "imagetoimage": {
          "required": [
            "input_file",
@@ -568,10 +991,10 @@
            },
            "output_file": {
              "type": "string",
-             "example": ".jpg"
+             "example": "jpg"
            }
          }
-       },
+      },
        "imageflip": {
          "required": [
            "input_file",
@@ -586,11 +1009,144 @@
            },
            "output_file": {
              "type": "string",
-             "example": ".jpg"
+             "example": "jpg"
            }
          }
-       },
-       "audiotoaudio": {
+      },
+       "imagebw": {
+        "required": [
+          "input_file",
+          "output_file"
+        ],
+        "type": "object",
+        "properties": {
+          "input_file": {
+            "type": "file",
+            "format": "binary",
+            "example": "Patitos.png"
+          },
+          "output_file": {
+            "type": "string",
+            "example": "jpg"
+          }
+        }
+      },
+      "imageresize": {
+        "required": [
+          "input_file",
+          "output_file",
+          "new_size"
+        ],
+        "type": "object",
+        "properties": {
+          "input_file": {
+            "type": "file",
+            "format": "binary",
+            "example": "Patitos.png"
+          },
+          "output_file": {
+            "type": "string",
+            "example": "jpg"
+          },
+          "new_size": {
+            "type": "string",
+            "example": "25"
+          }
+        }
+      },
+      "imagerotate": {
+        "required": [
+          "input_file",
+          "output_file",
+          "grades"
+        ],
+        "type": "object",
+        "properties": {
+          "input_file": {
+            "type": "file",
+            "format": "binary",
+            "example": "Patitos.png"
+          },
+          "output_file": {
+            "type": "string",
+            "example": "jpg"
+          },
+          "grades": {
+            "type": "string",
+            "example": "30"
+          }
+        }
+      },
+      "imagetopdf": {
+        "required": [
+          "input_file",
+          "output_file",
+          "lang"
+        ],
+        "type": "object",
+        "properties": {
+          "input_file": {
+            "type": "file",
+            "format": "binary",
+            "example": "Patitos.png"
+          },
+          "output_file": {
+            "type": "string",
+            "example": "pdf"
+          },
+          "lang": {
+            "type": "string",
+            "example": "eng"
+          }
+        }
+      },
+      "imagetotext": {
+        "required": [
+          "input_file",
+          "output_file",
+          "lang"
+        ],
+        "type": "object",
+        "properties": {
+          "input_file": {
+            "type": "file",
+            "format": "binary",
+            "example": "Patitos.png"
+          },
+          "output_file": {
+            "type": "string",
+            "example": "txt"
+          },
+          "lang": {
+            "type": "string",
+            "example": "eng"
+          }
+        }
+      },
+      "pdftoimage": {
+        "required": [
+          "input_file",
+          "output_file",
+          "lang"
+        ],
+        "type": "object",
+        "properties": {
+          "input_file": {
+            "type": "file",
+            "format": "binary",
+            "example": "Patitos.pdf"
+          },
+          "output_file": {
+            "type": "string",
+            "example": "jpg"
+          },
+          "quality": {
+            "type": "string",
+            "example": "90"
+          }
+        }
+      },
+      "audiotoaudio": {
          "required": [
            "input_file",
            "output_file"
@@ -604,10 +1160,10 @@
            },
            "output_file": {
              "type": "string",
-             "example": ".mp3"
+             "example": "mp3"
            }
          }
-       },
+      },
        "audioincreasedvolume": {
          "required": [
            "input_file",
@@ -622,14 +1178,14 @@
            },
            "output_file": {
              "type": "string",
-             "example": ".mp3"
+             "example": "mp3"
            },
            "multiplier": {
              "type": "string",
              "example": "2"
            }
          }
-       }
+      }
      }
    }
 }

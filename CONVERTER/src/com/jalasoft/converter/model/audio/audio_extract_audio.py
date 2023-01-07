@@ -1,4 +1,4 @@
-# @save_outputs.py Copyright (c) 2022 Jalasoft.
+# @audio_extract_audio.py Copyright (c) 2022 Jalasoft.
 # 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
 # All rights reserved.
 #
@@ -11,12 +11,12 @@
 from model.converter import Converter
 
 
-class SaveOutput(Converter):
+class ExtractAudio(Converter):
     """Inherits Converter criteria"""
     def __init__(self, input_file, output_file):
         super().__init__(input_file, output_file)
 
     def convert(self):
-        """Creates and executes command to save an audio file in a specific path"""
-        cmd = f'MOVE "{self.input_file}" "{self.output_file}"' #mv en vez de MOVE
+        """Creates a command to extracts the audio from a video"""
+        cmd = f'ffmpeg -i {self.input_file} -vn {self.output_file}'
         return cmd
