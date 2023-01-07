@@ -33,4 +33,3 @@ class Command:
             print('*****\n', cmd_line)
         except:
             raise Exception('Command line error: Invalid parameters')
-

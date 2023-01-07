@@ -12,4 +12,5 @@ workdir
 *.wav
 *.exe
 *copy*.*
+*.rar
 CONVERTER/src/com/jalasoft/converter/factory.py

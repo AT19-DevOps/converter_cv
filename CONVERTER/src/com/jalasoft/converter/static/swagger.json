@@ -65,6 +65,14 @@
     {
       "name": "Audio Increase Volume",
       "description": "Convert audio file to another audio file with more volume"
+    },
+    {
+      "name": "Audio Extract Audio",
+      "description": "Extracts the audio from a video"
+    },
+    {
+      "name": "Audio Mix Audio",
+      "description": "Join two audios"
     }
   ],
   "paths": {
@@ -919,7 +927,124 @@
             "description": "Invalid operation"
           }
         }
+      },
+    "/audioextractaudio":{
+      "post": {
+        "tags": [
+          "Audio Extract Audio"
+        ],
+        "summary": "Get audio file extracted from video",
+        "description": "Extracts an audio file from a video file",
+        "operationId": "post.audioextractaudio",
+        "requestBody": {
+          "description": "Please insert the video file to extract the audio:",
+          "content": {
+
+            "multipart/form-data": {
+
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "input_file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+
+                }
+              }
+
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "in": "query",
+            "name": "output_file",
+            "schema": {
+              "type": "string",
+              "example": ".mp3"
+            },
+            "description": "Please insert the output type of the audio file extracted from the video:"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/audioextractaudio"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid video supplied"
+          }
+        }
       }
+    },
+    "/audiomixaudio":{
+      "post": {
+        "tags": [
+          "Audio Mix Audio"
+        ],
+        "summary": "Get audio file mixing two audios",
+        "description": "Mix two audio files in one audio file",
+        "operationId": "post.audiomixaudio",
+        "requestBody": {
+          "description": "Please insert the audio files to mix:",
+          "content": {
+
+            "multipart/form-data": {
+
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "input_file_1": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "input_file_2": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "in": "query",
+            "name": "output_file",
+            "schema": {
+              "type": "string",
+              "example": ".mp3"
+            },
+            "description": "Please insert the output name of the audio file obtained from mixing the both audios:"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/audiomixaudio"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid audio supplied"
+          }
+        }
+      }
+    }
   },
 
   "components": {
@@ -1185,6 +1310,48 @@
              "example": "2"
            }
          }
+       },
+       "audioextractaudio": {
+         "required": [
+           "input_file",
+           "output_file"
+         ],
+         "type": "object",
+         "properties": {
+           "input_file": {
+             "type": "file",
+             "format": "binary",
+             "example":  "Pollitos.mp4"
+           },
+           "output_file": {
+             "type": "string",
+             "example": ".mp3"
+           }
+         }
+       },
+       "audiomixaudio": {
+        "required": [
+          "input_file_1",
+          "input_file_2",
+          "output_file"
+        ],
+        "type": "object",
+        "properties": {
+          "input_file_1": {
+            "type": "file",
+            "format": "binary",
+            "example":  "Patitos.mp3"
+          },
+          "input_file_2": {
+            "type": "file",
+            "format": "binary",
+            "example":  "Pollitos.mp3"
+          },
+          "output_file": {
+            "type": "string",
+            "example": ".mp3"
+          }
+        }
       }
      }
    }
