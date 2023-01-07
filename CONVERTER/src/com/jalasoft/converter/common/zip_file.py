@@ -16,8 +16,8 @@ import os
 
 class ZipFiles:
     """Defines ZipFiles criteria"""
-    def __init__(self, upath, folder_to_zip, name_of_zip, destination):
-        self.upath = upath
+    def __init__(self, folder_to_zip, name_of_zip, destination):
+        # self.upath = upath
         self.folder_to_zip = folder_to_zip
         self.name_of_zip = name_of_zip
         self.destination = destination

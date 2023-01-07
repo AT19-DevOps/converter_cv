@@ -42,3 +42,5 @@ CONVERTER/src/com/jalasoft/converter/model/telma.wav
 CONVERTER/src/com/jalasoft/converter/model/video/__pycache__/
 CONVERTER/src/com/jalasoft/converter/flip1.jpg
 CONVERTER/src/com/jalasoft/Metadata/exiftool(-k).exe
+responses/
+uploads/

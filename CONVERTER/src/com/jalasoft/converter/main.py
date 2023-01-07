@@ -20,6 +20,10 @@ from controler.routes import VideoToVid
 from controler.routes import ImageFlipper
 from controler.routes import Download
 from controler.routes import VideoToZip
+from controler.routes import VideoToAudio
+from controler.routes import AudioToAudio
+from controler.routes import IncreaseAudioVolume
+from controler.routes import AudioMixAudio
 
 app = Flask(__name__)
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
@@ -30,6 +34,11 @@ api.add_resource(VideoToVid, '/videotovideo')
 api.add_resource(ImageToImage, '/imagetoimage')
 api.add_resource(ImageFlipper, '/imageflip')
 api.add_resource(Download, '/download')
+api.add_resource(VideoToAudio, '/audioextractaudio')
+api.add_resource(AudioToAudio, '/audiotoaudio')
+api.add_resource(IncreaseAudioVolume, '/audioincreasevolume')
+api.add_resource(AudioMixAudio, "/audiomixaudio")
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000, host='127.0.0.1')
