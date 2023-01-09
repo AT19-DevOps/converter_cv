@@ -19,24 +19,33 @@ from model.video.vconverter import VideoToVideo
 from common.zip_file import ZipFiles
 from model.image.image_to_images import ImageConverter
 from model.image.image_to_images import ImageFlip
-from flask_swagger_ui import get_swaggerui_blueprint
 from common.allowed_files import AllowedExtensions
+from flask_swagger_ui import get_swaggerui_blueprint
 from flask_restful import Resource
 import os
+# from src.com.jalasoft.converter.model.command_line import Command
+# from src.com.jalasoft.converter.model.video.vconverter import VideoToImages
+# from src.com.jalasoft.converter.model.video.vconverter import VideoToVideo
+# from src.com.jalasoft.converter.common.zip_file import ZipFiles
+# from src.com.jalasoft.converter.model.image.image_to_images import ImageConverter
+# from src.com.jalasoft.converter.model.image.image_to_images import ImageFlip
+# from src.com.jalasoft.converter.common.allowed_files import AllowedExtensions
 
-PATH = r'C:\Users\GamerStoreCbba\PycharmProjects\AT19_CONVERTER5\CONVERTER\src\com\jalasoft\converter'
+# PATH = r'C:\Users\GamerStoreCbba\PycharmProjects\AT19_CONVERTER5\CONVERTER\src\com\jalasoft\converter'
+PATH = 'src/com/jalasoft/converter'
 UPLOAD_FOLDER = os.path.join(PATH, 'uploads')
 RESPONSE_FOLDER = os.path.join(PATH, 'responses')
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(UPLOAD_FOLDER,  exist_ok=True)
 os.makedirs(RESPONSE_FOLDER, exist_ok=True)
-
-SWAGGER_URL = '/swagger'
+print(os.getcwd())
+SWAGGER_URL = '/static'
+# API_URL = 'src/com/jalasoft/converter/static/swagger.json'
 API_URL = '/static/swagger.json'
 SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
     SWAGGER_URL,
     API_URL,
     config={
-        'app_name': "Prueba"
+        'app_name': "Converter"
     }
 )
 
