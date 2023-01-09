@@ -24,7 +24,8 @@ from common.allowed_files import AllowedExtensions
 from flask_restful import Resource
 import os
 
-PATH = r'C:\Users\GamerStoreCbba\PycharmProjects\AT19_CONVERTER5\CONVERTER\src\com\jalasoft\converter'
+#PATH = r'C:\Users\GamerStoreCbba\PycharmProjects\AT19_CONVERTER5\CONVERTER\src\com\jalasoft\converter'
+PATH = r'D:\machine_learning\AT19_CONVERTER2\AT19_CONVERTER\CONVERTER\src\com\jalasoft\converter'
 UPLOAD_FOLDER = os.path.join(PATH, 'uploads')
 RESPONSE_FOLDER = os.path.join(PATH, 'responses')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
