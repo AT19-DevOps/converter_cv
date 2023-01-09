@@ -24,3 +24,4 @@ class ImageToPDFConvert(Converter):
         """Converts an image with text in a pdf file"""
         command_line = ['tesseract', f'{self.input_file}', f'{self.output_file}', '-l', self.lang, 'pdf']
         return " ".join(command_line)
+        

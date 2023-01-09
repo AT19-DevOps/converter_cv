@@ -22,3 +22,4 @@ class MetadataGeter(Converter):
         """Converts an image with text in a text file"""
         command_line = ['exiftool', '-lang es -t', f'{self.input_file}', '>', f'{self.output_file}']
         return " ".join(command_line)
+        

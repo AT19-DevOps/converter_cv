@@ -21,7 +21,7 @@ class MixAudio(Converter):
     def convert(self):
         list=['ffmpeg']
         for element in self.input_file:
-            list.append(' -i '+ element)
+            list.append(' -i ' + element)
         list.append(' -filter_complex amerge '+self.output_file)
-        cmd =''.join(list)
+        cmd = ''.join(list)
         return cmd
