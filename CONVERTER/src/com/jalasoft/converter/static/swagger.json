@@ -793,7 +793,7 @@
             "name": "output_file",
             "schema": {
               "type": "string",
-              "example": "mp3"
+              "example": ".mp3"
             },
             "description": "Please insert the output type of the audio file that you prefer:"
           }

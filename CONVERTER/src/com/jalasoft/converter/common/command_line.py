@@ -12,7 +12,7 @@
 #
 
 import subprocess
-import os
+import platform
 
 
 class Command:
@@ -23,13 +23,12 @@ class Command:
     def run_cmd(self):
         """Executes the command given"""
         cmd_line = self.cmd
-        if os.uname()[0] == 'Linux':
+        if platform.system() == 'Linux':
             cmd_line = str(cmd_line).replace('magick', 'convert')
         try:
             run = subprocess.check_output(cmd_line, shell=True)
             return run
         except subprocess.CalledProcessError:
-            raise Exception('Command line error: Please verify syntax')
-            print('*****\n', cmd_line)
+            raise Exception('Command line error: Please verify syntax: ', cmd_line)
         except:
-            raise Exception('Command line error: Invalid parameters')
+            raise Exception('Command line error: Invalid parameters', cmd_line)
