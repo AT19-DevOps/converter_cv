@@ -12,7 +12,6 @@
 #
 
 from model.converter import Converter
-from model.video.paths import Path
 
 
 class VideoToImages(Converter):
@@ -23,5 +22,4 @@ class VideoToImages(Converter):
         
     def convert(self):
         """Converts video to a set of images"""
-        paths = Path(self.input_file, self.output_file).paths()
-        return " ".join(['ffmpeg', '-i', paths[0], '-r', self.fps, paths[1]])
+        return " ".join(['ffmpeg', '-i', self.input_file, '-r', self.fps, self.output_file])
