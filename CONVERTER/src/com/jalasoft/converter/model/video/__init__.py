@@ -1,8 +1,7 @@
 #
-# @command_line.py Copyright (c) 2022 Jalasoft.
+# @__init__.py Copyright (c) 2022 Jalasoft.
 # 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
-#
-# All rights reserved.
+# # All rights reserved.
 #
 # This software is the confidential and proprietary information of
 # Jalasoft, ("Confidential Information"). You shall not
@@ -11,15 +10,6 @@
 # with Jalasoft.
 #
 
-import subprocess
-
-
-class Command:
-    """Defines Command class criteria"""
-    def __init__(self, cmd):
-        self.cmd = cmd
-
-    def run_cmd(self):
-        """Executes the command given"""
-        return subprocess.Popen(self.cmd)
+from model.video.vconverter import VideoToImages
+from model.video.video_to_video import VideoToVideo
 

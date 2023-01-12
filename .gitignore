@@ -1,0 +1,16 @@
+pruebas*.*
+venv/
+.vconv/
+.idea/
+__pycache__/
+venv_conv/*
+workdir
+*.pdf
+*.jp*
+*.mp*
+*.png
+*.wav
+*.exe
+*copy*.*
+*.rar
+CONVERTER/src/com/jalasoft/converter/factory.py

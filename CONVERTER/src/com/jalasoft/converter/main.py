@@ -9,98 +9,38 @@
 # accordance with the terms of the license agreement you entered into
 # with Jalasoft.
 #
-
-from flask import Flask
-from flask import request
-from flask_restful import Resource
-from flask_restful import Api
-from werkzeug.utils import secure_filename
+#ROLE = DEV
 import os
-import pandas as pd
-
-PATH = 'CONVERTER/src/com/jalasoft/converter/'
-UPLOAD_FOLDER = PATH + 'uploads'
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
-
-def allowed_file(file):
-    file = file.split('.')
-    if file[1] in ALLOWED_EXTENSIONS:
-        return True
-    return False
+from flask import Flask
+from flask_restful import Api
+from controler.routes import SWAGGER_URL
+from flask_restful import Api
+from controler.routes import SWAGGERUI_BLUEPRINT
+from controler.routes import Download, VideoToZipImage, VideoToZip, VideoToVid
+from controler.routes import ImageToImage, ImageFlipper, ImageBlackWhite, ImageResizer, ImageRotater, ImageToPdf, ImageToText, PdfToImage
+from controler.routes import VideoToAudio, AudioToAudio, IncreaseAudioVolume, AudioMixAudio
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 api = Api(app)
+api.add_resource(VideoToZipImage, '/videotoimage/zip')
+api.add_resource(VideoToZip, '/videotoimagee/zip')
+api.add_resource(VideoToVid, '/videotovideo')
+api.add_resource(ImageToImage, '/imagetoimage')
+api.add_resource(ImageFlipper, '/imageflip')
+api.add_resource(ImageBlackWhite, '/imagebw')
+api.add_resource(ImageResizer, '/imageresize')
+api.add_resource(ImageRotater, '/imagerotate')
+api.add_resource(ImageToPdf, '/imagetopdf')
+api.add_resource(ImageToText, '/imagetotext')
+api.add_resource(PdfToImage, '/pdftoimage')
+api.add_resource(Download, '/download')
+api.add_resource(VideoToAudio, '/audioextractaudio')
+api.add_resource(AudioToAudio, '/audiotoaudio')
+api.add_resource(IncreaseAudioVolume, '/audioincreasevolume')
+api.add_resource(AudioMixAudio, "/audiomixaudio")
 
 
-class RestAPI(Resource):
-    """Defines RestAPI Commands CRUD"""
-    def get(self):
-        """GET method"""
-        data = pd.read_csv(PATH + 'users.csv')
-        data = data.to_dict()
-        return {'data': data}, 200 
-
-    def post(self):
-        """POST method"""
-        userId = request.form.get("userId")
-        name = request.form.get("name")
-        city = request.form.get("city")
-        file = request.files['file']
-        data = pd.read_csv(PATH + 'users.csv')
-        if userId in list(data['userId']):
-            return {
-                'message': f"'{userId}' already exists."
-            }, 401
-        else:
-            if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            new_data = pd.DataFrame({
-                'userId': [userId],
-                'name': name,
-                'city': city
-            })
-            data = data.append(new_data, ignore_index=True)
-            data.to_csv('users.csv', index=False)
-            return {'data': data.to_dict()}, 200
-
-    def put(self):
-        """PUT method"""
-        userId = request.form.get("userId")
-        name = request.form.get("name")
-        city = request.form.get("city")
-        data = pd.read_csv('users.csv')
-
-        if userId in list(data['userId']):
-            user_data = data[data['userId'] == userId]
-            user_data['name'] = name
-            user_data['city'] = city
-            data[data['userId'] == userId] = user_data
-            data.to_csv('users.csv', index=False)
-            return {'data': data.to_dict()}, 200
-        else:
-            return {
-                'message': f"'{userId}' user not found."
-            }, 404
-
-    def delete(self):
-        """DELETE method"""
-        userId = request.form.get("userId")
-        data = pd.read_csv('users.csv')
-
-        if userId in list(data['userId']):
-            final_data = data.loc[data['userId'] != userId]
-            final_data.to_csv('users.csv', index=False)
-            return {'data': final_data.to_dict()}, 200
-        else:
-            return {
-                'message': f"'{userId}' user not found."
-            }, 404
-
-
-api.add_resource(RestAPI, '/')
-
-
+print(os.getcwd())
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5000, host='127.0.0.1')

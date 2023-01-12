@@ -1,0 +1,43 @@
+#
+# @dockerfile Copyright (c) 2022 Jalasoft.
+# 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
+# All rights reserved.
+#
+# This software is the confidential and proprietary information of
+# Jalasoft, ("Confidential Information"). You shall not
+# disclose such Confidential Information and shall use it only in
+# accordance with the terms of the license agreement you entered into
+# with Jalasoft.
+#
+
+FROM alpine:3.10
+#starts an operated system
+# ENV CONVERTER_ENVIRONMENT=Development
+RUN apk add --no-cache python3-dev \
+    && pip3 install --upgrade pip
+#installs python and pip3
+
+WORKDIR /CONVERTER
+# WORKDIR /app/NNM
+#creates a folder with the name app
+# path se puede poner desde /app/src....
+# nnm altura de src
+
+COPY . /CONVERTER
+#copies all to the folder app
+
+RUN pip3 install -r requirements.txt
+#install all the libraries inside the requirements file
+RUN pip3 install flask-restful==0.3.9
+#install flask-restful
+#ver esto y puertos
+# docker scan. ver
+
+RUN apk add --no-cache ffmpeg
+#install ffmpeg
+RUN apk --update add imagemagick
+#install imagemagick
+# https://stackoverflow.com/questions/49833093/swagger-running-with-local-json-file-in-docker-image
+
+CMD ["python3", "src/com/jalasoft/converter/main.py", "ffmpeg", "libmagickwand"]
+# CMD ["python3", "src/com/jalasoft/converter/main.py"]

@@ -1,7 +1,7 @@
 #
-# @image_to_images.py Copyright (c) 2022 Jalasoft.
+# @audio_mix_audio.py Copyright (c) 2022 Jalasoft.
 # 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
-# # All rights reserved.
+# All rights reserved.
 #
 # This software is the confidential and proprietary information of
 # Jalasoft, ("Confidential Information"). You shall not
@@ -13,12 +13,15 @@
 from model.converter import Converter
 
 
-class ImageConverter(Converter):
-    """ Inherits Converter criteria"""
+class MixAudio(Converter):
+    """Inherits Converter criteria"""
     def __init__(self, input_file, output_file):
         super().__init__(input_file, output_file)
 
-    def convert(self) -> list:
-        """Converts image to any type, returns the command line"""
-        command_line = ['magick', f'{self.input_file}', f'{self.output_file}']
-        return " ".join(command_line)
+    def convert(self):
+        list=['ffmpeg']
+        for element in self.input_file:
+            list.append(' -i ' + element)
+        list.append(' -filter_complex amerge '+self.output_file)
+        cmd = ''.join(list)
+        return cmd
