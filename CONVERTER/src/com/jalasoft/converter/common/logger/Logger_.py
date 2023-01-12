@@ -17,7 +17,7 @@ import logging.config
 
 class LoggerManager(metaclass=SingletonMeta):
     """Wrappes Logger Method"""
-    logging.config.fileConfig("logging.conf")
+    logging.config.fileConfig('logging.conf')
 
     def debug(self, message):
         """Writes logger debug level"""

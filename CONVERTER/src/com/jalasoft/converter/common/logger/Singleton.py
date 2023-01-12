@@ -21,3 +21,4 @@ class SingletonMeta(type):
             instance = super().__call__(*args, **kwargs)
             self._instances[self] = instance
         return self._instances[self]
+        
