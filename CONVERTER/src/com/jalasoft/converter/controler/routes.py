@@ -35,27 +35,32 @@ from common import ZipFiles
 from common import AllowedExtensions
 
 
-PATH = os.path.join(os.getcwd(), 'workdir')
+PATH = r'D:\machine_learning\AT19_CONVERTER2\AT19_CONVERTER\CONVERTER\src\com\jalasoft\converter'
+PATH = os.path.join(PATH, 'workdir')
 UPLOAD_FOLDER = os.path.join(PATH, 'uploads')
 RESPONSE_FOLDER = os.path.join(PATH, 'responses')
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(UPLOAD_FOLDER,  exist_ok=True)
 os.makedirs(RESPONSE_FOLDER, exist_ok=True)
-
+print(os.getcwd())
 SWAGGER_URL = '/swagger'
+# API_URL = 'src/com/jalasoft/converter/static/swagger.json'
 API_URL = '/static/swagger.json'
 SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
     SWAGGER_URL,
     API_URL,
     config={
-        'app_name': "Prueba"
+        'app_name': "Converter"
     }
 )
-
 
 def validate_inputs(file_prefix):
     """Validates input files and generates a realiable paths"""
     input_file = request.files["input_file"]
-    output_file = request.args["output_file"]
+    if request.form:
+        output_file = request.form["output_file"]
+    else:
+        output_file = request.args["output_file"]
+
     fileOut = '.' + str(output_file) if str(output_file)[0] != '.' else str(output_file)
     if input_file and AllowedExtensions().allowed_extension(input_file.filename):
         filename = secure_filename(input_file.filename)
@@ -66,7 +71,7 @@ def validate_inputs(file_prefix):
             fileOut = file_prefix + filename.split('.')[0] + '-%4d' + str(fileOut)
         else:
             fileOut = file_prefix + filename.split('.')[0] + str(fileOut)
-        url = 'http://localhost:5000/download?file_name=' + fileOut
+        url = 'http://localhost:5000/download?file_name=' + os.path.basename(fileOut)
         fileOut = os.path.join(RESPONSE_FOLDER, fileOut)
         return [fileIn, fileOut, url]
     else: raise FileNotFoundError('ConverterError: Invalid input file')
@@ -86,14 +91,15 @@ class VideoToZipImage(Resource):
         """Create zip file containing image from video"""
         files = validate_inputs('')
         if files:
-            output_format = str(request.args["output_file"])
-            fps = str(request.args["fps"])
+            output_format = str(request.form["output_file"])
+            fps = str(request.form["fps"])
             file_in = files[0]
-            os.makedirs(file_in.split('.')[0], exist_ok=True)
-            file_out = file_in.split('.')[0] + '/%06d.' + output_format
+            file_name = '/' + os.path.basename(file_in).split('.')[0] + '/'
+            os.makedirs(file_in.split('.')[0] + file_name , exist_ok=True)
+            file_out = file_in.split('.')[0] + file_name + '%06d.' + output_format
             Command(VideoToImages(file_in, file_out, fps).convert()).run_cmd()
             tmp_zip = ZipFiles(file_in.split('.')[0], file_in.split('.')[0] + '/', RESPONSE_FOLDER).compress()
-            url = 'http://localhost:5000/download?file_name=' + tmp_zip 
+            url = 'http://localhost:5000/download?file_name=' + os.path.basename(tmp_zip) 
             return url
 
 
@@ -101,17 +107,17 @@ class VideoToZip(Resource):
     """Defines video to zip class"""
     def post(self):
         """Create zip file containing image from video. This class is for PyQTs Team :)"""
-        input_file = request.files["input_file"]
-        output_file = request.form.get("output_file")
-        fps = request.form.get("fps")
-        if input_file and AllowedExtensions().allowed_extension(input_file.filename):
-            filename = secure_filename(input_file.filename)
-            zip_name = filename.split(".")[0]
-            input_file.save(os.path.join(UPLOAD_FOLDER, filename))
-            input_video = os.path.join(UPLOAD_FOLDER, input_file.filename)
-            Command(VideoToImages(input_video, output_file, fps).convert()).run_cmd()
-            tmp_zip = ZipFiles(input_video.split(".")[0], zip_name, RESPONSE_FOLDER).compress()
-            url = 'http://localhost:5000/download?file_name=' + tmp_zip  # Ver lo del localhost al venv
+        files = validate_inputs('')
+        if files:
+            output_format = str(request.args["output_file"])
+            fps = str(request.args["fps"])
+            file_in = files[0]
+            file_name = '/' + os.path.basename(file_in).split('.')[0] + '/'
+            os.makedirs(file_in.split('.')[0] + file_name , exist_ok=True)
+            file_out = file_in.split('.')[0] + file_name + '%06d.' + output_format
+            Command(VideoToImages(file_in, file_out, fps).convert()).run_cmd()
+            tmp_zip = ZipFiles(file_in.split('.')[0], file_in.split('.')[0] + '/', RESPONSE_FOLDER).compress()
+            url = 'http://localhost:5000/download?file_name=' + os.path.basename(tmp_zip) 
             return url
 
 
