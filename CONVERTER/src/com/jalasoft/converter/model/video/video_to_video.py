@@ -1,5 +1,5 @@
 #
-# @vconverter.py Copyright (c) 2022 Jalasoft.
+# @video_to_video.py Copyright (c) 2022 Jalasoft.
 # 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
 #
 # All rights reserved.
@@ -14,12 +14,11 @@
 from model.converter import Converter
 
 
-class VideoToImages(Converter):
-    """Converts any video format to a set of any format images""" 
-    def __init__(self, input_file, output_file, fps): 
-        super().__init__(input_file, output_file) 
-        self.fps = fps        
-        
+class VideoToVideo(Converter):
+    """Converts any video format to another video format""" 
+    def __init__(self, input_file, output_file):
+        super().__init__(input_file, output_file)
+    
     def convert(self):
-        """Converts video to a set of images"""
-        return " ".join(['ffmpeg', '-i', self.input_file, '-r', self.fps, self.output_file])
+        """Converts video formats"""
+        return " ".join(['ffmpeg', '-i',  self.input_file, '-c:v copy -c:a copy -y', self.output_file])

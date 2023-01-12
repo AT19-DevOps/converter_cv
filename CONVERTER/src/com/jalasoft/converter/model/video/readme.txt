@@ -1,5 +1,4 @@
 Video Converter Service v.1.0
-by: Daniel Villaroel danisku@gmail.com
 ------------------------------------------------
 
 1. Description
