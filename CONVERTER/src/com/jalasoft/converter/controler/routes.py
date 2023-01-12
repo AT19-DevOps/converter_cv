@@ -35,14 +35,14 @@ from common import ZipFiles
 from common import AllowedExtensions
 
 
-PATH = r'C:AT19_CONVERTER\CONVERTER\src\com\jalasoft\converter'
+PATH = r'D:\machine_learning\AT19_CONVERTER2\AT19_CONVERTER\CONVERTER\src\com\jalasoft\converter'
 PATH = os.path.join(PATH, 'workdir')
 UPLOAD_FOLDER = os.path.join(PATH, 'uploads')
 RESPONSE_FOLDER = os.path.join(PATH, 'responses')
 os.makedirs(UPLOAD_FOLDER,  exist_ok=True)
 os.makedirs(RESPONSE_FOLDER, exist_ok=True)
 print(os.getcwd())
-SWAGGER_URL = '/static'
+SWAGGER_URL = '/swagger'
 # API_URL = 'src/com/jalasoft/converter/static/swagger.json'
 API_URL = '/static/swagger.json'
 SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(

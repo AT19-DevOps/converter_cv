@@ -9,15 +9,13 @@
 # accordance with the terms of the license agreement you entered into
 # with Jalasoft.
 #
-ROLE = DEV
+#ROLE = DEV
 import os
-
 from flask import Flask
 from flask_restful import Api
 from controler.routes import SWAGGER_URL
 from flask_restful import Api
 from controler.routes import SWAGGERUI_BLUEPRINT
-
 from controler.routes import Download, VideoToZipImage, VideoToZip, VideoToVid
 from controler.routes import ImageToImage, ImageFlipper, ImageBlackWhite, ImageResizer, ImageRotater, ImageToPdf, ImageToText, PdfToImage
 from controler.routes import VideoToAudio, AudioToAudio, IncreaseAudioVolume, AudioMixAudio
