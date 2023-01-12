@@ -1,7 +1,7 @@
 #
-# @image_to_images.py Copyright (c) 2021 Jalasoft.
+# @singleton.py Copyright (c) 2023 Jalasoft.
 # 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
-# # All rights reserved.
+# All rights reserved.
 #
 # This software is the confidential and proprietary information of
 # Jalasoft, ("Confidential Information"). You shall not
@@ -10,11 +10,13 @@
 # with Jalasoft.
 #
 
+
 class SingletonMeta(type):
-    """The singleton class template is a feature of Python"""
+    """Allows to create only one instance of the class"""
     _instances = {}
+
     def __call__(self, *args, **kwargs):
-        """Is a self-call method"""
+        """Calls it self Method"""
         if self not in self._instances:
             instance = super().__call__(*args, **kwargs)
             self._instances[self] = instance
