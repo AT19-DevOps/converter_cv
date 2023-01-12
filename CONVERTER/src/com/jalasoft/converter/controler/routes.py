@@ -35,7 +35,7 @@ from common import ZipFiles
 from common import AllowedExtensions
 
 
-PATH = r'D:\machine_learning\AT19_CONVERTER2\AT19_CONVERTER\CONVERTER\src\com\jalasoft\converter'
+PATH = r'C:AT19_CONVERTER\CONVERTER\src\com\jalasoft\converter'
 PATH = os.path.join(PATH, 'workdir')
 UPLOAD_FOLDER = os.path.join(PATH, 'uploads')
 RESPONSE_FOLDER = os.path.join(PATH, 'responses')
