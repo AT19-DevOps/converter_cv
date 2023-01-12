@@ -52,7 +52,6 @@ SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
     }
 )
 
-
 def validate_inputs(file_prefix):
     """Validates input files and generates a realiable paths"""
     input_file = request.files["input_file"]
@@ -60,7 +59,7 @@ def validate_inputs(file_prefix):
         output_file = request.form["output_file"]
     else:
         output_file = request.args["output_file"]
-    #output_file = request.form["output_file"]
+
     fileOut = '.' + str(output_file) if str(output_file)[0] != '.' else str(output_file)
     if input_file and AllowedExtensions().allowed_extension(input_file.filename):
         filename = secure_filename(input_file.filename)
