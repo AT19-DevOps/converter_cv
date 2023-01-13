@@ -19,6 +19,7 @@ from controler.routes import SWAGGERUI_BLUEPRINT
 from controler.routes import Download, VideoToZipImage, VideoToZip, VideoToVid
 from controler.routes import ImageToImage, ImageFlipper, ImageBlackWhite, ImageResizer, ImageRotater, ImageToPdf, ImageToText, PdfToImage
 from controler.routes import VideoToAudio, AudioToAudio, IncreaseAudioVolume, AudioMixAudio
+from config import UPLOAD_FOLDER, RESPONSE_FOLDER
 
 app = Flask(__name__)
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
