@@ -38,3 +38,12 @@ class LoggerManager(metaclass=SingletonMeta):
     def critical(self, message):
         """Writes logger critical level"""
         logging.critical(message)
+
+    def enter_method(methodName):
+        """Writes logger to enter a method"""
+        logging.debug('Enter Method >' + str(methodName))
+
+    def exit_method(methodName):
+        """Writes logger to exit a method"""
+        logging.debug('Exit Method >' + str(methodName))
+
