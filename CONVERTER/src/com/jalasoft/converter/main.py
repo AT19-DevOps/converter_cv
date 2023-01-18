@@ -21,7 +21,7 @@ from controler.routes import ImageToImage, ImageFlipper, ImageBlackWhite, ImageR
 from controler.routes import VideoToAudio, AudioToAudio, IncreaseAudioVolume, AudioMixAudio
 
 app = Flask(__name__)
-app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
+#app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 api = Api(app)
 api.add_resource(VideoToZipImage, '/videotoimage/zip')
 api.add_resource(VideoToZip, '/videotoimagee/zip')
