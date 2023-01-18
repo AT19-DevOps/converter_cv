@@ -10,7 +10,7 @@
 # with Jalasoft.
 #
 
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'mp4', 'avi', "mp3", "opus", "wav"}
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'mp4', 'avi', "mp3", "opus", "wav", "mov"}
 
 
 class AllowedExtensions:

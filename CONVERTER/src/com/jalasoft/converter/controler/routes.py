@@ -33,9 +33,9 @@ from model import VideoToVideo
 from common import Command
 from common import ZipFiles
 from common import AllowedExtensions
+from database.db_commands import CRUD
 
-
-PATH = r'D:\machine_learning\AT19_CONVERTER2\AT19_CONVERTER\CONVERTER\src\com\jalasoft\converter'
+PATH = "E:/Users/Leo/AT/Programming/AT19_CONVERTER/AT19_CONVERTER/AT19_CONVERTER/CONVERTER/src/com/jalasoft/converter"
 PATH = os.path.join(PATH, 'workdir')
 UPLOAD_FOLDER = os.path.join(PATH, 'uploads')
 RESPONSE_FOLDER = os.path.join(PATH, 'responses')
@@ -45,13 +45,13 @@ print(os.getcwd())
 SWAGGER_URL = '/swagger'
 # API_URL = 'src/com/jalasoft/converter/static/swagger.json'
 API_URL = '/static/swagger.json'
-SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
-    SWAGGER_URL,
-    API_URL,
-    config={
-        'app_name': "Converter"
-    }
-)
+# SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
+#     SWAGGER_URL,
+#     API_URL,
+#     config={
+#         'app_name': "Converter"
+#     }
+# )
 
 def validate_inputs(file_prefix):
     """Validates input files and generates a realiable paths"""
@@ -66,7 +66,8 @@ def validate_inputs(file_prefix):
         filename = secure_filename(input_file.filename)
         input_file.save(os.path.join(UPLOAD_FOLDER, filename))
         fileIn = os.path.join(UPLOAD_FOLDER, filename)
-
+        checksum = 1
+        CRUD.insert_data(filename, checksum, os.path.join(UPLOAD_FOLDER, filename))
         if file_prefix == 'imJpg-':
             fileOut = file_prefix + filename.split('.')[0] + '-%4d' + str(fileOut)
         else:
