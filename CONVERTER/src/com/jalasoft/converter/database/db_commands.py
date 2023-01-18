@@ -22,20 +22,22 @@ class CRUD:
     def create_table(tablename):
         """Creates a table"""
 
+        #mycursor = db.conexion.cursor()
         with mycursor:
             mycursor.execute("""SELECT COUNT(*) FROM information_schema.tables WHERE table_name = '{0}' """.format(tablename.replace('\'', '\'\'')))
             if mycursor.fetchone()[0] == 1:
                 print("Table already created")
-                db.conexion.close()
+                #db.conexion.close()
                 return
             mycursor.execute("CREATE TABLE "+tablename+" (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(50), checksum VARCHAR(255), route VARCHAR(155))")
             print("Table created")
-            db.conexion.close()
+            #db.conexion.close()
             return
 
     def check_table_exists(tablename):
         """Checks if table exists"""
 
+        #mycursor = db.conexion.cursor()
         mycursor.execute("""
             SELECT COUNT(*)
             FROM information_schema.tables
@@ -44,52 +46,57 @@ class CRUD:
         if mycursor.fetchone()[0] == 1:
             mycursor.close()
             return True
-        mycursor.close()
+        #mycursor.close()
         return False
     
     def insert_data( name, checksum, route):
         """Inserts data"""
       
+        #mycursor = db.conexion.cursor()
         query = "INSERT INTO media (name, checksum, route) VALUES (%s, %s, %s)"    
         mycursor.execute(query, (name, checksum, route))
         print("Data inserted")
-        db.conexion.close()
+        #db.conexion.close()
     
     def read_all_data():
         """Reads all data"""
     
+        #mycursor = db.conexion.cursor()
         query = "SELECT name, checksum, route FROM media"
         mycursor.execute(query)
         datos = mycursor.fetchall()
         for dato in datos:
             print(dato)
         print("Data read")
-        db.conexion.close()
+        #db.conexion.close()
 
     def read_specific_data(name):
         """Reads data searching by its name"""
     
+        #mycursor = db.conexion.cursor()
         query = "SELECT name, checksum, route FROM person WHERE name = %s"    
         mycursor.execute(query,(name))
         datos = mycursor.fetchall()
         for dato in datos:
             print(dato)
         print("Data read")
-        db.conexion.close()
+        #db.conexion.close()
 
     def update_data(newName,id):
         """Updates data"""
-    
+
+        #mycursor = db.conexion.cursor()
         query = "UPDATE media SET name = %s  WHERE id = %s"
         mycursor.execute(query, (newName, id))
         print("Data updated")
-        db.conexion.close()
+        #db.conexion.close()
 
 
     def delete_data(id):
         """Deletes data"""
-    
+
+        #mycursor = db.conexion.cursor()    
         query = "DELETE FROM media WHERE id = %s"
         mycursor.execute(query, (id))
         print("Data deleted")
-        db.conexion.close()
+        #db.conexion.close()

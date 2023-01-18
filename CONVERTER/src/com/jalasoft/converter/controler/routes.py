@@ -35,7 +35,7 @@ from common import ZipFiles
 from common import AllowedExtensions
 from database.db_commands import CRUD
 
-PATH = "E:/Users/Leo/AT/Programming/AT19_CONVERTER/AT19_CONVERTER/AT19_CONVERTER/CONVERTER/src/com/jalasoft/converter"
+PATH = "CONVERTER/src/com/jalasoft/converter"
 PATH = os.path.join(PATH, 'workdir')
 UPLOAD_FOLDER = os.path.join(PATH, 'uploads')
 RESPONSE_FOLDER = os.path.join(PATH, 'responses')
@@ -45,13 +45,13 @@ print(os.getcwd())
 SWAGGER_URL = '/swagger'
 # API_URL = 'src/com/jalasoft/converter/static/swagger.json'
 API_URL = '/static/swagger.json'
-# SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
-#     SWAGGER_URL,
-#     API_URL,
-#     config={
-#         'app_name': "Converter"
-#     }
-# )
+SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "Converter"
+    }
+)
 
 def validate_inputs(file_prefix):
     """Validates input files and generates a realiable paths"""
