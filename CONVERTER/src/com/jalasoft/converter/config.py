@@ -1,7 +1,8 @@
 #
-# @__init__.py Copyright (c) 2022 Jalasoft.
+# config.py Copyright (c) 2023 Jalasoft.
 # 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
-# # All rights reserved.
+#
+# All rights reserved.
 #
 # This software is the confidential and proprietary information of
 # Jalasoft, ("Confidential Information"). You shall not
@@ -10,9 +11,12 @@
 # with Jalasoft.
 #
 
-"""common package - contains common scripts used"""
-from common.allowed_files import AllowedExtensions
-from common.zip_file import ZipFiles
-from common.command_line import Command
-from common.get_metadata import MetadataGeter
+import os
 
+
+PATH = os.path.realpath(os.path.dirname(__file__))
+PATH = os.path.join(PATH, 'workdir')
+UPLOAD_FOLDER = os.path.join(PATH, 'uploads')
+RESPONSE_FOLDER = os.path.join(PATH, 'responses')
+os.makedirs(UPLOAD_FOLDER,  exist_ok=True)
+os.makedirs(RESPONSE_FOLDER, exist_ok=True)

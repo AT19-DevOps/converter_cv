@@ -73,6 +73,14 @@
     {
       "name": "Audio Mix Audio",
       "description": "Join two audios"
+    },
+    {
+      "name": "Text Translator",
+      "description": "Translate texts"
+    },
+    {
+      "name": "Get Metadata",
+      "description": "Get metadata from any file"
     }
   ],
   "paths": {
@@ -114,7 +122,7 @@
             }
                 }
       },
-    "/videotoimagee/zip": {
+    "/videotoimage/zip": {
       "post": {
         "tags": [
           "Video to Images"
@@ -125,53 +133,35 @@
         "requestBody": {
           "description": "Please insert the video to convert:",
           "content": {
-
             "multipart/form-data": {
-
               "schema": {
                 "type": "object",
                 "properties": {
                   "input_file": {
                     "type": "string",
                     "format": "binary"
+                  },
+                  "output_file": {
+                    "type": "string",
+                    "example": "png"
+                  },
+                  "fps": {
+                    "type": "string",
+                    "example": "1"
                   }
-
                 }
               }
-
             }
           },
           "required": true
         },
-        "parameters": [
-
-          {
-            "in": "query",
-            "name": "output_file",
-            "schema": {
-              "type": "string",
-              "example": "png"
-            },
-            "description": "Please insert the output type of the image that you prefer:"
-          },
-          {
-            "in": "query",
-            "name": "fps",
-            "schema": {
-              "type": "string",
-              "example": "1"
-            },
-            "description": "Please insert the fps of the inserted video:"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful operation",
             "content": {
-              "image/png": {
+              "multipart/form-data": {
                 "schema": {
-                  "type": "string",
-                  "format": "binary"
+                  "$ref": "#/components/schemas/videotoimages"
                 }
               }
             }
@@ -193,36 +183,24 @@
         "requestBody": {
           "description": "Please insert the video to convert:",
           "content": {
-
             "multipart/form-data": {
-
               "schema": {
                 "type": "object",
                 "properties": {
                   "input_file": {
                     "type": "string",
                     "format": "binary"
+                  },
+                  "output_file": {
+                    "type": "string",
+                    "example": "avi"
                   }
-
                 }
               }
-
             }
           },
           "required": true
         },
-        "parameters": [
-
-          {
-            "in": "query",
-            "name": "output_file",
-            "schema": {
-              "type": "string",
-              "example": "avi"
-            },
-            "description": "Please insert the output type of the video that you prefer:"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -261,6 +239,10 @@
                   "input_file": {
                     "type": "string",
                     "format": "binary"
+                  },
+                  "output_file": {
+                    "type": "string",
+                    "example": "jpg"
                   }
 
                 }
@@ -270,18 +252,6 @@
           },
           "required": true
         },
-        "parameters": [
-
-          {
-            "in": "query",
-            "name": "output_file",
-            "schema": {
-              "type": "string",
-              "example": "jpg"
-            },
-            "description": "Please insert the output type of the image that you prefer:"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -319,6 +289,10 @@
                   "input_file": {
                     "type": "string",
                     "format": "binary"
+                  },
+                  "output_file": {
+                    "type": "string",
+                    "example": "jpg"
                   }
 
                 }
@@ -328,25 +302,13 @@
           },
           "required": true
         },
-        "parameters": [
-
-          {
-            "in": "query",
-            "name": "output_file",
-            "schema": {
-              "type": "string",
-              "example": "jpg"
-            },
-            "description": "Please insert the output type of the flipped image that you prefer:"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful operation",
             "content": {
               "multipart/form-data": {
                 "schema": {
-                  "$ref": "#/components/schemas/imagetoimage"
+                  "$ref": "#/components/schemas/imageflip"
                 }
               }
             }
@@ -378,6 +340,10 @@
                   "input_file": {
                     "type": "string",
                     "format": "binary"
+                  },
+                  "output_file": {
+                    "type": "string",
+                    "example": "jpg"
                   }
 
                 }
@@ -387,25 +353,13 @@
           },
           "required": true
         },
-        "parameters": [
-
-          {
-            "in": "query",
-            "name": "output_file",
-            "schema": {
-              "type": "string",
-              "example": "jpg"
-            },
-            "description": "Please set the preferred output of the black and white image:"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful operation",
             "content": {
               "multipart/form-data": {
                 "schema": {
-                  "$ref": "#/components/schemas/imagetoimage"
+                  "$ref": "#/components/schemas/imagebw"
                 }
               }
             }
@@ -437,6 +391,14 @@
                   "input_file": {
                     "type": "string",
                     "format": "binary"
+                  },
+                  "output_file": {
+                    "type": "string",
+                    "example": "jpg"
+                  },
+                  "new_size": {
+                    "type": "string",
+                    "example": "50"
                   }
 
                 }
@@ -446,34 +408,13 @@
           },
           "required": true
         },
-        "parameters": [
-
-          {
-            "in": "query",
-            "name": "output_file",
-            "schema": {
-              "type": "string",
-              "example": "jpg"
-            },
-            "description": "Please set the preferred output:"
-          },
-          {
-            "in": "query",
-            "name": "new_size",
-            "schema": {
-              "type": "string",
-              "example": "50"
-            },
-            "description": "Please set the preferred size percentage output:"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful operation",
             "content": {
               "multipart/form-data": {
                 "schema": {
-                  "$ref": "#/components/schemas/imagetoimage"
+                  "$ref": "#/components/schemas/imageresize"
                 }
               }
             }
@@ -505,7 +446,15 @@
                     "input_file": {
                       "type": "string",
                       "format": "binary"
-                    }
+                    },
+                    "output_file": {
+                    "type": "string",
+                    "example": "jpg"
+                  },
+                    "grades": {
+                    "type": "string",
+                    "example": "45"
+                  }
   
                   }
                 }
@@ -514,34 +463,13 @@
             },
             "required": true
           },
-          "parameters": [
-  
-            {
-              "in": "query",
-              "name": "output_file",
-              "schema": {
-                "type": "string",
-                "example": "jpg"
-              },
-              "description": "Please set the preferred output of the black and white image:"
-            },
-            {
-              "in": "query",
-              "name": "grades",
-              "schema": {
-                "type": "string",
-                "example": "45"
-              },
-              "description": "Please set the degrees to rotate the image:"
-            }
-          ],
           "responses": {
             "200": {
               "description": "Successful operation",
               "content": {
                 "multipart/form-data": {
                   "schema": {
-                    "$ref": "#/components/schemas/imagetoimage"
+                    "$ref": "#/components/schemas/imagerotate"
                   }
                 }
               }
@@ -573,7 +501,15 @@
                     "input_file": {
                       "type": "string",
                       "format": "binary"
-                    }
+                    },
+                    "output_file": {
+                    "type": "pdf",
+                    "example": "jpg"
+                  },
+                    "lang": {
+                    "type": "string",
+                    "example": "eng"
+                  }
   
                   }
                 }
@@ -582,34 +518,13 @@
             },
             "required": true
           },
-          "parameters": [
-  
-            {
-              "in": "query",
-              "name": "output_file",
-              "schema": {
-                "type": "string",
-                "example": "pdf"
-              },
-              "description": "Please set the preferred output:"
-            },
-            {
-              "in": "query",
-              "name": "lang",
-              "schema": {
-                "type": "string",
-                "example": "eng"
-              },
-              "description": "Please set the language output (default 'eng'):"
-            }
-          ],
           "responses": {
             "200": {
               "description": "Successful operation",
               "content": {
                 "multipart/form-data": {
                   "schema": {
-                    "$ref": "#/components/schemas/imagetoimage"
+                    "$ref": "#/components/schemas/imagetopdf"
                   }
                 }
               }
@@ -641,7 +556,15 @@
                     "input_file": {
                       "type": "string",
                       "format": "binary"
-                    }
+                    },
+                    "output_file": {
+                    "type": "string",
+                    "example": "txt"
+                  },
+                    "lang": {
+                    "type": "string",
+                    "example": "eng"
+                  }
   
                   }
                 }
@@ -677,7 +600,7 @@
               "content": {
                 "multipart/form-data": {
                   "schema": {
-                    "$ref": "#/components/schemas/imagetoimage"
+                    "$ref": "#/components/schemas/imagetotext"
                   }
                 }
               }
@@ -709,7 +632,15 @@
                     "input_file": {
                       "type": "string",
                       "format": "binary"
-                    }
+                    },
+                    "output_file": {
+                    "type": "string",
+                    "example": "jpg"
+                  },
+                    "quality": {
+                    "type": "string",
+                    "example": "50"
+                  }
   
                   }
                 }
@@ -718,34 +649,13 @@
             },
             "required": true
           },
-          "parameters": [
-  
-            {
-              "in": "query",
-              "name": "output_file",
-              "schema": {
-                "type": "string",
-                "example": "jpg"
-              },
-              "description": "Please set the output:"
-            },
-            {
-              "in": "query",
-              "name": "quality",
-              "schema": {
-                "type": "string",
-                "example": "50"
-              },
-              "description": "Please set the quality output:"
-            }
-          ],
           "responses": {
             "200": {
               "description": "Successful operation",
               "content": {
                 "multipart/form-data": {
                   "schema": {
-                    "$ref": "#/components/schemas/imagetoimage"
+                    "$ref": "#/components/schemas/pdftoimages"
                   }
                 }
               }
@@ -777,6 +687,10 @@
                   "input_file": {
                     "type": "string",
                     "format": "binary"
+                  },
+                  "output_file": {
+                    "type": "string",
+                    "example": ".mp3"
                   }
 
                 }
@@ -786,18 +700,6 @@
           },
           "required": true
         },
-        "parameters": [
-
-          {
-            "in": "query",
-            "name": "output_file",
-            "schema": {
-              "type": "string",
-              "example": ".mp3"
-            },
-            "description": "Please insert the output type of the audio file that you prefer:"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -858,6 +760,14 @@
                   "input_file": {
                     "type": "string",
                     "format": "binary"
+                  },
+                  "output_file": {
+                    "type": "string",
+                    "example": ".mp3"
+                  },
+                  "multiplier": {
+                    "type": "string",
+                    "example": "2"
                   }
 
                 }
@@ -867,27 +777,6 @@
           },
           "required": true
         },
-        "parameters": [
-
-          {
-            "in": "query",
-            "name": "output_file",
-            "schema": {
-              "type": "string",
-              "example": "mp3"
-            },
-            "description": "Please insert the output type of the audio file with increased volume that you prefer:"
-          },
-          {
-            "in": "query",
-            "name": "multiplier",
-            "schema": {
-              "type": "string",
-              "example": "2"
-            },
-            "description": "Please insert the multiplier value of the audio output file that you prefer:"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -948,6 +837,10 @@
                   "input_file": {
                     "type": "string",
                     "format": "binary"
+                  },
+                  "output_file": {
+                    "type": "string",
+                    "example": ".mp3"
                   }
 
                 }
@@ -957,17 +850,6 @@
           },
           "required": true
         },
-        "parameters": [
-          {
-            "in": "query",
-            "name": "output_file",
-            "schema": {
-              "type": "string",
-              "example": ".mp3"
-            },
-            "description": "Please insert the output type of the audio file extracted from the video:"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -1009,6 +891,10 @@
                   "input_file_2": {
                     "type": "string",
                     "format": "binary"
+                  },
+                  "output_file": {
+                    "type": "string",
+                    "example": ".mp3"
                   }
                 }
               }
@@ -1017,17 +903,6 @@
           },
           "required": true
         },
-        "parameters": [
-          {
-            "in": "query",
-            "name": "output_file",
-            "schema": {
-              "type": "string",
-              "example": ".mp3"
-            },
-            "description": "Please insert the output name of the audio file obtained from mixing the both audios:"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -1044,7 +919,109 @@
           }
         }
       }
-    }
+    },
+    "/texttranslator": {
+      "post": {
+        "tags": [
+          "Text Translator"
+        ],
+        "summary": "Translate a text",
+        "description": "Text translator",
+        "operationId": "post.text translator",
+        "requestBody": {
+          "description": "Please write a text you want translate:",
+          "content": {
+
+            "multipart/form-data": {
+
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "input_file": {
+                    "type": "string",
+                    "example": "Hello team, today I will be your scrum master"
+                  },
+                  "output_file": {
+                    "type": "string",
+                    "example": "es"
+                  }
+
+                }
+              }
+
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/texttranslator"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid image supplied"
+          }
+        }
+      }
+
+      },
+    "/metadatageter": {
+      "post": {
+        "tags": [
+          "Get Metadata"
+        ],
+        "summary": "Get metadata from a file",
+        "description": "Get metadata from any file",
+        "operationId": "post.metadatageter",
+        "requestBody": {
+          "description": "Please upload a file:",
+          "content": {
+
+            "multipart/form-data": {
+
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "input_file": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "output_file": {
+                    "type": "string",
+                    "example": "json"
+                  }
+
+                }
+              }
+
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/metadatageter"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid image supplied"
+          }
+        }
+      }
+
+      }
   },
 
   "components": {
@@ -1156,7 +1133,7 @@
           }
         }
       },
-      "imageresize": {
+       "imageresize": {
         "required": [
           "input_file",
           "output_file",
@@ -1179,7 +1156,7 @@
           }
         }
       },
-      "imagerotate": {
+       "imagerotate": {
         "required": [
           "input_file",
           "output_file",
@@ -1202,7 +1179,7 @@
           }
         }
       },
-      "imagetopdf": {
+       "imagetopdf": {
         "required": [
           "input_file",
           "output_file",
@@ -1225,7 +1202,7 @@
           }
         }
       },
-      "imagetotext": {
+       "imagetotext": {
         "required": [
           "input_file",
           "output_file",
@@ -1248,7 +1225,7 @@
           }
         }
       },
-      "pdftoimage": {
+       "pdftoimage": {
         "required": [
           "input_file",
           "output_file",
@@ -1271,7 +1248,7 @@
           }
         }
       },
-      "audiotoaudio": {
+       "audiotoaudio": {
          "required": [
            "input_file",
            "output_file"
@@ -1350,6 +1327,41 @@
           "output_file": {
             "type": "string",
             "example": ".mp3"
+          }
+        }
+      },
+       "texttranslator": {
+        "required": [
+          "text",
+          "language"
+        ],
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "example": "hello"
+          },
+          "language": {
+            "type": "string",
+            "example": "es"
+          }
+        }
+      },
+       "metadatageter": {
+        "required": [
+          "input_file",
+          "output_file"
+        ],
+        "type": "object",
+        "properties": {
+          "input_file": {
+            "type": "video.avi",
+            "format": "binary",
+            "example": "CatsandDogs.avi"
+          },
+          "output_file": {
+            "type": "json",
+            "example": "gMD CatsandDogs"
           }
         }
       }
