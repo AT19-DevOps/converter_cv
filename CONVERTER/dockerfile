@@ -1,0 +1,28 @@
+#
+# @dockerfile Copyright (c) 2023 Jalasoft.
+# 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
+# All rights reserved.
+#
+# This software is the confidential and proprietary information of
+# Jalasoft, ("Confidential Information"). You shall not
+# disclose such Confidential Information and shall use it only in
+# accordance with the terms of the license agreement you entered into
+# with Jalasoft.
+#
+
+FROM alpine:3.10
+
+RUN apk add --no-cache python3-dev \
+    && pip3 install --upgrade pip
+
+WORKDIR /CONVERTER
+COPY . /CONVERTER
+
+RUN pip3 install -r AT19_CONVERTER/CONVERTER/requirements.txt
+RUN pip3 install flask-restful==0.3.9
+RUN apk add ffmpeg
+RUN apk --update add imagemagick
+
+
+EXPOSE 5000
+CMD ["python3", "AT19_CONVERTER/CONVERTER/src/com/jalasoft/converter/main.py", "ffmpeg", "libmagickwand"]
