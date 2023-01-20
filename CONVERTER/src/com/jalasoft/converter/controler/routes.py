@@ -44,7 +44,7 @@ API_URL = '/static/swagger.json'
 SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
     SWAGGER_URL,
     API_URL,
-    config={
+    config = {
         'app_name': "Converter"
     }
 )
@@ -75,7 +75,7 @@ class Download(Resource):
     def get(self):
         """Download file"""
         file_name = request.args["file_name"]
-        return send_from_directory(directory=RESPONSE_FOLDER, path=file_name, as_attachment=True)
+        return send_from_directory(directory = RESPONSE_FOLDER, path = file_name, as_attachment = True)
 
 
 class VideoToZipImage(Resource):

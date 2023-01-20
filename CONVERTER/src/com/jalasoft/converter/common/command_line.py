@@ -26,7 +26,7 @@ class Command:
         if platform.system() == 'Linux':
             cmd_line = str(cmd_line).replace('magick', 'convert')
         try:
-            run = subprocess.check_output(cmd_line, shell=True)
+            run = subprocess.check_output(cmd_line, shell = True)
             return run
         except subprocess.CalledProcessError:
             raise Exception('Command line error: Please verify syntax: ', cmd_line)

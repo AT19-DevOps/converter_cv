@@ -35,7 +35,7 @@ from controler.routes import TextTranslate
 from controler.routes import GetMetadata
 
 app = Flask(__name__)
-app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
+app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix = SWAGGER_URL)
 api = Api(app)
 api.add_resource(VideoToZipImage, '/videotoimage/zip')
 api.add_resource(VideoToZip, '/videotoimagee/zip')
@@ -58,4 +58,4 @@ api.add_resource(GetMetadata, "/metadatageter")
 
 print(os.getcwd())
 if __name__ == '__main__':
-    app.run(debug=True, port=5000, host='127.0.0.1')
+    app.run(debug = True, port = 5000, host = '127.0.0.1')

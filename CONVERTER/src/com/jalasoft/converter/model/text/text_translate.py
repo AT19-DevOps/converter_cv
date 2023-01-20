@@ -24,7 +24,7 @@ class TextTranslator(Converter):
         """Translates text into a language given"""
         languages: dict = googletrans.LANGUAGES
         translator = Translator()
-        translated: TextTranslator = translator.translate(self.input_file, dest=self.output_file)
+        translated: TextTranslator = translator.translate(self.input_file, dest = self.output_file)
         translation: dict = {
             "Source language": languages[str(translated.src)].capitalize(),
             "Translation": str(translated.text),
