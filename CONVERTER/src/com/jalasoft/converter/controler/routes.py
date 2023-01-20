@@ -33,6 +33,9 @@ from model import VideoToVideo
 from common import Command
 from common import ZipFiles
 from common import AllowedExtensions
+from config import UPLOAD_FOLDER, RESPONSE_FOLDER
+from model import TextTranslator
+from common import MetadataGeter
 from database.db_commands import CRUD
 
 PATH = "CONVERTER/src/com/jalasoft/converter"
@@ -42,6 +45,7 @@ RESPONSE_FOLDER = os.path.join(PATH, 'responses')
 os.makedirs(UPLOAD_FOLDER,  exist_ok=True)
 os.makedirs(RESPONSE_FOLDER, exist_ok=True)
 print(os.getcwd())
+
 SWAGGER_URL = '/swagger'
 # API_URL = 'src/com/jalasoft/converter/static/swagger.json'
 API_URL = '/static/swagger.json'
@@ -56,11 +60,7 @@ SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
 def validate_inputs(file_prefix):
     """Validates input files and generates a realiable paths"""
     input_file = request.files["input_file"]
-    if request.form:
-        output_file = request.form["output_file"]
-    else:
-        output_file = request.args["output_file"]
-
+    output_file = request.form["output_file"]
     fileOut = '.' + str(output_file) if str(output_file)[0] != '.' else str(output_file)
     if input_file and AllowedExtensions().allowed_extension(input_file.filename):
         filename = secure_filename(input_file.filename)
@@ -91,6 +91,7 @@ class VideoToZipImage(Resource):
     def post(self):
         """Create zip file containing image from video"""
         files = validate_inputs('')
+        print(files)
         if files:
             output_format = str(request.form["output_file"])
             fps = str(request.form["fps"])
@@ -175,7 +176,7 @@ class ImageResizer(Resource):
         files = validate_inputs('imSize-')
         if files:
             file_in, file_out, url = files[0], files[1], files[2]
-            new_size = request.args["new_size"]
+            new_size = request.form["new_size"]
             Command(ImageResize(file_in, file_out, new_size).convert()).run_cmd()
             return url
 
@@ -187,7 +188,7 @@ class ImageRotater(Resource):
         files = validate_inputs('imRot-')
         if files:
             file_in, file_out, url = files[0], files[1], files[2]
-            grades = int(request.args["grades"])
+            grades = int(request.form["grades"])
             Command(ImageRotate(file_in, file_out, grades).convert()).run_cmd()
             return url
 
@@ -199,7 +200,7 @@ class ImageToPdf(Resource):
         files = validate_inputs('imPDF-')
         if files:
             file_in, file_out, url = files[0], files[1].split('.')[0], files[2]
-            lang = request.args["lang"]
+            lang = request.form["lang"]
             Command(ImageToPDFConvert(file_in, file_out, lang).convert()).run_cmd()
             return url
 
@@ -211,7 +212,7 @@ class ImageToText(Resource):
         files = validate_inputs('imTXT-')
         if files:
             file_in, file_out, url = files[0], files[1].split('.')[0], files[2]
-            lang = request.args["lang"]
+            lang = request.form["lang"]
             Command(ImageToTextConvert(file_in, file_out, lang).convert()).run_cmd()
             return url
 
@@ -223,7 +224,7 @@ class PdfToImage(Resource):
         files = validate_inputs('imJpg-')
         if files:
             file_in, file_out, url = files[0], files[1], files[2]
-            quality = request.args["quality"]
+            quality = request.form["quality"]
             Command(PdfImage(file_in, file_out, quality).convert()).run_cmd()
             return url
 
@@ -244,7 +245,7 @@ class IncreaseAudioVolume(Resource):
     def post(self):
         """Increases the audio volume"""
         files = validate_inputs('incVol-')
-        multiplier = request.args["multiplier"]
+        multiplier = request.form["multiplier"]
         if files and multiplier != None:
             file_in, file_out, url = files[0], files[1], files[2]
             Command(IncreaseVolume(file_in, file_out, multiplier).convert()).run_cmd()
@@ -268,7 +269,7 @@ class AudioMixAudio(Resource):
         """Mixes two audios"""
         input_file_1 = request.files["input_file_1"]
         input_file_2 = request.files["input_file_2"]
-        output_file = request.args["output_file"]
+        output_file = request.form["output_file"]
         if (input_file_1 and input_file_2 and AllowedExtensions().allowed_extension(input_file_1.filename)
             and AllowedExtensions().allowed_extension(input_file_2.filename)):
             filename_1 = secure_filename(input_file_1.filename)
@@ -281,4 +282,23 @@ class AudioMixAudio(Resource):
             input_list = [input_audio_1, input_audio_2]
             Command(MixAudio(input_list, RESPONSE_FOLDER + "/" + audio_name).convert()).run_cmd()
             url = 'http://localhost:5000/download?file_name=' + audio_name + output_file
+            return url
+
+class TextTranslate(Resource):
+    """Traslate a text class"""
+    def post(self):
+        """Convert image to black and white image"""
+        input_file = request.form["input_file"]
+        output_file = request.form["output_file"]
+        translation = TextTranslator(input_file, output_file).convert()
+        return translation
+
+class GetMetadata(Resource):
+    """Get Metadata class"""
+    def post(self):
+        """Get Metadata from file"""
+        files = validate_inputs('gMD-')
+        if files:
+            file_in, file_out, url = files[0], files[1], files[2]
+            Command(MetadataGeter(file_in, file_out).convert()).run_cmd()
             return url

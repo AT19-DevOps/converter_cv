@@ -18,7 +18,8 @@ from flask_restful import Api
 from controler.routes import SWAGGERUI_BLUEPRINT
 from controler.routes import Download, VideoToZipImage, VideoToZip, VideoToVid
 from controler.routes import ImageToImage, ImageFlipper, ImageBlackWhite, ImageResizer, ImageRotater, ImageToPdf, ImageToText, PdfToImage
-from controler.routes import VideoToAudio, AudioToAudio, IncreaseAudioVolume, AudioMixAudio
+from controler.routes import VideoToAudio, AudioToAudio, IncreaseAudioVolume, AudioMixAudio, TextTranslate, GetMetadata
+from config import UPLOAD_FOLDER, RESPONSE_FOLDER
 
 app = Flask(__name__)
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
@@ -39,8 +40,9 @@ api.add_resource(VideoToAudio, '/audioextractaudio')
 api.add_resource(AudioToAudio, '/audiotoaudio')
 api.add_resource(IncreaseAudioVolume, '/audioincreasevolume')
 api.add_resource(AudioMixAudio, "/audiomixaudio")
-
+api.add_resource(TextTranslate, "/texttranslator")
+api.add_resource(GetMetadata, "/metadatageter")
 
 print(os.getcwd())
 if __name__ == '__main__':
-    app.run(debug=True, port=5000, host='127.0.0.1')
+    app.run(debug=True, host='0.0.0.0', port=5000)

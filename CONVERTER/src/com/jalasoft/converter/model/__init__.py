@@ -24,3 +24,4 @@ from model.image.image_to_text import ImageToTextConvert
 from model.image.pdf_to_image import PdfImage
 from model.video.vconverter import VideoToImages
 from model.video.video_to_video import VideoToVideo
+from model.text.text_translate import TextTranslator

@@ -1,5 +1,5 @@
 #
-# @image_to_text_converter.py Copyright (c) 2021 Jalasoft.
+# @get_metadata.py Copyright (c) 2021 Jalasoft.
 # 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
 # # All rights reserved.
 #
@@ -19,7 +19,8 @@ class MetadataGeter(Converter):
         super().__init__(input_file, output_file)
 
     def convert(self) -> list:
-        """Converts an image with text in a text file"""
-        command_line = ['exiftool', '-lang es -t', f'{self.input_file}', '>', f'{self.output_file}']
+        """Describes the content of the files"""
+        command_line = ['exiftool', '-json', f'{self.input_file}', '>',
+                        f'{self.output_file}']
         return " ".join(command_line)
-        
+
