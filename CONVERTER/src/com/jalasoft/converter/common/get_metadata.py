@@ -1,5 +1,5 @@
 #
-# @get_metadata.py Copyright (c) 2021 Jalasoft.
+# @get_metadata.py Copyright (c) 2023 Jalasoft.
 # 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
 # # All rights reserved.
 #
