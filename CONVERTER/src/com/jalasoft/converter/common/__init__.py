@@ -14,3 +14,5 @@
 from common.allowed_files import AllowedExtensions
 from common.zip_file import ZipFiles
 from common.command_line import Command
+from common.get_metadata import MetadataGeter
+

@@ -34,6 +34,8 @@ from common import Command
 from common import ZipFiles
 from common import AllowedExtensions
 from config import UPLOAD_FOLDER, RESPONSE_FOLDER
+from model import TextTranslator
+from common import MetadataGeter
 
 
 SWAGGER_URL = '/swagger'
@@ -271,4 +273,23 @@ class AudioMixAudio(Resource):
             input_list = [input_audio_1, input_audio_2]
             Command(MixAudio(input_list, RESPONSE_FOLDER + "/" + audio_name).convert()).run_cmd()
             url = 'http://localhost:5000/download?file_name=' + audio_name + output_file
+            return url
+
+class TextTranslate(Resource):
+    """Traslate a text class"""
+    def post(self):
+        """Convert image to black and white image"""
+        input_file = request.form["input_file"]
+        output_file = request.form["output_file"]
+        translation = TextTranslator(input_file, output_file).convert()
+        return translation
+
+class GetMetadata(Resource):
+    """Get Metadata class"""
+    def post(self):
+        """Get Metadata from file"""
+        files = validate_inputs('gMD-')
+        if files:
+            file_in, file_out, url = files[0], files[1], files[2]
+            Command(MetadataGeter(file_in, file_out).convert()).run_cmd()
             return url

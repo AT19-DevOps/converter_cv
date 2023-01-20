@@ -73,6 +73,14 @@
     {
       "name": "Audio Mix Audio",
       "description": "Join two audios"
+    },
+    {
+      "name": "Text Translator",
+      "description": "Translate texts"
+    },
+    {
+      "name": "Get Metadata",
+      "description": "Get metadata from any file"
     }
   ],
   "paths": {
@@ -911,7 +919,109 @@
           }
         }
       }
-    }
+    },
+    "/texttranslator": {
+      "post": {
+        "tags": [
+          "Text Translator"
+        ],
+        "summary": "Translate a text",
+        "description": "Text translator",
+        "operationId": "post.text translator",
+        "requestBody": {
+          "description": "Please write a text you want translate:",
+          "content": {
+
+            "multipart/form-data": {
+
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "input_file": {
+                    "type": "string",
+                    "example": "Hello team, today I will be your scrum master"
+                  },
+                  "output_file": {
+                    "type": "string",
+                    "example": "es"
+                  }
+
+                }
+              }
+
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/texttranslator"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid image supplied"
+          }
+        }
+      }
+
+      },
+    "/metadatageter": {
+      "post": {
+        "tags": [
+          "Get Metadata"
+        ],
+        "summary": "Get metadata from a file",
+        "description": "Get metadata from any file",
+        "operationId": "post.metadatageter",
+        "requestBody": {
+          "description": "Please upload a file:",
+          "content": {
+
+            "multipart/form-data": {
+
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "input_file": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "output_file": {
+                    "type": "string",
+                    "example": "json"
+                  }
+
+                }
+              }
+
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/metadatageter"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid image supplied"
+          }
+        }
+      }
+
+      }
   },
 
   "components": {
@@ -1217,6 +1327,41 @@
           "output_file": {
             "type": "string",
             "example": ".mp3"
+          }
+        }
+      },
+       "texttranslator": {
+        "required": [
+          "text",
+          "language"
+        ],
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "example": "hello"
+          },
+          "language": {
+            "type": "string",
+            "example": "es"
+          }
+        }
+      },
+       "metadatageter": {
+        "required": [
+          "input_file",
+          "output_file"
+        ],
+        "type": "object",
+        "properties": {
+          "input_file": {
+            "type": "video.avi",
+            "format": "binary",
+            "example": "CatsandDogs.avi"
+          },
+          "output_file": {
+            "type": "json",
+            "example": "gMD CatsandDogs"
           }
         }
       }
