@@ -1,5 +1,5 @@
 #
-# @text_translate.py Copyright (c) 2022 Jalasoft.
+# @text_translate.py Copyright (c) 2023 Jalasoft.
 # 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
 # All rights reserved.
 #
@@ -9,6 +9,7 @@
 # accordance with the terms of the license agreement you entered into
 # with Jalasoft.
 #
+
 import googletrans
 from googletrans import Translator
 from model.converter import Converter

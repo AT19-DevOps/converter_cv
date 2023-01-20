@@ -1,5 +1,5 @@
 #
-# @main.py Copyright (c) 2022 Jalasoft.
+# @main.py Copyright (c) 2023 Jalasoft.
 # 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
 # All rights reserved.
 #
@@ -9,17 +9,30 @@
 # accordance with the terms of the license agreement you entered into
 # with Jalasoft.
 #
-#ROLE = DEV
+
 import os
 from flask import Flask
-from flask_restful import Api
 from controler.routes import SWAGGER_URL
 from flask_restful import Api
 from controler.routes import SWAGGERUI_BLUEPRINT
-from controler.routes import Download, VideoToZipImage, VideoToZip, VideoToVid
-from controler.routes import ImageToImage, ImageFlipper, ImageBlackWhite, ImageResizer, ImageRotater, ImageToPdf, ImageToText, PdfToImage
-from controler.routes import VideoToAudio, AudioToAudio, IncreaseAudioVolume, AudioMixAudio, TextTranslate, GetMetadata
-from config import UPLOAD_FOLDER, RESPONSE_FOLDER
+from controler.routes import Download
+from controler.routes import VideoToZipImage
+from controler.routes import VideoToZip
+from controler.routes import VideoToVid
+from controler.routes import ImageToImage
+from controler.routes import ImageFlipper
+from controler.routes import ImageBlackWhite
+from controler.routes import ImageResizer
+from controler.routes import ImageRotater
+from controler.routes import ImageToPdf
+from controler.routes import ImageToText
+from controler.routes import PdfToImage
+from controler.routes import VideoToAudio
+from controler.routes import AudioToAudio
+from controler.routes import IncreaseAudioVolume
+from controler.routes import AudioMixAudio
+from controler.routes import TextTranslate
+from controler.routes import GetMetadata
 
 app = Flask(__name__)
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
