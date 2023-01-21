@@ -1,5 +1,5 @@
 #
-# @routes.py Copyright (c) 2022 Jalasoft.
+# @routes.py Copyright (c) 2023 Jalasoft.
 # 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
 # All rights reserved.
 #
@@ -33,7 +33,7 @@ from model import VideoToVideo
 from common import Command
 from common import ZipFiles
 from common import AllowedExtensions
-from config import UPLOAD_FOLDER, RESPONSE_FOLDER
+from controler.config import UPLOAD_FOLDER, RESPONSE_FOLDER
 from model import TextTranslator
 from common import MetadataGeter
 from database.db_commands import CRUD
@@ -50,30 +50,30 @@ API_URL = '/static/swagger.json'
 SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
     SWAGGER_URL,
     API_URL,
-    config={
+    config = {
         'app_name': "Converter"
     }
 )
 
 def validate_inputs(file_prefix):
-    """Validates input files and generates a realiable paths"""
+    """Validates input files and generates a reliable paths"""
     input_file = request.files["input_file"]
     output_file = request.form["output_file"]
-    fileOut = '.' + str(output_file) if str(output_file)[0] != '.' else str(output_file)
+    out_file = '.' + str(output_file) if str(output_file)[0] != '.' else str(output_file)
     if input_file and AllowedExtensions().allowed_extension(input_file.filename):
         filename = secure_filename(input_file.filename)
-        input_file.save(os.path.join(UPLOAD_FOLDER, filename))
-        fileIn = os.path.join(UPLOAD_FOLDER, filename)
         checksum = 1
         CRUD.insert_data(filename, checksum, os.path.join(UPLOAD_FOLDER, filename))
+        input_file.save(os.path.join(UPLOAD_FOLDER, filename))
         if file_prefix == 'imJpg-':
-            fileOut = file_prefix + filename.split('.')[0] + '-%4d' + str(fileOut)
+            out_file = file_prefix + filename.split('.')[0] + '-%4d' + str(out_file)
         else:
-            fileOut = file_prefix + filename.split('.')[0] + str(fileOut)
-        url = 'http://localhost:5000/download?file_name=' + os.path.basename(fileOut)
-        fileOut = os.path.join(RESPONSE_FOLDER, fileOut)
-        return [fileIn, fileOut, url]
-    else: raise FileNotFoundError('ConverterError: Invalid input file')
+            out_file = file_prefix + filename.split('.')[0] + str(out_file)
+        url = 'http://localhost:5000/download?file_name=' + os.path.basename(out_file)
+        out_file = os.path.join(RESPONSE_FOLDER, out_file)
+        return [in_file, out_file, url]
+    else:
+        raise FileNotFoundError('ConverterError: Invalid input file')
 
 
 class Download(Resource):
@@ -81,7 +81,7 @@ class Download(Resource):
     def get(self):
         """Download file"""
         file_name = request.args["file_name"]
-        return send_from_directory(directory=RESPONSE_FOLDER, path=file_name, as_attachment=True)
+        return send_from_directory(directory = RESPONSE_FOLDER, path = file_name, as_attachment = True)
 
 
 class VideoToZipImage(Resource):
@@ -282,19 +282,21 @@ class AudioMixAudio(Resource):
             url = 'http://localhost:5000/download?file_name=' + audio_name + output_file
             return url
 
+
 class TextTranslate(Resource):
-    """Traslate a text class"""
+    """Translate a text class"""
     def post(self):
-        """Convert image to black and white image"""
+        """Translate text into a given language endpoint"""
         input_file = request.form["input_file"]
         output_file = request.form["output_file"]
         translation = TextTranslator(input_file, output_file).convert()
         return translation
 
+
 class GetMetadata(Resource):
     """Get Metadata class"""
     def post(self):
-        """Get Metadata from file"""
+        """Get Metadata from a file"""
         files = validate_inputs('gMD-')
         if files:
             file_in, file_out, url = files[0], files[1], files[2]
