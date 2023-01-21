@@ -1,5 +1,5 @@
 #
-# @db_commands.py Copyright (c) 2022 Jalasoft.
+# @db_commands.py Copyright (c) 2023 Jalasoft.
 # 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
 #
 # All rights reserved.
@@ -14,7 +14,7 @@
 
 from database.database_connection import DatabaseConnection as db
 
-mycursor = db.conexion.cursor()
+my_Cursor = db.conexion.cursor()
 
 class CRUD:
     """"Defines Create, Read, Update and Delete functions"""
@@ -22,25 +22,25 @@ class CRUD:
     def create_table(tablename):
         """Creates a table"""
 
-        with mycursor:
-            mycursor.execute("""SELECT COUNT(*) FROM information_schema.tables WHERE table_name = '{0}' """.format(tablename.replace('\'', '\'\'')))
-            if mycursor.fetchone()[0] == 1:
+        with my_Cursor:
+            my_Cursor.execute("""SELECT COUNT(*) FROM information_schema.tables WHERE table_name = '{0}' """.format(tablename.replace('\'', '\'\'')))
+            if my_Cursor.fetchone()[0] == 1:
                 print("Table already created")
                 return
-            mycursor.execute("CREATE TABLE "+tablename+" (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(50), checksum VARCHAR(255), route VARCHAR(155))")
+            my_Cursor.execute("CREATE TABLE "+tablename+" (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(50), checksum VARCHAR(255), route VARCHAR(155))")
             print("Table created")
             return
 
     def check_table_exists(tablename):
         """Checks if table exists"""
 
-        mycursor.execute("""
+        my_Cursor.execute("""
             SELECT COUNT(*)
             FROM information_schema.tables
             WHERE table_name = '{0}'
             """.format(tablename.replace('\'', '\'\'')))
-        if mycursor.fetchone()[0] == 1:
-            mycursor.close()
+        if my_Cursor.fetchone()[0] == 1:
+            my_Cursor.close()
             return True
         return False
     
@@ -48,15 +48,15 @@ class CRUD:
         """Inserts data"""
       
         query = "INSERT INTO media (name, checksum, route) VALUES (%s, %s, %s)"    
-        mycursor.execute(query, (name, checksum, route))
+        my_Cursor.execute(query, (name, checksum, route))
         print("Data inserted")
     
     def read_all_data():
         """Reads all data"""
     
         query = "SELECT name, checksum, route FROM media"
-        mycursor.execute(query)
-        datos = mycursor.fetchall()
+        my_Cursor.execute(query)
+        datos = my_Cursor.fetchall()
         for dato in datos:
             print(dato)
         print("Data read")
@@ -65,17 +65,17 @@ class CRUD:
         """Reads data searching by its name"""
     
         query = "SELECT name, checksum, route FROM person WHERE name = %s"    
-        mycursor.execute(query,(name))
-        datos = mycursor.fetchall()
+        my_Cursor.execute(query, (name))
+        datos = my_Cursor.fetchall()
         for dato in datos:
             print(dato)
         print("Data read")
 
-    def update_data(newName,id):
+    def update_data(newName, id):
         """Updates data"""
 
         query = "UPDATE media SET name = %s  WHERE id = %s"
-        mycursor.execute(query, (newName, id))
+        my_Cursor.execute(query, (newName, id))
         print("Data updated")
 
 
@@ -83,5 +83,5 @@ class CRUD:
         """Deletes data"""
  
         query = "DELETE FROM media WHERE id = %s"
-        mycursor.execute(query, (id))
+        my_Cursor.execute(query, (id))
         print("Data deleted")

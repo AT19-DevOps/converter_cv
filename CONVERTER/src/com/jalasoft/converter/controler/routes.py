@@ -42,12 +42,10 @@ PATH = "CONVERTER/src/com/jalasoft/converter"
 PATH = os.path.join(PATH, 'workdir')
 UPLOAD_FOLDER = os.path.join(PATH, 'uploads')
 RESPONSE_FOLDER = os.path.join(PATH, 'responses')
-os.makedirs(UPLOAD_FOLDER,  exist_ok=True)
-os.makedirs(RESPONSE_FOLDER, exist_ok=True)
-print(os.getcwd())
+os.makedirs(UPLOAD_FOLDER,  exist_ok = True)
+os.makedirs(RESPONSE_FOLDER, exist_ok = True)
 
 SWAGGER_URL = '/swagger'
-# API_URL = 'src/com/jalasoft/converter/static/swagger.json'
 API_URL = '/static/swagger.json'
 SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
     SWAGGER_URL,
