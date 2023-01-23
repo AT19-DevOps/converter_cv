@@ -36,10 +36,16 @@ from common import AllowedExtensions
 from controler.config import UPLOAD_FOLDER, RESPONSE_FOLDER
 from model import TextTranslator
 from common import MetadataGeter
+from database.db_commands import CRUD
 
+PATH = "CONVERTER/src/com/jalasoft/converter"
+PATH = os.path.join(PATH, 'workdir')
+UPLOAD_FOLDER = os.path.join(PATH, 'uploads')
+RESPONSE_FOLDER = os.path.join(PATH, 'responses')
+os.makedirs(UPLOAD_FOLDER,  exist_ok = True)
+os.makedirs(RESPONSE_FOLDER, exist_ok = True)
 
 SWAGGER_URL = '/swagger'
-# API_URL = 'src/com/jalasoft/converter/static/swagger.json'
 API_URL = '/static/swagger.json'
 SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
     SWAGGER_URL,
@@ -56,9 +62,9 @@ def validate_inputs(file_prefix):
     out_file = '.' + str(output_file) if str(output_file)[0] != '.' else str(output_file)
     if input_file and AllowedExtensions().allowed_extension(input_file.filename):
         filename = secure_filename(input_file.filename)
+        checksum = 1
+        CRUD.insert_data(filename, checksum, os.path.join(UPLOAD_FOLDER, filename))
         input_file.save(os.path.join(UPLOAD_FOLDER, filename))
-        in_file = os.path.join(UPLOAD_FOLDER, filename)
-
         if file_prefix == 'imJpg-':
             out_file = file_prefix + filename.split('.')[0] + '-%4d' + str(out_file)
         else:
