@@ -38,12 +38,6 @@ from model import TextTranslator
 from common import MetadataGeter
 from database.db_commands import CRUD
 
-PATH = "CONVERTER/src/com/jalasoft/converter"
-PATH = os.path.join(PATH, 'workdir')
-UPLOAD_FOLDER = os.path.join(PATH, 'uploads')
-RESPONSE_FOLDER = os.path.join(PATH, 'responses')
-os.makedirs(UPLOAD_FOLDER,  exist_ok = True)
-os.makedirs(RESPONSE_FOLDER, exist_ok = True)
 
 SWAGGER_URL = '/swagger'
 API_URL = '/static/swagger.json'
@@ -65,6 +59,7 @@ def validate_inputs(file_prefix):
         checksum = 1
         CRUD.insert_data(filename, checksum, os.path.join(UPLOAD_FOLDER, filename))
         input_file.save(os.path.join(UPLOAD_FOLDER, filename))
+        in_file = os.path.join(UPLOAD_FOLDER, filename)
         if file_prefix == 'imJpg-':
             out_file = file_prefix + filename.split('.')[0] + '-%4d' + str(out_file)
         else:
