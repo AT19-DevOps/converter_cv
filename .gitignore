@@ -6,9 +6,6 @@ __pycache__/
 venv_conv/*
 workdir
 *.pdf
-*.jp*
-*.mp*
-*.png
 *.wav
 *.exe
 *copy*.*

@@ -1,5 +1,5 @@
 #
-# @image_resize.py Copyright (c) 2022 Jalasoft.
+# @image_resize.py Copyright (c) 2023 Jalasoft.
 # 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
 # # All rights reserved.
 #
@@ -10,7 +10,9 @@
 # with Jalasoft.
 #
 
-from model.converter import Converter
+from CONVERTER.src.com.jalasoft.converter.model.converter import Converter
+from CONVERTER.src.com.jalasoft.converter.common.exception.converter_exception import ConverterException
+from CONVERTER.src.com.jalasoft.converter.common.valid_data import Validations
 
 
 class ImageResize(Converter):
@@ -19,7 +21,16 @@ class ImageResize(Converter):
         super().__init__(input_file, output_file)
         self.new_size = new_size
 
-    def convert(self) -> list:
+    def convert(self) -> str:
         """ Resizes image to a given % or values, returns the command line"""
-        command_line = ['magick', f'{self.input_file}', '-resize', f'{self.new_size}', f'{self.output_file}']
-        return " ".join(command_line)
+        Validations().validate_directory(self.input_file, 'imaReima-')
+        Validations().validate_input(self.input_file, 'imaReima-')
+        Validations().validate_output(self.output_file, 'imaReima-')
+        Validations().validate_multiplier(self.new_size, 'imaReima-')
+        Validations().validate_directory(self.output_file, 'imaReima-')
+        try:
+            command_line = ['magick', f'{self.input_file}', '-resize', f'{self.new_size}', f'{self.output_file}']
+            return " ".join(command_line)
+        except Exception as error:
+            raise ConverterException('Create Image Resize command error')
+

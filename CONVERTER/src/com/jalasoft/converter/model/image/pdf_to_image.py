@@ -1,5 +1,5 @@
 #
-# @pdf_to_image.py Copyright (c) 2021 Jalasoft.
+# @pdf_to_image.py Copyright (c) 2023 Jalasoft.
 # 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
 # # All rights reserved.
 #
@@ -10,7 +10,7 @@
 # with Jalasoft.
 #
 
-from model.converter import Converter
+from CONVERTER.src.com.jalasoft.converter.model.converter import Converter
 
 
 class PdfImage(Converter):
@@ -20,7 +20,7 @@ class PdfImage(Converter):
         super().__init__(input_file, output_file)
         self.quality = quality
 
-    def convert(self) -> list:
+    def convert(self) -> str:
         """Converts all pages of PDF to images, return the command line"""
         command_line = ['convert', '-density', '150', '-antialias', f'{self.input_file}', '-resize', '1024x', '-quality', f'{self.quality}', f'{self.output_file}']
         return " ".join(command_line)

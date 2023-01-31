@@ -11,7 +11,7 @@
 # with Jalasoft.
 #
 
-from model.converter import Converter
+from CONVERTER.src.com.jalasoft.converter.model.converter import Converter
 
 
 class VideoToVideo(Converter):

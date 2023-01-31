@@ -1,5 +1,5 @@
 #
-# @audio_mix_audio.py Copyright (c) 2022 Jalasoft.
+# @audio_mix_audio.py Copyright (c) 2023 Jalasoft.
 # 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
 # All rights reserved.
 #
@@ -10,7 +10,7 @@
 # with Jalasoft.
 #
 
-from model.converter import Converter
+from CONVERTER.src.com.jalasoft.converter.model.converter import Converter
 
 
 class MixAudio(Converter):
@@ -19,7 +19,7 @@ class MixAudio(Converter):
         super().__init__(input_file, output_file)
 
     def convert(self):
-        list=['ffmpeg']
+        list = ['ffmpeg']
         for element in self.input_file:
             list.append(' -i ' + element)
         list.append(' -filter_complex amerge '+self.output_file)

@@ -1,5 +1,5 @@
 #
-# @command_line.py Copyright (c) 2022 Jalasoft.
+# @command_line.py Copyright (c) 2023 Jalasoft.
 # 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
 #
 # All rights reserved.
@@ -14,21 +14,22 @@
 import subprocess
 import platform
 
+from CONVERTER.src.com.jalasoft.converter.common.exception.command_exception import CommandException
+
 
 class Command:
     """Defines Command class criteria"""
+
     def __init__(self, cmd):
         self.cmd = cmd
 
     def run_cmd(self):
         """Executes the command given"""
-        cmd_line = self.cmd
-        if platform.system() == 'Linux':
-            cmd_line = str(cmd_line).replace('magick', 'convert')
         try:
+            cmd_line = self.cmd
+            if platform.system() == 'Linux':
+                cmd_line = str(cmd_line).replace('magick', 'convert')
             run = subprocess.check_output(cmd_line, shell = True)
             return run
-        except subprocess.CalledProcessError:
-            raise Exception('Command line error: Please verify syntax: ', cmd_line)
-        except:
-            raise Exception('Command line error: Invalid parameters', cmd_line)
+        except Exception as error:
+            raise CommandException('Error executing the command in console')

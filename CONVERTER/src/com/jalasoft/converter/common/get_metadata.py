@@ -10,15 +10,15 @@
 # with Jalasoft.
 #
 
-from model.converter import Converter
+from CONVERTER.src.com.jalasoft.converter.model.converter import Converter
 
 
-class MetadataGeter(Converter):
+class MetadataGetter(Converter):
     """ Inherits Converter criteria"""
     def __init__(self, input_file, output_file):
         super().__init__(input_file, output_file)
 
-    def convert(self) -> list:
+    def convert(self) -> str:
         """Describes the content of the files"""
         command_line = ['exiftool', '-json', f'{self.input_file}', '>',
                         f'{self.output_file}']

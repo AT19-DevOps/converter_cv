@@ -1,5 +1,5 @@
 #
-# @image_rotate.py Copyright (c) 2022 Jalasoft.
+# @image_rotate.py Copyright (c) 2023 Jalasoft.
 # 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
 # # All rights reserved.
 #
@@ -10,7 +10,9 @@
 # with Jalasoft.
 #
 
-from model.converter import Converter
+from CONVERTER.src.com.jalasoft.converter.model.converter import Converter
+from CONVERTER.src.com.jalasoft.converter.common.exception.converter_exception import ConverterException
+from CONVERTER.src.com.jalasoft.converter.common.valid_data import Validations
 
 
 class ImageRotate(Converter):
@@ -21,5 +23,13 @@ class ImageRotate(Converter):
 
     def convert(self) -> list:
         """Rotates image clockwise for a given value, returns the command line"""
-        command_line = ['magick', f'{self.input_file}', '-rotate', f'{self.grades}', f'{self.output_file}']
-        return " ".join(command_line)
+        Validations().validate_directory(self.input_file, 'imaRoima-')
+        Validations().validate_input(self.input_file, 'imaRoima-')
+        Validations().validate_output(self.output_file, 'imaRoima-')
+        Validations().validate_multiplier(self.grades, 'imaRoima-')
+        Validations().validate_directory(self.output_file, 'imaRoima-')
+        try:
+            command_line = ['magick', f'{self.input_file}', '-rotate', f'{self.grades}', f'{self.output_file}']
+            return " ".join(command_line)
+        except Exception as error:
+            raise ConverterException('Create Image Rotate command error')

@@ -12,24 +12,25 @@
 #
 
 
-from database.database_connection import DatabaseConnection as db
+from CONVERTER.src.com.jalasoft.converter.database.database_connection import DatabaseConnection as db
 
 my_Cursor = db.conexion.cursor()
+
 
 class CRUD:
     """"Defines Create, Read, Update and Delete functions"""
 
     def create_table(tablename):
         """Creates a table"""
-
-        with my_Cursor:
-            my_Cursor.execute("""SELECT COUNT(*) FROM information_schema.tables WHERE table_name = '{0}' """.format(tablename.replace('\'', '\'\'')))
-            if my_Cursor.fetchone()[0] == 1:
-                print("Table already created")
-                return
-            my_Cursor.execute("CREATE TABLE "+tablename+" (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(50), checksum VARCHAR(255), route VARCHAR(155))")
-            print("Table created")
+        my_Cursor.execute("""SELECT COUNT(*) FROM information_schema.tables WHERE table_name = '{0}' """.format(
+            tablename.replace('\'', '\'\'')))
+        if my_Cursor.fetchone()[0] == 1:
+            print("Table already created")
             return
+        my_Cursor.execute(
+            "CREATE TABLE " + tablename + " (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(50), checksum VARCHAR(255), route VARCHAR(155))")
+        print("Table created")
+        return
 
     def check_table_exists(tablename):
         """Checks if table exists"""
@@ -43,17 +44,17 @@ class CRUD:
             my_Cursor.close()
             return True
         return False
-    
-    def insert_data( name, checksum, route):
+
+    def insert_data(name, checksum, route):
         """Inserts data"""
-      
-        query = "INSERT INTO media (name, checksum, route) VALUES (%s, %s, %s)"    
+
+        query = "INSERT INTO media (name, checksum, route) VALUES (%s, %s, %s)"
         my_Cursor.execute(query, (name, checksum, route))
         print("Data inserted")
-    
+
     def read_all_data():
         """Reads all data"""
-    
+
         query = "SELECT name, checksum, route FROM media"
         my_Cursor.execute(query)
         datos = my_Cursor.fetchall()
@@ -63,8 +64,8 @@ class CRUD:
 
     def read_specific_data(name):
         """Reads data searching by its name"""
-    
-        query = "SELECT name, checksum, route FROM person WHERE name = %s"    
+
+        query = "SELECT name, checksum, route FROM person WHERE name = %s"
         my_Cursor.execute(query, (name))
         datos = my_Cursor.fetchall()
         for dato in datos:
@@ -78,10 +79,9 @@ class CRUD:
         my_Cursor.execute(query, (newName, id))
         print("Data updated")
 
-
     def delete_data(id):
         """Deletes data"""
- 
+
         query = "DELETE FROM media WHERE id = %s"
         my_Cursor.execute(query, (id))
         print("Data deleted")

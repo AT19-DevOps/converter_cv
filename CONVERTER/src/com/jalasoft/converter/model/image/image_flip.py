@@ -1,5 +1,5 @@
 #
-# @image_flip.py Copyright (c) 2022 Jalasoft.
+# @image_flip.py Copyright (c) 2023 Jalasoft.
 # 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
 # # All rights reserved.
 #
@@ -10,7 +10,9 @@
 # with Jalasoft.
 #
 
-from model.converter import Converter
+from CONVERTER.src.com.jalasoft.converter.model.converter import Converter
+from CONVERTER.src.com.jalasoft.converter.common.exception.converter_exception import ConverterException
+from CONVERTER.src.com.jalasoft.converter.common.valid_data import Validations
 
 
 class ImageFlip(Converter):
@@ -18,7 +20,14 @@ class ImageFlip(Converter):
     def __init__(self, input_file, output_file):
         super().__init__(input_file, output_file)
 
-    def convert(self) -> list:
+    def convert(self) -> str:
         """Flips image horizontally, returns the command line"""
-        command_line = ['magick', f'{self.input_file}', '-flip', f'{self.output_file}']
-        return " ".join(command_line)
+        Validations().validate_directory(self.input_file, 'imaFlima-')
+        Validations().validate_input(self.input_file, 'imaFlima-')
+        Validations().validate_output(self.output_file, 'imaFlima-')
+        Validations().validate_directory(self.output_file, 'imaFlima-')
+        try:
+            command_line = ['magick', f'{self.input_file}', '-flip', f'{self.output_file}']
+            return " ".join(command_line)
+        except Exception as error:
+            raise ConverterException('Create Image Flip command error')

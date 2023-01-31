@@ -10,31 +10,29 @@
 # with Jalasoft.
 #
 
-import os
-from flask import Flask
 
+from flask import Flask
 from CONVERTER.src.com.jalasoft.converter.database.db_commands import CRUD
 from controler.routes import SWAGGER_URL
 from flask_restful import Api
 from controler.routes import SWAGGERUI_BLUEPRINT
-from controler.routes import Download
-from controler.routes import VideoToZipImage
-from controler.routes import VideoToZip
-from controler.routes import VideoToVid
-from controler.routes import ImageToImage
-from controler.routes import ImageFlipper
-from controler.routes import ImageBlackWhite
-from controler.routes import ImageResizer
-from controler.routes import ImageRotater
-from controler.routes import ImageToPdf
-from controler.routes import ImageToText
-from controler.routes import PdfToImage
-from controler.routes import VideoToAudio
-from controler.routes import AudioToAudio
-from controler.routes import IncreaseAudioVolume
-from controler.routes import AudioMixAudio
-from controler.routes import TextTranslate
-from controler.routes import GetMetadata
+from controler.endpoints.ep_download import Download
+from controler.endpoints.ep_video_to_zip_image import VideoToZipImage
+from controler.endpoints.ep_video_to_zip import VideoToZip
+from controler.endpoints.ep_video_to_video import VideoToVid
+from controler.endpoints.ep_image_to_image import ImageToImage
+from controler.endpoints.ep_image_flipper import ImageFlipper
+from controler.endpoints.ep_image_bw import ImageBlackWhite
+from controler.endpoints.ep_image_resizer import ImageResizer
+from controler.endpoints.ep_image_rotater import ImageRotater
+from controler.endpoints.ep_image_to_text import ImageToText
+from controler.endpoints.ep_pdf_to_image import PdfToImage
+from controler.endpoints.ep_video_to_audio import VideoToAudio
+from controler.endpoints.ep_audio_to_audio import AudioToAudio
+from controler.endpoints.ep_incrase_audio_volume import IncreaseAudioVolume
+from controler.endpoints.ep_audio_mix_audio import AudioMixAudio
+from controler.endpoints.ep_text_translate import TextTranslate
+from controler.endpoints.ep_get_metadata import GetMetadata
 
 app = Flask(__name__)
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix = SWAGGER_URL)
@@ -50,8 +48,7 @@ api.add_resource(ImageFlipper, '/imageflip')
 api.add_resource(ImageBlackWhite, '/imagebw')
 api.add_resource(ImageResizer, '/imageresize')
 api.add_resource(ImageRotater, '/imagerotate')
-api.add_resource(ImageToPdf, '/imagetopdf')
-api.add_resource(ImageToText, '/imagetotext')
+api.add_resource(ImageToText, '/imagetopdf')
 api.add_resource(PdfToImage, '/pdftoimage')
 api.add_resource(Download, '/download')
 api.add_resource(VideoToAudio, '/audioextractaudio')
@@ -62,7 +59,5 @@ api.add_resource(TextTranslate, "/texttranslator")
 api.add_resource(GetMetadata, "/metadatageter")
 
 
-
-print(os.getcwd())
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host = '0.0.0.0', port = 5000)

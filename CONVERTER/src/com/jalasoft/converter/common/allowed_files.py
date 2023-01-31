@@ -9,15 +9,18 @@
 # accordance with the terms of the license agreement you entered into
 # with Jalasoft.
 #
-
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'mp4', 'avi', "mp3", "opus", "wav", "mov"}
+from CONVERTER.src.com.jalasoft.converter.common.exception.input_exception import InvalidInputException
 
 
 class AllowedExtensions:
     """Defines Allowed extensions criteria"""
-    def allowed_extension(self, file):
-        """Check if the extension file is allowed"""
-        file_check = file.split('.')
-        if file_check[1] in ALLOWED_EXTENSIONS:
-            return True
-        return False
+
+    def validate_extension(self, file_name):
+        """Check if the input is empty"""
+        if file_name is None:
+            raise InvalidInputException("Invalid input: the input should not be None type")
+        if not file_name:
+            raise InvalidInputException("Invalid input: the input is empty")
+        if type(file_name) != str:
+            raise InvalidInputException("Invalid input: the input must be string ")
+        return True
