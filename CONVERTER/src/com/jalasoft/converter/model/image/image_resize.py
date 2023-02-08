@@ -26,7 +26,7 @@ class ImageResize(Converter):
         Validations().validate_directory(self.input_file, 'imaReima-')
         Validations().validate_input(self.input_file, 'imaReima-')
         Validations().validate_output(self.output_file, 'imaReima-')
-        Validations().validate_multiplier(self.new_size, 'imaReima-')
+        Validations().validate_multiplier_str(self.new_size, 'imaReima-')
         Validations().validate_directory(self.output_file, 'imaReima-')
         try:
             command_line = ['magick', f'{self.input_file}', '-resize', f'{self.new_size}', f'{self.output_file}']

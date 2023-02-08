@@ -19,7 +19,7 @@ class TestImageConverter(unittest.TestCase):
     """Defines unit tests for image_to_images.py module"""
     def test_image_to_image_valid_data(self):
         """Test the happy path"""
-        image_converter = ImageConverter(r'..\..\..\resources2\Image.png', r'..\..\..\resources\Image.jpg')
+        image_converter = ImageConverter(r'..\..\..\resources\Image.png', r'..\..\..\resources\Image.jpg')
         expected = r'magick ..\..\..\resources\Image.png ..\..\..\resources\Image.jpg'
         self.assertEqual(expected, image_converter.convert())
 

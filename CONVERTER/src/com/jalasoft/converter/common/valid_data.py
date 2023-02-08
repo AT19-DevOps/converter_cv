@@ -25,8 +25,9 @@ class Validations:
         self.extensions = {'ima': ['png', 'jpg', 'jpeg', 'gif'], 'vid': ['mp4', 'avi', 'mov'],
                            'aud': ['mp3', 'wav', 'opus'], 'tex': ['txt', 'pdf'],
                            'image': ['imaToima-', 'imaBWima-', 'imaFlima-', 'imaRoima-', 'imaReima-', 'imaPdftex-'],
-                           'audio': ['vidToaud-', 'audIncaud-', 'audToaud-', 'ausMixaud-'],
-                           'lan': ['eng', 'spa']
+                           'audio': ['audIncaud-', 'audToaud-', 'audMixaud-'],
+                           'lan': ['eng', 'spa'],
+                           'video':['vidToaud-', 'vidToima-', 'vidTovid-']
                            }
 
     def validate_input(self, file_name, method):
@@ -46,9 +47,17 @@ class Validations:
         if not (extension in self.extensions[extension_type]):
             raise InvalidInputException(f"Invalid output extension -{method}")
 
-    def validate_multiplier(self, multiplier, method):
+    def validate_multiplier_str(self, multiplier, method):
         """Validates the converter multiplier, is not none, is not empty, is str, and is a numeric str"""
         CommonValidator(multiplier, method).common_validate()
+        try:
+            int(multiplier)
+        except Exception as error:
+            raise InvalidInputException("Invalid parameter: the parameter value is not valid -" + method)
+
+    def validate_multiplier_int(self, multiplier, method):
+        """Validates the converter multiplier, is not none, is not empty, is str, and is a numeric str"""
+        CommonValidator(multiplier, method).int_validate()
         try:
             int(multiplier)
         except Exception as error:

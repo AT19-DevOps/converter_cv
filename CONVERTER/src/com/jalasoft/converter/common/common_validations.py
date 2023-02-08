@@ -14,7 +14,7 @@ from CONVERTER.src.com.jalasoft.converter.common.exception.input_exception impor
 
 
 class CommonValidator:
-    """Defines validations for all endpoins"""
+    """Defines validations for all endpoints"""
     def __init__(self, parameter, method):
         self.parameter = parameter
         self.method = method
@@ -26,5 +26,15 @@ class CommonValidator:
         if not self.parameter:
             raise InvalidInputException("Invalid parameter: the parameter is empty -" + self.method)
         if type(self.parameter) != str:
+            raise InvalidInputException(f"Invalid parameter: the parameter {self.parameter} type is not valid -"
+                                        + self.method)
+
+    def int_validate(self):
+        """Defines if the parameter is none, empty or no int"""
+        if self.parameter is None:
+            raise InvalidInputException("Invalid parameter: the parameter should not be None type - " + self.method)
+        if not self.parameter:
+            raise InvalidInputException("Invalid parameter: the parameter is empty -" + self.method)
+        if type(self.parameter) != int:
             raise InvalidInputException(f"Invalid parameter: the parameter {self.parameter} type is not valid -"
                                         + self.method)
