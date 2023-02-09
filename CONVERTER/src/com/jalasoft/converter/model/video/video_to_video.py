@@ -23,13 +23,12 @@ class VideoToVideo(Converter):
 
     def convert(self):
         """Converts video formats"""
-
         Validations().validate_directory(self.input_file, 'vidTovid-')
         Validations().validate_input(self.input_file, 'vidTovid-')
         Validations().validate_output(self.output_file, 'vidTovid-')
         Validations().validate_directory(self.output_file, 'vidTovid-')
         try:
-            cmd = " ".join(['ffmpeg', '-i', self.input_file, '-c:v copy -c:a copy -y', self.output_file])
+            cmd = " ".join(['ffmpeg', '-i',  self.input_file, '-c:v copy -c:a copy -y', self.output_file])
             return cmd
         except Exception as error:
             raise ConverterException('Create Audio Convert command error')
