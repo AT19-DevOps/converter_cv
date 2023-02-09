@@ -12,10 +12,13 @@
 
 
 from flask import Flask
+from flask import request
+from flask import jsonify
+from flask_restful import Api
+from CONVERTER.src.com.jalasoft.converter.common.token import Token
 from CONVERTER.src.com.jalasoft.converter.database.db_commands import CRUD
 from CONVERTER.src.com.jalasoft.converter.controler.routes import SWAGGER_URL
-from flask_restful import Api
-from controler.routes import SWAGGERUI_BLUEPRINT
+from CONVERTER.src.com.jalasoft.converter.controler.routes import SWAGGERUI_BLUEPRINT
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_download import Download
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_video_to_zip_image import VideoToZipImage
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_video_to_zip import VideoToZip
@@ -33,9 +36,6 @@ from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_incrase_audio_v
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_audio_mix_audio import AudioMixAudio
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_text_translate import TextTranslate
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_get_metadata import GetMetadata
-from flask import request
-from CONVERTER.src.com.jalasoft.converter.common.token import Token
-from flask import jsonify
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_login import Login
 
 
