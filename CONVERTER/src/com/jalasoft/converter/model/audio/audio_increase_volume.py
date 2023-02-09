@@ -11,6 +11,8 @@
 #
 
 from CONVERTER.src.com.jalasoft.converter.model.converter import Converter
+from CONVERTER.src.com.jalasoft.converter.common.exception.converter_exception import ConverterException
+from CONVERTER.src.com.jalasoft.converter.common.valid_data import Validations
 
 
 class IncreaseVolume(Converter):
@@ -21,5 +23,14 @@ class IncreaseVolume(Converter):
 
     def convert(self):
         """Creates a command to increases the volume of an audio"""
-        cmd = f'ffmpeg -i {self.input_file} -af "volume={self.multiplier}" {self.output_file}'
-        return cmd
+        Validations().validate_directory(self.input_file, 'audIncaud-')
+        Validations().validate_input(self.input_file, 'audIncaud-')
+        Validations().validate_output(self.output_file, 'audIncaud-')
+        Validations().validate_directory(self.output_file, 'audIncaud-')
+        Validations().validate_multiplier_int(self.multiplier, 'audIncaud-')
+        try:
+            cmd = f'ffmpeg -i {self.input_file} -af "volume={self.multiplier}" {self.output_file}'
+            return cmd
+        except Exception as error:
+            raise ConverterException('Create Audio Convert command error')
+

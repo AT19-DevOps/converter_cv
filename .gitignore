@@ -1,10 +1,12 @@
 pruebas*.*
 venv/
+venv1/
 .vconv/
 .idea/
 __pycache__/
 venv_conv/*
 workdir
+*.coverage
 *.pdf
 *.wav
 *.exe
