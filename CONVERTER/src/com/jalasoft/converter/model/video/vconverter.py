@@ -12,6 +12,8 @@
 #
 
 from CONVERTER.src.com.jalasoft.converter.model.converter import Converter
+from CONVERTER.src.com.jalasoft.converter.common.exception.converter_exception import ConverterException
+from CONVERTER.src.com.jalasoft.converter.common.valid_data import Validations
 
 
 class VideoToImages(Converter):
@@ -23,4 +25,14 @@ class VideoToImages(Converter):
 
     def convert(self) -> str:
         """Converts video to a set of images"""
-        return " ".join(['ffmpeg', '-i', self.input_file, '-r', self.fps, self.output_file])
+        Validations().validate_directory(self.input_file, 'vidToima-')
+        Validations().validate_input(self.input_file, 'vidToima-')
+        Validations().validate_output(self.output_file, 'vidToima-')
+        Validations().validate_directory(self.output_file, 'vidToima-')
+        Validations().validate_multiplier_str(self.fps, 'vidToima-')
+        try:
+            cmd = " ".join(['ffmpeg', '-i', self.input_file, '-r', self.fps, self.output_file])
+            return cmd
+        except Exception as error:
+            raise ConverterException('Create Audio Convert command error')
+

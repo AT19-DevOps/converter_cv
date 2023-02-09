@@ -26,7 +26,7 @@ class ImageRotate(Converter):
         Validations().validate_directory(self.input_file, 'imaRoima-')
         Validations().validate_input(self.input_file, 'imaRoima-')
         Validations().validate_output(self.output_file, 'imaRoima-')
-        Validations().validate_multiplier(self.grades, 'imaRoima-')
+        Validations().validate_multiplier_str(self.grades, 'imaRoima-')
         Validations().validate_directory(self.output_file, 'imaRoima-')
         try:
             command_line = ['magick', f'{self.input_file}', '-rotate', f'{self.grades}', f'{self.output_file}']

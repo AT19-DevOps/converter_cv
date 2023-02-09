@@ -19,8 +19,8 @@ class TestImageToPdf(unittest.TestCase):
     """Defines unit tests for image_to_text.py module"""
     def test_image_to_pdf_valid_data(self):
         """Test the happy path"""
-        image_to_pdf = ImageToTextConvert(r'..\..\..\resources\Image_imaTotex.jpg', r'..\..\..\resources\Image_imaTotex', 'eng', 'txt')
-        expected = r'tesseract ..\..\..\resources\Image_imaTotex.jpg ..\..\..\resources\Image_imaTotex -l eng txt'
+        image_to_pdf = ImageToTextConvert(r'E:\Users\Leo\AT\Programming\AT19_CONVERTER\AT19_CONVERTER\AT19_CONVERTER_UT\AT19_CONVERTER\CONVERTER\test\com\resources\Image_imaTotex.jpg', r'../../../resources/Image_imaTotex', 'eng', 'txt')
+        expected = r'tesseract E:\Users\Leo\AT\Programming\AT19_CONVERTER\AT19_CONVERTER\AT19_CONVERTER_UT\AT19_CONVERTER\CONVERTER\test\com\resources\Image_imaTotex.jpg ../../../resources/Image_imaTotex -l eng txt'
         self.assertEqual(expected, image_to_pdf.convert())
 
     def test_image_to_pdf_none_input(self):

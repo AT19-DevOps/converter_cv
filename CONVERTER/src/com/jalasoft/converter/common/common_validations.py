@@ -28,3 +28,13 @@ class CommonValidator:
         if type(self.parameter) != str:
             raise InvalidInputException(f"Invalid parameter: the parameter {self.parameter} type is not valid -"
                                         + self.method)
+
+    def int_validate(self):
+        """Defines if the parameter is none, empty or no int"""
+        if self.parameter is None:
+            raise InvalidInputException("Invalid parameter: the parameter should not be None type - " + self.method)
+        if not self.parameter:
+            raise InvalidInputException("Invalid parameter: the parameter is empty -" + self.method)
+        if type(self.parameter) != int:
+            raise InvalidInputException(f"Invalid parameter: the parameter {self.parameter} type is not valid -"
+                                        + self.method)

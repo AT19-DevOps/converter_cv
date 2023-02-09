@@ -29,7 +29,6 @@ class ImageBW(Converter):
         Validations().validate_directory(self.output_file, 'imaBWima-')
         try:
             command_line = ['magick', f'{self.input_file}', '-monochrome', f'{self.output_file}']
-            print("comando", " ".join(command_line))
             return " ".join(command_line)
         except Exception as error:
             raise ConverterException('Create Image to Black and Withe command error')

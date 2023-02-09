@@ -12,12 +12,17 @@
 
 
 from flask import Flask
+from flask import request
+from flask import jsonify
 from flask_restful import Api
 from config import SWAGGERUI_BLUEPRINT
 from config import SWAGGER_URL
 from config import SERVER
 from config import PORT
+from CONVERTER.src.com.jalasoft.converter.common.token import Token
 from CONVERTER.src.com.jalasoft.converter.database.db_commands import CRUD
+from CONVERTER.src.com.jalasoft.converter.controler.routes import SWAGGER_URL
+from CONVERTER.src.com.jalasoft.converter.controler.routes import SWAGGERUI_BLUEPRINT
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_download import Download
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_video_to_zip_image import VideoToZipImage
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_video_to_zip import VideoToZip
@@ -35,6 +40,7 @@ from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_incrase_audio_v
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_audio_mix_audio import AudioMixAudio
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_text_translate import TextTranslate
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_get_metadata import GetMetadata
+from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_login import Login
 
 app = Flask(__name__)
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
@@ -59,6 +65,21 @@ api.add_resource(IncreaseAudioVolume, '/audioincreasevolume')
 api.add_resource(AudioMixAudio, "/audiomixaudio")
 api.add_resource(TextTranslate, "/texttranslator")
 api.add_resource(GetMetadata, "/metadatageter")
+api.add_resource(Login, "/login")
+
+@app.before_request
+def middleware():
+    """Verifies users before process request"""
+    if request.url_rule.rule != "/login":
+        autentification = request.headers.get("Authorization")
+        token = autentification.split(" ")[1]
+        valid = Token().validate_token(token)
+        if valid == False:
+            response = jsonify({"message": "You aren't authorizate"})
+            response.status_code = 401
+            return response
+
 
 if __name__ == '__main__':
     app.run(debug=True, host=SERVER, port=PORT)
+

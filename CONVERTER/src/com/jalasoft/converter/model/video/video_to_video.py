@@ -13,6 +13,9 @@
 from CONVERTER.src.com.jalasoft.converter.common.exception.converter_exception import ConverterException
 from CONVERTER.src.com.jalasoft.converter.common.valid_data import Validations
 from CONVERTER.src.com.jalasoft.converter.model.converter import Converter
+from CONVERTER.src.com.jalasoft.converter.common.exception.converter_exception import ConverterException
+from CONVERTER.src.com.jalasoft.converter.common.valid_data import Validations
+
 
 
 class VideoToVideo(Converter):
