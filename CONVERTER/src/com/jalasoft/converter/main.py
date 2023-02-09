@@ -21,8 +21,6 @@ from config import SERVER
 from config import PORT
 from CONVERTER.src.com.jalasoft.converter.common.token import Token
 from CONVERTER.src.com.jalasoft.converter.database.db_commands import CRUD
-from CONVERTER.src.com.jalasoft.converter.controler.routes import SWAGGER_URL
-from CONVERTER.src.com.jalasoft.converter.controler.routes import SWAGGERUI_BLUEPRINT
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_download import Download
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_video_to_zip_image import VideoToZipImage
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_video_to_zip import VideoToZip
