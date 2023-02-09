@@ -28,5 +28,9 @@ class IncreaseVolume(Converter):
         Validations().validate_output(self.output_file, 'audIncaud-')
         Validations().validate_directory(self.output_file, 'audIncaud-')
         Validations().validate_multiplier_int(self.multiplier, 'audIncaud-')
-        cmd = f'ffmpeg -i {self.input_file} -af "volume={self.multiplier}" {self.output_file}'
-        return cmd
+        try:
+            cmd = f'ffmpeg -i {self.input_file} -af "volume={self.multiplier}" {self.output_file}'
+            return cmd
+        except Exception as error:
+            raise ConverterException('Create Audio Convert command error')
+

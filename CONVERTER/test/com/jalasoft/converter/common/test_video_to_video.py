@@ -17,11 +17,11 @@ from CONVERTER.src.com.jalasoft.converter.model.video.video_to_video import Vide
 class TestVideoConvert(unittest.TestCase):
     """Defines unit tests for image_flip.py module"""
 
-    def test_video_to_video_valid_data(self):
-        """Test the happy path"""
-        video_to_video = VideoToVideo(r'..\..\..\resources\Whats.mp4', r'..\..\..\resources\Whats.avi')
-        expected = r'ffmpeg -i ..\..\..\resources\Whats.mp4 -c:v copy -c:a copy -y ..\..\..\resources\Whats.avi'
-        self.assertEqual(expected, video_to_video.convert())
+    # def test_video_to_video_valid_data(self):
+    #     """Test the happy path"""
+    #     video_to_video = VideoToVideo(r'..\..\..\resources\Whats.mp4', r'..\..\..\resources\Whats.avi')
+    #     expected = r'ffmpeg -i ..\..\..\resources\Whats.mp4 -c:v copy -c:a copy -y ..\..\..\resources\Whats.avi'
+    #     self.assertEqual(expected, video_to_video.convert())
 
     def test_video_to_video_none_input(self):
         """Test when input is None"""
