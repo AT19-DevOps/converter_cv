@@ -18,17 +18,17 @@ from CONVERTER.src.com.jalasoft.converter.common.exception.input_exception impor
 
 class TestImageBw(unittest.TestCase):
     """Defines unit tests for image_bw.py module"""
-    # def test_image_bw_valid_data(self):
-    #     """Test the happy path"""
-    #     image_bw = ImageBW('../../../resources/Image.png', '../../../resources/Image.jpg').convert()
-    #     expected = "magick ../../../resources/Image.png -monochrome ../../../resources/Image.jpg"
-    #     self.assertEqual(expected, image_bw)
+    def test_image_bw_valid_data(self):
+        """Test the happy path"""
+        image_bw = ImageBW(r'E:\Users\Leo\AT\Programming\AT19_CONVERTER\AT19_CONVERTER\AT19_CONVERTER_UT\AT19_CONVERTER\CONVERTER\test\com\resources\Image.png', '../../../resources/Image.jpg').convert()
+        expected = r"magick E:\Users\Leo\AT\Programming\AT19_CONVERTER\AT19_CONVERTER\AT19_CONVERTER_UT\AT19_CONVERTER\CONVERTER\test\com\resources\Image.png -monochrome ../../../resources/Image.jpg"
+        self.assertEqual(expected, image_bw)
 
-    # def test_image_bw_invalid_extension_correct_mime_type_input(self):
-    #     """Test when an input file has a wrong extension but its mimetype is correct"""
-    #     image_bw = ImageBW("../../../resources/type_image_wrong_extension.txt", "../../../resources/type_image_wrong_extension.jpg").convert()
-    #     expected = "magick ../../../resources/type_image_wrong_extension.txt -monochrome ../../../resources/type_image_wrong_extension.jpg"
-    #     self.assertEqual(expected, image_bw)
+    def test_image_bw_invalid_extension_correct_mime_type_input(self):
+        """Test when an input file has a wrong extension but its mimetype is correct"""
+        image_bw = ImageBW(r"E:\Users\Leo\AT\Programming\AT19_CONVERTER\AT19_CONVERTER\AT19_CONVERTER_UT\AT19_CONVERTER\CONVERTER\test\com\resources\type_image_wrong_extension.txt", "../../../resources/type_image_wrong_extension.jpg").convert()
+        expected = r"magick E:\Users\Leo\AT\Programming\AT19_CONVERTER\AT19_CONVERTER\AT19_CONVERTER_UT\AT19_CONVERTER\CONVERTER\test\com\resources\type_image_wrong_extension.txt -monochrome ../../../resources/type_image_wrong_extension.jpg"
+        self.assertEqual(expected, image_bw)
 
     def test_image_bw_null_input(self):
         """Test when input is null"""

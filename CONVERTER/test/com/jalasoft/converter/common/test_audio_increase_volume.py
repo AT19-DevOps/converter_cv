@@ -17,11 +17,11 @@ from CONVERTER.src.com.jalasoft.converter.model.audio.audio_increase_volume impo
 class TestAudioIncrease(unittest.TestCase):
     """Defines unit tests for image_flip.py module"""
 
-    # def test_audio_increase_volume_valid_data(self):
-    #     """Test the happy path"""
-    #     audio_increase = IncreaseVolume(r'..\..\..\resources\notification.wav', r'..\..\..\resources\notification.mp3', 2)
-    #     expected = r'ffmpeg -i ..\..\..\resources\notification.wav -af "volume=2" ..\..\..\resources\notification.mp3'
-    #     self.assertEqual(expected, audio_increase.convert())
+    def test_audio_increase_volume_valid_data(self):
+        """Test the happy path"""
+        audio_increase = IncreaseVolume(r'E:\Users\Leo\AT\Programming\AT19_CONVERTER\AT19_CONVERTER\AT19_CONVERTER_UT\AT19_CONVERTER\CONVERTER\test\com\resources\notification.wav', r'../../../resources/notification.mp3', 2)
+        expected = r'ffmpeg -i E:\Users\Leo\AT\Programming\AT19_CONVERTER\AT19_CONVERTER\AT19_CONVERTER_UT\AT19_CONVERTER\CONVERTER\test\com\resources\notification.wav -af "volume=2" ../../../resources/notification.mp3'
+        self.assertEqual(expected, audio_increase.convert())
 
     def test_audio_increase_none_input(self):
         """Test when input is None"""

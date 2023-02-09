@@ -17,11 +17,11 @@ from CONVERTER.src.com.jalasoft.converter.model.image.image_rotate import ImageR
 
 class TestImageRotate(unittest.TestCase):
     """Defines unit tests for image_rotate.py module"""
-    # def test_image_rotate_valid_data(self):
-    #     """Test the happy path"""
-    #     image_rotate = ImageRotate(r'..\..\..\resources\Image.png', r'..\..\..\resources\Image.jpg', '20')
-    #     expected = r'magick ..\..\..\resources\Image.png -rotate 20 ..\..\..\resources\Image.jpg'
-    #     self.assertEqual(expected, image_rotate.convert())
+    def test_image_rotate_valid_data(self):
+        """Test the happy path"""
+        image_rotate = ImageRotate(r'E:\Users\Leo\AT\Programming\AT19_CONVERTER\AT19_CONVERTER\AT19_CONVERTER_UT\AT19_CONVERTER\CONVERTER\test\com\resources\Image.jpg', r'../../../resources/Image.jpg', '20')
+        expected = r'magick E:\Users\Leo\AT\Programming\AT19_CONVERTER\AT19_CONVERTER\AT19_CONVERTER_UT\AT19_CONVERTER\CONVERTER\test\com\resources\Image.jpg -rotate 20 ../../../resources/Image.jpg'
+        self.assertEqual(expected, image_rotate.convert())
 
     def test_image_rotate_none_input(self):
         """Test when input is None"""

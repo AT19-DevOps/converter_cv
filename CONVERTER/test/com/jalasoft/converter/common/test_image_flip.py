@@ -16,11 +16,11 @@ from CONVERTER.src.com.jalasoft.converter.model.image.image_flip import ImageFli
 
 class TestImageFlip(unittest.TestCase):
     """Defines unit tests for image_flip.py module"""
-    # def test_image_flip_valid_data(self):
-    #     """Test the happy path"""
-    #     image_flip = ImageFlip(r'..\..\..\resources\Image.jpg', r'..\..\..\resources\Image.jpg')
-    #     expected = r'magick ..\..\..\resources\Image.jpg -flip ..\..\..\resources\Image.jpg'
-    #     self.assertEqual(expected, image_flip.convert())
+    def test_image_flip_valid_data(self):
+        """Test the happy path"""
+        image_flip = ImageFlip(r'E:\Users\Leo\AT\Programming\AT19_CONVERTER\AT19_CONVERTER\AT19_CONVERTER_UT\AT19_CONVERTER\CONVERTER\test\com\resources\Image.jpg', r'../../../resources/Image.jpg')
+        expected = r'magick E:\Users\Leo\AT\Programming\AT19_CONVERTER\AT19_CONVERTER\AT19_CONVERTER_UT\AT19_CONVERTER\CONVERTER\test\com\resources\Image.jpg -flip ../../../resources/Image.jpg'
+        self.assertEqual(expected, image_flip.convert())
 
     def test_image_flip_none_input(self):
         """Test when input is None"""
