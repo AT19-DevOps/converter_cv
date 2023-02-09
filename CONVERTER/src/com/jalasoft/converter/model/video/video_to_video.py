@@ -10,7 +10,8 @@
 # accordance with the terms of the license agreement you entered into
 # with Jalasoft.
 #
-
+from CONVERTER.src.com.jalasoft.converter.common.exception.converter_exception import ConverterException
+from CONVERTER.src.com.jalasoft.converter.common.valid_data import Validations
 from CONVERTER.src.com.jalasoft.converter.model.converter import Converter
 
 
@@ -22,4 +23,13 @@ class VideoToVideo(Converter):
 
     def convert(self):
         """Converts video formats"""
-        return " ".join(['ffmpeg', '-i', self.input_file, '-c:v copy -c:a copy -y', self.output_file])
+
+        Validations().validate_directory(self.input_file, 'vidTovid-')
+        Validations().validate_input(self.input_file, 'vidTovid-')
+        Validations().validate_output(self.output_file, 'vidTovid-')
+        Validations().validate_directory(self.output_file, 'vidTovid-')
+        try:
+            cmd = " ".join(['ffmpeg', '-i', self.input_file, '-c:v copy -c:a copy -y', self.output_file])
+            return cmd
+        except Exception as error:
+            raise ConverterException('Create Audio Convert command error')
