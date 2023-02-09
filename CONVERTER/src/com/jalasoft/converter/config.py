@@ -12,11 +12,26 @@
 #
 
 import os
-
+from flask_swagger_ui import get_swaggerui_blueprint
 
 PATH = os.path.realpath(os.path.dirname(__file__))
 PATH = os.path.join(PATH, 'workdir')
 UPLOAD_FOLDER = os.path.join(PATH, 'uploads')
 RESPONSE_FOLDER = os.path.join(PATH, 'responses')
-os.makedirs(UPLOAD_FOLDER,  exist_ok = True)
-os.makedirs(RESPONSE_FOLDER, exist_ok = True)
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(RESPONSE_FOLDER, exist_ok=True)
+
+"""Server configuration"""
+SERVER = 'localhost'
+PORT = '5000'
+DOWNLOAD_DIR = 'http://' + SERVER + ':' + PORT + '/download?file_name='
+
+SWAGGER_URL = '/swagger'
+API_URL = '/static/swagger.json'
+SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "Converter"
+    }
+)

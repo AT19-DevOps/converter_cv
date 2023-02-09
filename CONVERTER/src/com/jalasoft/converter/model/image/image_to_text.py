@@ -9,6 +9,9 @@
 # accordance with the terms of the license agreement you entered into
 # with Jalasoft.
 #
+
+import pytesseract
+import platform
 from CONVERTER.src.com.jalasoft.converter.common.exception.converter_exception import ConverterException
 from CONVERTER.src.com.jalasoft.converter.common.valid_data import Validations
 from CONVERTER.src.com.jalasoft.converter.model.converter import Converter
@@ -30,8 +33,11 @@ class ImageToTextConvert(Converter):
         Validations().validate_lang(self.lang, 'imaPdflan-')
         Validations().validate_directory(self.output_file, 'imaPdftex-')
         try:
-            command_line = ['tesseract', f'{self.input_file}', f'{self.output_file}', '-l', self.lang, self.output_extension]
-            print("comando", " ".join(command_line))
+            if platform.system() == "Linux":
+                tess = "tesseract"
+            else:
+                tess = pytesseract.image_to_string(self.input_file, self.lang, output_type=self.output_file)
+            command_line = ['tesseract', f'{self.input_file}', f'{self.output_file}', '-l', self.lang]
             return " ".join(command_line)
         except Exception as error:
-            raise ConverterException('Create Image to PDF command error')
+            raise ConverterException('Create Image to text command error')

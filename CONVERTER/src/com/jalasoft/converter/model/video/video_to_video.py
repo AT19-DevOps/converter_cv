@@ -15,10 +15,11 @@ from CONVERTER.src.com.jalasoft.converter.model.converter import Converter
 
 
 class VideoToVideo(Converter):
-    """Converts any video format to another video format""" 
+    """Converts any video format to another video format"""
+
     def __init__(self, input_file, output_file):
         super().__init__(input_file, output_file)
-    
+
     def convert(self):
         """Converts video formats"""
-        return " ".join(['ffmpeg', '-i',  self.input_file, '-c:v copy -c:a copy -y', self.output_file])
+        return " ".join(['ffmpeg', '-i', self.input_file, '-c:v copy -c:a copy -y', self.output_file])

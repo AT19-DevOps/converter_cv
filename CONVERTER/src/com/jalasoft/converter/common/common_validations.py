@@ -14,7 +14,7 @@ from CONVERTER.src.com.jalasoft.converter.common.exception.input_exception impor
 
 
 class CommonValidator:
-    """Defines validations for all endpoins"""
+    """Defines validations for all endpoints"""
     def __init__(self, parameter, method):
         self.parameter = parameter
         self.method = method

@@ -13,7 +13,6 @@
     }
   ],
   "tags": [
-
     {
       "name": "Download",
       "description": "Download converted file"
@@ -44,7 +43,7 @@
     },
     {
       "name": "Image Rotater",
-      "description": "Rotates n-deggres an image"
+      "description": "Rotates n-degrees an image"
     },
     {
       "name": "Image to PDF",
@@ -93,14 +92,13 @@
             "description": "Download converted file",
             "operationId": "get.download",
             "parameters": [
-
               {
                 "in": "query",
                 "name": "file_name",
                 "schema": {
                   "type": "string",
                   "example": "file"
-                },
+                  },
                 "description": "Please insert the file you want to download:"
               }
             ],
@@ -120,8 +118,8 @@
             "400": {
               "description": "Invalid operation"
             }
-                }
-      },
+        }
+    },
     "/videotoimage/zip": {
       "post": {
         "tags": [
@@ -148,6 +146,10 @@
                   "fps": {
                     "type": "string",
                     "example": "1"
+                  },
+                  "checksum_param": {
+                    "type": "string",
+                    "example": "123456abcd"
                   }
                 }
               }
@@ -194,6 +196,10 @@
                   "output_file": {
                     "type": "string",
                     "example": "avi"
+                  },
+                  "checksum_param": {
+                    "type": "string",
+                    "example": "123456abcd"
                   }
                 }
               }
@@ -226,7 +232,7 @@
         ],
         "summary": "Convert image to another type of image",
         "description": "Convert inserted image to a given image type",
-        "operationId": "post.imagetoimages",
+        "operationId": "post.imagetoimage",
         "requestBody": {
           "description": "Please insert the image to convert:",
           "content": {
@@ -243,8 +249,11 @@
                   "output_file": {
                     "type": "string",
                     "example": "jpg"
+                  },
+                  "checksum_param": {
+                    "type": "string",
+                    "example": "123456abcd"
                   }
-
                 }
               }
 
@@ -293,11 +302,13 @@
                   "output_file": {
                     "type": "string",
                     "example": "jpg"
+                  },
+                  "checksum_param": {
+                    "type": "string",
+                    "example": "123456abcd"
                   }
-
                 }
               }
-
             }
           },
           "required": true
@@ -344,11 +355,13 @@
                   "output_file": {
                     "type": "string",
                     "example": "jpg"
+                  },
+                  "checksum_param": {
+                    "type": "string",
+                    "example": "123456abcd"
                   }
-
                 }
               }
-
             }
           },
           "required": true
@@ -399,11 +412,13 @@
                   "new_size": {
                     "type": "string",
                     "example": "50"
+                  },
+                  "checksum_param": {
+                    "type": "string",
+                    "example": "123456abcd"
                   }
-
                 }
               }
-
             }
           },
           "required": true
@@ -448,17 +463,19 @@
                       "format": "binary"
                     },
                     "output_file": {
-                    "type": "string",
-                    "example": "jpg"
-                  },
+                      "type": "string",
+                      "example": "jpg"
+                    },
                     "grades": {
-                    "type": "string",
-                    "example": "45"
-                  }
-  
+                      "type": "string",
+                      "example": "45"
+                    },
+                    "checksum_param": {
+                      "type": "string",
+                      "example": "123456abcd"
+                    }
                   }
                 }
-  
               }
             },
             "required": true
@@ -503,17 +520,19 @@
                       "format": "binary"
                     },
                     "output_file": {
-                    "type": "pdf",
-                    "example": "jpg"
-                  },
+                      "type": "pdf",
+                      "example": "jpg"
+                    },
                     "lang": {
-                    "type": "string",
-                    "example": "eng"
-                  }
-  
+                      "type": "string",
+                      "example": "eng"
+                    },
+                    "checksum_param": {
+                      "type": "string",
+                      "example": "123456abcd"
+                    }
                   }
                 }
-  
               }
             },
             "required": true
@@ -547,9 +566,7 @@
           "requestBody": {
             "description": "Please upload an image to covert:",
             "content": {
-  
               "multipart/form-data": {
-  
                 "schema": {
                   "type": "object",
                   "properties": {
@@ -558,42 +575,23 @@
                       "format": "binary"
                     },
                     "output_file": {
-                    "type": "string",
-                    "example": "txt"
-                  },
+                      "type": "string",
+                      "example": "txt"
+                    },
                     "lang": {
-                    "type": "string",
-                    "example": "eng"
-                  }
-  
+                      "type": "string",
+                      "example": "eng"
+                    },
+                    "checksum_param": {
+                      "type": "string",
+                      "example": "123456abcd"
+                    }
                   }
                 }
-  
               }
             },
             "required": true
           },
-          "parameters": [
-  
-            {
-              "in": "query",
-              "name": "output_file",
-              "schema": {
-                "type": "string",
-                "example": "txt"
-              },
-              "description": "Please set the output:"
-            },
-            {
-              "in": "query",
-              "name": "lang",
-              "schema": {
-                "type": "string",
-                "example": "eng"
-              },
-              "description": "Please set the language output (default 'eng'):"
-            }
-          ],
           "responses": {
             "200": {
               "description": "Successful operation",
@@ -610,7 +608,6 @@
             }
           }
         }
-  
       },
     "/pdftoimage": {
         "post": {
@@ -634,17 +631,19 @@
                       "format": "binary"
                     },
                     "output_file": {
-                    "type": "string",
-                    "example": "jpg"
-                  },
+                      "type": "string",
+                      "example": "jpg"
+                    },
                     "quality": {
-                    "type": "string",
-                    "example": "50"
-                  }
-  
+                      "type": "string",
+                      "example": "50"
+                    },
+                    "checksum_param": {
+                      "type": "string",
+                      "example": "123456abcd"
+                    }
                   }
                 }
-  
               }
             },
             "required": true
@@ -691,11 +690,13 @@
                   "output_file": {
                     "type": "string",
                     "example": ".mp3"
+                  },
+                  "checksum_param": {
+                    "type": "string",
+                    "example": "123456abcd"
                   }
-
                 }
               }
-
             }
           },
           "required": true
@@ -768,11 +769,13 @@
                   "multiplier": {
                     "type": "string",
                     "example": "2"
+                  },
+                  "checksum_param": {
+                    "type": "string",
+                    "example": "123456abcd"
                   }
-
                 }
               }
-
             }
           },
           "required": true
@@ -841,11 +844,13 @@
                   "output_file": {
                     "type": "string",
                     "example": ".mp3"
+                  },
+                  "checksum_param": {
+                    "type": "string",
+                    "example": "123456abcd"
                   }
-
                 }
               }
-
             }
           },
           "required": true
@@ -895,10 +900,13 @@
                   "output_file": {
                     "type": "string",
                     "example": ".mp3"
+                  },
+                  "checksum_param": {
+                    "type": "string",
+                    "example": "123456abcd"
                   }
                 }
               }
-
             }
           },
           "required": true
@@ -944,11 +952,13 @@
                   "output_file": {
                     "type": "string",
                     "example": "es"
+                  },
+                  "checksum_param": {
+                    "type": "string",
+                    "example": "123456abcd"
                   }
-
                 }
               }
-
             }
           },
           "required": true
@@ -995,8 +1005,11 @@
                   "output_file": {
                     "type": "string",
                     "example": "json"
+                  },
+                  "checksum_param": {
+                    "type": "string",
+                    "example": "123456abcd"
                   }
-
                 }
               }
 
@@ -1023,7 +1036,6 @@
 
       }
   },
-
   "components": {
      "schemas": {
        "Download": {
@@ -1042,7 +1054,8 @@
          "required": [
            "input_file",
            "output_file",
-           "fps"
+           "fps",
+           "checksum_param"
          ],
          "type": "object",
          "properties": {
@@ -1058,13 +1071,18 @@
            "fps": {
              "type": "string",
              "example": "1"
+           },
+           "checksum_param": {
+             "type": "string",
+             "example": "12345abcd"
            }
          }
-      },
+       },
        "videotovideo": {
          "required": [
            "input_file",
-           "output_file"
+           "output_file",
+           "Checksum_param"
          ],
          "type": "object",
          "properties": {
@@ -1076,13 +1094,18 @@
            "output_file": {
              "type": "string",
              "example": "avi"
+           },
+           "checksum_param": {
+             "type": "string",
+             "example": "12345abcd"
            }
          }
-      },
+       },
        "imagetoimage": {
          "required": [
            "input_file",
-           "output_file"
+           "output_file",
+           "checksum_param"
          ],
          "type": "object",
          "properties": {
@@ -1094,13 +1117,18 @@
            "output_file": {
              "type": "string",
              "example": "jpg"
+           },
+           "checksum_param": {
+             "type": "string",
+             "example": "12345abcd"
            }
          }
       },
        "imageflip": {
          "required": [
            "input_file",
-           "output_file"
+           "output_file",
+           "checksum_param"
          ],
          "type": "object",
          "properties": {
@@ -1112,13 +1140,18 @@
            "output_file": {
              "type": "string",
              "example": "jpg"
+           },
+           "checksum_param": {
+             "type": "string",
+             "example": "12345abcd"
            }
          }
       },
        "imagebw": {
         "required": [
           "input_file",
-          "output_file"
+          "output_file",
+          "checksum_param"
         ],
         "type": "object",
         "properties": {
@@ -1130,14 +1163,19 @@
           "output_file": {
             "type": "string",
             "example": "jpg"
-          }
+          },
+          "checksum_param": {
+             "type": "string",
+             "example": "12345abcd"
+           }
         }
       },
        "imageresize": {
         "required": [
           "input_file",
           "output_file",
-          "new_size"
+          "new_size",
+          "checksum_param"
         ],
         "type": "object",
         "properties": {
@@ -1153,14 +1191,19 @@
           "new_size": {
             "type": "string",
             "example": "25"
-          }
+          },
+          "checksum_param": {
+            "type": "string",
+            "example": "12345abcd"
+           }
         }
       },
        "imagerotate": {
         "required": [
           "input_file",
           "output_file",
-          "grades"
+          "grades",
+          "checksum_param"
         ],
         "type": "object",
         "properties": {
@@ -1176,14 +1219,19 @@
           "grades": {
             "type": "string",
             "example": "30"
-          }
+          },
+          "checksum_param": {
+            "type": "string",
+            "example": "12345abcd"
+           }
         }
       },
        "imagetopdf": {
         "required": [
           "input_file",
           "output_file",
-          "lang"
+          "lang",
+          "checksum_param"
         ],
         "type": "object",
         "properties": {
@@ -1199,14 +1247,19 @@
           "lang": {
             "type": "string",
             "example": "eng"
-          }
+          },
+          "checksum_param": {
+            "type": "string",
+            "example": "12345abcd"
+           }
         }
       },
        "imagetotext": {
         "required": [
           "input_file",
           "output_file",
-          "lang"
+          "lang",
+          "checksum_param"
         ],
         "type": "object",
         "properties": {
@@ -1222,14 +1275,19 @@
           "lang": {
             "type": "string",
             "example": "eng"
-          }
+          },
+          "checksum_param": {
+            "type": "string",
+            "example": "12345abcd"
+           }
         }
       },
        "pdftoimage": {
         "required": [
           "input_file",
           "output_file",
-          "lang"
+          "lang",
+          "checksum_param"
         ],
         "type": "object",
         "properties": {
@@ -1245,13 +1303,18 @@
           "quality": {
             "type": "string",
             "example": "90"
-          }
+          },
+          "checksum_param": {
+            "type": "string",
+            "example": "12345abcd"
+           }
         }
       },
        "audiotoaudio": {
          "required": [
            "input_file",
-           "output_file"
+           "output_file",
+           "checksum_param"
          ],
          "type": "object",
          "properties": {
@@ -1263,13 +1326,18 @@
            "output_file": {
              "type": "string",
              "example": "mp3"
+           },
+           "checksum_param": {
+             "type": "string",
+             "example": "12345abcd"
            }
          }
       },
        "audioincreasedvolume": {
          "required": [
            "input_file",
-           "output_file"
+           "output_file",
+           "checksum_param"
          ],
          "type": "object",
          "properties": {
@@ -1285,13 +1353,18 @@
            "multiplier": {
              "type": "string",
              "example": "2"
+           },
+           "checksum_param": {
+             "type": "string",
+             "example": "12345abcd"
            }
          }
        },
        "audioextractaudio": {
          "required": [
            "input_file",
-           "output_file"
+           "output_file",
+           "checksum_param"
          ],
          "type": "object",
          "properties": {
@@ -1303,6 +1376,10 @@
            "output_file": {
              "type": "string",
              "example": ".mp3"
+           },
+           "checksum_param": {
+             "type": "string",
+             "example": "12345abcd"
            }
          }
        },
@@ -1310,7 +1387,8 @@
         "required": [
           "input_file_1",
           "input_file_2",
-          "output_file"
+          "output_file",
+          "checksum_param"
         ],
         "type": "object",
         "properties": {
@@ -1327,13 +1405,18 @@
           "output_file": {
             "type": "string",
             "example": ".mp3"
-          }
+          },
+          "checksum_param": {
+            "type": "string",
+            "example": "12345abcd"
+           }
         }
       },
        "texttranslator": {
         "required": [
           "text",
-          "language"
+          "language",
+          "checksum_param"
         ],
         "type": "object",
         "properties": {
@@ -1344,13 +1427,18 @@
           "language": {
             "type": "string",
             "example": "es"
-          }
+          },
+          "checksum_param": {
+            "type": "string",
+            "example": "12345abcd"
+           }
         }
       },
        "metadatageter": {
         "required": [
           "input_file",
-          "output_file"
+          "output_file",
+          "checksum_param"
         ],
         "type": "object",
         "properties": {
@@ -1362,9 +1450,13 @@
           "output_file": {
             "type": "json",
             "example": "gMD CatsandDogs"
+          },
+          "checksum_param": {
+            "type": "string",
+            "example": "12345abcd"
           }
         }
       }
      }
-   }
+  }
 }

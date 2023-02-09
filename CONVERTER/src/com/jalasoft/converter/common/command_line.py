@@ -13,7 +13,6 @@
 
 import subprocess
 import platform
-
 from CONVERTER.src.com.jalasoft.converter.common.exception.command_exception import CommandException
 
 
@@ -29,7 +28,7 @@ class Command:
             cmd_line = self.cmd
             if platform.system() == 'Linux':
                 cmd_line = str(cmd_line).replace('magick', 'convert')
-            run = subprocess.check_output(cmd_line, shell = True)
+            run = subprocess.check_output(cmd_line, shell=True)
             return run
         except Exception as error:
             raise CommandException('Error executing the command in console')

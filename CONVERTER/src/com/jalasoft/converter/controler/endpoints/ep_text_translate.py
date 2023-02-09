@@ -13,6 +13,8 @@
 
 from flask import request
 from flask_restful import Resource
+
+from CONVERTER.src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
 from CONVERTER.src.com.jalasoft.converter.model.text.text_translate import TextTranslator
 
 
@@ -22,5 +24,9 @@ class TextTranslate(Resource):
         """Translate text into a given language endpoint"""
         input_file = request.form["input_file"]
         output_file = request.form["output_file"]
-        translation = TextTranslator(input_file, output_file).convert()
-        return translation
+        try:
+            translation = TextTranslator(input_file, output_file).convert()
+            return {"translation": translation}
+        except ConvertException as error:
+            response = {'error_message': error.get_message()}
+            return response, 400
