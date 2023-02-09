@@ -13,11 +13,11 @@
 
 from flask import Flask
 from flask_restful import Api
-from database.db_commands import CRUD
 from config import SWAGGERUI_BLUEPRINT
 from config import SWAGGER_URL
 from config import SERVER
 from config import PORT
+from CONVERTER.src.com.jalasoft.converter.database.db_commands import CRUD
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_download import Download
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_video_to_zip_image import VideoToZipImage
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_video_to_zip import VideoToZip

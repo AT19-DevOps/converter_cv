@@ -33,8 +33,7 @@ class ImageToTextConvert(Converter):
         Validations().validate_lang(self.lang, 'imaPdflan-')
         Validations().validate_directory(self.output_file, 'imaPdftex-')
         try:
-            command_line = ['tesseract', f'{self.input_file}', f'{self.output_file}', '-l', self.lang,
-                            self.output_extension]
+            command_line = ['tesseract', f'{self.input_file}', f'{self.output_file}', '-l', self.lang, self.output_extension]
             return " ".join(command_line)
         except Exception as error:
             raise ConverterException('Create Image to text command error')
