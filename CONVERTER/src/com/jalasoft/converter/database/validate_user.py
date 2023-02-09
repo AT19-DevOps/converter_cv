@@ -33,8 +33,8 @@ class ValidateUser:
         if user.password == password_hash:
             data = {"user_name": self.user_name}
             token = Token().write_token(data)
-            print(token)
-            response = jsonify({"token": str(token)})
+            token_filtered = str(token)[2:-1]
+            response = jsonify({"token": token_filtered})
             response.status_code = 200
             return response
         else:

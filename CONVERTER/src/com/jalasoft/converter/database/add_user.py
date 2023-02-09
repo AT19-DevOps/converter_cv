@@ -41,8 +41,10 @@ session = Session()
 
 user = User(user_name="converter_user", password="1234")
 user2 = User(user_name="denisse", password="12345")
+user3 = User(user_name="Roger", password="pasuconsumo")
 session.add(user)
 session.add(user2)
+session.add(user3)
 session.commit()
 
 users = session.query(User).all()
