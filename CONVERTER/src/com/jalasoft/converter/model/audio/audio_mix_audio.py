@@ -11,6 +11,8 @@
 #
 
 from CONVERTER.src.com.jalasoft.converter.model.converter import Converter
+from CONVERTER.src.com.jalasoft.converter.common.exception.converter_exception import ConverterException
+from CONVERTER.src.com.jalasoft.converter.common.valid_data import Validations
 
 
 class MixAudio(Converter):
@@ -19,9 +21,16 @@ class MixAudio(Converter):
         super().__init__(input_file, output_file)
 
     def convert(self):
+        Validations().validate_output(self.output_file, 'audMixaud-')
+        Validations().validate_directory(self.output_file, 'audMixaud-')
         list = ['ffmpeg']
         for element in self.input_file:
+            Validations().validate_directory(element, 'audMixaud-')
+            Validations().validate_input(element, 'audMixaud-')
             list.append(' -i ' + element)
-        list.append(' -filter_complex amerge '+self.output_file)
-        cmd = ''.join(list)
-        return cmd
+        list.append(' -filter_complex amerge ' + self.output_file)
+        try:
+            cmd = ''.join(list)
+            return cmd
+        except Exception as error:
+            raise ConverterException('Create Audio Convert command error')

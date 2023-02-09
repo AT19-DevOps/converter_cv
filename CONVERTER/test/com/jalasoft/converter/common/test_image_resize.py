@@ -19,8 +19,8 @@ class TestImageResize(unittest.TestCase):
     """Defines unit tests for image_resize.py module"""
     def test_image_resize_valid_data(self):
         """Test the happy path"""
-        image_resize = ImageResize(r'..\..\..\resources\Image.png', r'..\..\..\resources\Image.jpg', '50')
-        expected = r'magick ..\..\..\resources\Image.png -resize 50 ..\..\..\resources\Image.jpg'
+        image_resize = ImageResize(r'E:\Users\Leo\AT\Programming\AT19_CONVERTER\AT19_CONVERTER\AT19_CONVERTER_UT\AT19_CONVERTER\CONVERTER\test\com\resources\Image.png', r'../../../resources/Image.jpg', '50')
+        expected = r'magick E:\Users\Leo\AT\Programming\AT19_CONVERTER\AT19_CONVERTER\AT19_CONVERTER_UT\AT19_CONVERTER\CONVERTER\test\com\resources\Image.png -resize 50 ../../../resources/Image.jpg'
         self.assertEqual(expected, image_resize.convert())
 
     def test_image_resize_none_input(self):
