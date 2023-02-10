@@ -68,7 +68,7 @@ api.add_resource(Login, "/login")
 @app.before_request
 def middleware():
     """Verifies users before process request"""
-    if request.url_rule.rule != "/login":
+    if request.method == 'POST':
         autentification = request.headers.get("Authorization")
         token = autentification.split(" ")[1]
         valid = Token().validate_token(token)
