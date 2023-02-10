@@ -12,7 +12,7 @@
 #
 
 
-from CONVERTER.src.com.jalasoft.converter.database.database_connection import DatabaseConnection as db
+from database.database_connection import DatabaseConnection as db
 
 my_Cursor = db.conexion.cursor()
 
@@ -22,13 +22,15 @@ class CRUD:
 
     def create_table(tablename):
         """Creates a table"""
+        
         my_Cursor.execute("""SELECT COUNT(*) FROM information_schema.tables WHERE table_name = '{0}' """.format(
             tablename.replace('\'', '\'\'')))
         if my_Cursor.fetchone()[0] == 1:
             print("Table already created")
             return
         my_Cursor.execute(
-            "CREATE TABLE " + tablename + " (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(50), checksum VARCHAR(255), route VARCHAR(155))")
+            "CREATE TABLE " + tablename + " (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(50),"
+                                          "checksum VARCHAR(255), route VARCHAR(155))")
         print("Table created")
         return
 
@@ -62,21 +64,20 @@ class CRUD:
             print(dato)
         print("Data read")
 
-    def read_specific_data(name):
+    def read_specific_data(read_query):
         """Reads data searching by its name"""
 
-        query = "SELECT name, checksum, route FROM person WHERE name = %s"
-        my_Cursor.execute(query, (name))
-        datos = my_Cursor.fetchall()
-        for dato in datos:
-            print(dato)
-        print("Data read")
+        query = read_query
+        my_Cursor.execute(query)
+        column = my_Cursor.fetchall()
+        column = [x[0] for x in column]
+        return column
 
-    def update_data(newName, id):
+    def update_data(route, check):
         """Updates data"""
 
-        query = "UPDATE media SET name = %s  WHERE id = %s"
-        my_Cursor.execute(query, (newName, id))
+        query = "UPDATE media SET route = %s  WHERE checksum = %s"
+        my_Cursor.execute(query, (route, check))
         print("Data updated")
 
     def delete_data(id):

@@ -22,11 +22,23 @@
 * Installation ExifTool for download
 
     <https://exiftool.org>
+    1. download the zipped file for windows
+  * 2. Extract the "exiftool(-k).exe"
+    3. Rename the "exiftool(-k).exe" to "exiftool.exe"
+    4. Move "exiftool.exe" to "C:\Windows"
 
 * Installation Tesseract (for Windows) for download
 
   <https://github.com/UB-Mannheim/tesseract/wiki>
 
-Configure line 27 of routes.py (i.e.: PATH = r'C:\Users... \converter')
+Simple steps for tesseract installation in windows.
 
-Have a nice day! :christmas_tree: :sparkles:
+Download tesseract exe from https://github.com/UB-Mannheim/tesseract/wiki.
+
+Install this exe in C:\Program Files (x86)\Tesseract-OCR
+
+Run pip install pytesseract
+
+Add tesseract to "environments variables"
+
+Have a nice day! :sparkles:

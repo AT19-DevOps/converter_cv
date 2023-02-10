@@ -9,6 +9,9 @@
 # accordance with the terms of the license agreement you entered into
 # with Jalasoft.
 #
+
+import pytesseract
+import platform
 from CONVERTER.src.com.jalasoft.converter.common.exception.converter_exception import ConverterException
 from CONVERTER.src.com.jalasoft.converter.common.valid_data import Validations
 from CONVERTER.src.com.jalasoft.converter.model.converter import Converter
@@ -33,4 +36,4 @@ class ImageToTextConvert(Converter):
             command_line = ['tesseract', f'{self.input_file}', f'{self.output_file}', '-l', self.lang, self.output_extension]
             return " ".join(command_line)
         except Exception as error:
-            raise ConverterException('Create Image to PDF command error')
+            raise ConverterException('Create Image to text command error')

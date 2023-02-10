@@ -22,6 +22,7 @@ class PdfImage(Converter):
 
     def convert(self) -> str:
         """Converts all pages of PDF to images, return the command line"""
-        command_line = ['convert', '-density', '150', '-antialias', f'{self.input_file}', '-resize', '1024x', '-quality', f'{self.quality}', f'{self.output_file}']
+        command_line = ['convert', '-density', '150', '-antialias', f'{self.input_file}', '-resize', '1024x',
+                        '-quality', f'{self.quality}', f'{self.output_file}']
         return " ".join(command_line)
 

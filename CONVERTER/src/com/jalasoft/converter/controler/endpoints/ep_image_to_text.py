@@ -31,6 +31,9 @@ class ImageToText(Resource):
                 Command(ImageToTextConvert(file_in, file_out, lang, output_extension).convert()).run_cmd()
                 response = {'download_URL': url}
                 return response, 200
+            else:
+                response = {'error message': 'File is corrupted'}
+                return response, 400
         except ConvertException as error:
             response = {'error_message': error.get_message()}
             return response, 400

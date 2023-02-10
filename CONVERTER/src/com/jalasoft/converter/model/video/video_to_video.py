@@ -10,7 +10,8 @@
 # accordance with the terms of the license agreement you entered into
 # with Jalasoft.
 #
-
+from CONVERTER.src.com.jalasoft.converter.common.exception.converter_exception import ConverterException
+from CONVERTER.src.com.jalasoft.converter.common.valid_data import Validations
 from CONVERTER.src.com.jalasoft.converter.model.converter import Converter
 from CONVERTER.src.com.jalasoft.converter.common.exception.converter_exception import ConverterException
 from CONVERTER.src.com.jalasoft.converter.common.valid_data import Validations
@@ -18,10 +19,11 @@ from CONVERTER.src.com.jalasoft.converter.common.valid_data import Validations
 
 
 class VideoToVideo(Converter):
-    """Converts any video format to another video format""" 
+    """Converts any video format to another video format"""
+
     def __init__(self, input_file, output_file):
         super().__init__(input_file, output_file)
-    
+
     def convert(self):
         """Converts video formats"""
         Validations().validate_directory(self.input_file, 'vidTovid-')

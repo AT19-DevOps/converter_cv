@@ -30,6 +30,9 @@ class ImageResizer(Resource):
                 Command(ImageResize(file_in, file_out, new_size).convert()).run_cmd()
                 response = {'download_URL': url}
                 return response, 200
+            else:
+                response = {'error message': 'File is corrupted'}
+                return response, 400
         except ConvertException as error:
             response = {'error_message': error.get_message()}
             return response, 400
