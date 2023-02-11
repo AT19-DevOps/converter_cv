@@ -67,7 +67,9 @@ class ManageData:
             self.output_extension = file_prefix + self.filename.split('.')[0] + '-%4d' + str(self.output_extension)
         else:
             self.output_extension = file_prefix + self.filename.split('.')[0] + str(self.output_extension)
-        url = DOWNLOAD_DIR + os.path.basename(self.output_extension)
+        port = os.getenv("CONVERTER_PORT")
+        url = os.getenv("CONVERTER_HOST")
+        download_url = f"{url}:{port}/download?file_name={os.path.basename(self.output_extension)}"
         self.output_extension = os.path.join(RESPONSE_FOLDER, self.output_extension)
-        return [self.in_file, self.output_extension, url]
+        return [self.in_file, self.output_extension, download_url]
 

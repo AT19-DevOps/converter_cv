@@ -11,7 +11,7 @@
 # with Jalasoft.
 #
 
-from dotenv import load_dotenv
+
 from sqlalchemy import create_engine
 from sqlalchemy import Column
 from sqlalchemy import Integer
@@ -21,11 +21,7 @@ from sqlalchemy.orm import sessionmaker
 from os import getenv
 
 
-load_dotenv()
 Base = declarative_base()
-
-url = getenv("URL_DB")
-print(url)
 
 class User(Base):
     __tablename__ = 'user'
@@ -39,14 +35,11 @@ Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 
-user = User(user_name="converter_user", password="1234")
-user2 = User(user_name="denisse", password="12345")
-user3 = User(user_name="Roger", password="pasuconsumo")
-session.add(user)
-session.add(user2)
-session.add(user3)
-session.commit()
+def add_user(username, password):
+    existing_user = session.query(User).filter_by(user_name=username).first()
+    if not existing_user:
+        user = User(user_name=username, password=password)
+        session.add(user)
+        session.commit()
 
-users = session.query(User).all()
-print([user.user_name for user in users])
-
+add_user("converter_user", "1234")

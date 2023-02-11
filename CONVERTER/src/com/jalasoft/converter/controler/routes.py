@@ -41,8 +41,10 @@ def validate_inputs(file_prefix):
             out_file = file_prefix + filename.split('.')[0] + '-%4d' + str(out_file)
         else:
             out_file = file_prefix + filename.split('.')[0] + str(out_file)
-        url = DOWNLOAD_DIR + os.path.basename(out_file)
+        port = os.getenv("CONVERTER_PORT")
+        url = os.getenv("CONVERTER_HOST")
+        download_url = f"{url}:{port}/download?file_name={os.path.basename(out_file)}"
         out_file = os.path.join(RESPONSE_FOLDER, out_file)
-        return [in_file, out_file, url, filename]
+        return [in_file, out_file, download_url]
     else:
         raise FileNotFoundError('ConverterError: Invalid input file')
