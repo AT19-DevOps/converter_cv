@@ -10,38 +10,33 @@
 # with Jalasoft.
 #
 
-from flask import request
-from flask_swagger_ui import get_swaggerui_blueprint
-from werkzeug.utils import secure_filename
 import os
+from flask import request
+from werkzeug.utils import secure_filename
+from CONVERTER.src.com.jalasoft.converter.config import UPLOAD_FOLDER
+from CONVERTER.src.com.jalasoft.converter.config import RESPONSE_FOLDER
+from CONVERTER.src.com.jalasoft.converter.config import DOWNLOAD_DIR
 from CONVERTER.src.com.jalasoft.converter.common.allowed_files import AllowedExtensions
-from CONVERTER.src.com.jalasoft.converter.controler.config import UPLOAD_FOLDER
-from CONVERTER.src.com.jalasoft.converter.controler.config import RESPONSE_FOLDER
-from CONVERTER.src.com.jalasoft.converter.database.db_commands import CRUD
+from CONVERTER.src.com.jalasoft.converter.database.checksum import checksum_generator_md5
+from CONVERTER.src.com.jalasoft.converter.database.checksum import compare_checksum
 
-SWAGGER_URL = '/swagger'
-API_URL = '/static/swagger.json'
-SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
-    SWAGGER_URL,
-    API_URL,
-    config = {
-        'app_name': "Converter"
-    }
-)
 
 def validate_inputs(file_prefix):
     """Validates input files and generates a reliable paths"""
     input_file = request.files["input_file"]
     output_file = request.form["output_file"]
+    checksum_param = str(request.form["checksum_param"])
     out_file = '.' + str(output_file) if str(output_file)[0] != '.' else str(output_file)
     allowed_file = AllowedExtensions().validate_extension(input_file.filename)
     allowed_output = AllowedExtensions().validate_extension(out_file)
     if allowed_file and allowed_output:
         filename = secure_filename(input_file.filename)
-        checksum = 1
-        CRUD.insert_data(filename, checksum, os.path.join(UPLOAD_FOLDER, filename))
         input_file.save(os.path.join(UPLOAD_FOLDER, filename))
         in_file = os.path.join(UPLOAD_FOLDER, filename)
+        if checksum_param != checksum_generator_md5(in_file):
+            return None
+        else:
+            in_file = compare_checksum(filename, in_file)
         if file_prefix == 'imJpg-':
             out_file = file_prefix + filename.split('.')[0] + '-%4d' + str(out_file)
         else:
@@ -53,4 +48,3 @@ def validate_inputs(file_prefix):
         return [in_file, out_file, download_url]
     else:
         raise FileNotFoundError('ConverterError: Invalid input file')
-

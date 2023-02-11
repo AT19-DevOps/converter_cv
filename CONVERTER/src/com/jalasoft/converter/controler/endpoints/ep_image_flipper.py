@@ -10,6 +10,7 @@
 # with Jalasoft.
 #
 
+from flask import request
 from flask_restful import Resource
 from CONVERTER.src.com.jalasoft.converter.common.command_line import Command
 from CONVERTER.src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
@@ -28,6 +29,9 @@ class ImageFlipper(Resource):
                 Command(ImageFlip(file_in, file_out).convert()).run_cmd()
                 response = {'download_URL': url}
                 return response, 200
+            else:
+                response = {'error message': 'File is corrupted'}
+                return response, 400
         except ConvertException as error:
             response = {'error_message': error.get_message()}
             return response, 400

@@ -14,6 +14,7 @@
 from flask import request
 from flask_restful import Resource
 from CONVERTER.src.com.jalasoft.converter.common.command_line import Command
+from CONVERTER.src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
 from CONVERTER.src.com.jalasoft.converter.controler.mange_request import ManageData
 from CONVERTER.src.com.jalasoft.converter.model.audio.audio_increase_volume import IncreaseVolume
 
@@ -24,7 +25,14 @@ class IncreaseAudioVolume(Resource):
         """Increases the audio volume"""
         files = ManageData().generate_path('audInaud-')
         multiplier = request.form["multiplier"]
-        if files and multiplier is not None:
-            file_in, file_out, url = files[0], files[1], files[2]
-            Command(IncreaseVolume(file_in, file_out, multiplier).convert()).run_cmd()
-            return url
+        try:
+            if files and multiplier is not None:
+                file_in, file_out, url = files[0], files[1], files[2]
+                Command(IncreaseVolume(file_in, file_out, multiplier).convert()).run_cmd()
+                return {'download_URL': url}
+            else:
+                response = {'error message': 'File is corrupted'}
+                return response, 400
+        except ConvertException as error:
+            response = {'error_message': error.get_message()}
+            return response, 400

@@ -16,8 +16,10 @@ from flask import request
 from flask_restful import Resource
 from werkzeug.utils import secure_filename
 from CONVERTER.src.com.jalasoft.converter.common.command_line import Command
-from CONVERTER.src.com.jalasoft.converter.controler.config import UPLOAD_FOLDER
-from CONVERTER.src.com.jalasoft.converter.controler.config import RESPONSE_FOLDER
+from CONVERTER.src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
+from CONVERTER.src.com.jalasoft.converter.config import UPLOAD_FOLDER
+from CONVERTER.src.com.jalasoft.converter.config import RESPONSE_FOLDER
+from CONVERTER.src.com.jalasoft.converter.config import DOWNLOAD_DIR
 from CONVERTER.src.com.jalasoft.converter.model.audio.audio_mix_audio import MixAudio
 
 
@@ -29,16 +31,24 @@ class AudioMixAudio(Resource):
         input_file_1 = request.files["input_file_1"]
         input_file_2 = request.files["input_file_2"]
         output_file = request.form["output_file"]
-        if input_file_2 and input_file_2 and output_file:
-            filename_1 = secure_filename(input_file_1.filename)
-            filename_2 = secure_filename(input_file_2.filename)
-            audio_name = filename_1[0:-4] + '-Mix-' + filename_2[0:-4] + output_file
-            input_file_1.save(os.path.join(UPLOAD_FOLDER, filename_1))
-            input_file_2.save(os.path.join(UPLOAD_FOLDER, filename_2))
-            input_audio_1 = os.path.join(UPLOAD_FOLDER, filename_1)
-            input_audio_2 = os.path.join(UPLOAD_FOLDER, filename_2)
-            input_list = [input_audio_1, input_audio_2]
-            cmd = MixAudio(input_list, RESPONSE_FOLDER + "\\" + audio_name).convert()
-            Command(cmd).run_cmd()
-            url = 'http://localhost:5000/download?file_name=' + audio_name
-            return url
+        try:
+            if input_file_1 and input_file_2 and output_file:
+                filename_1 = secure_filename(input_file_1.filename)
+                filename_2 = secure_filename(input_file_2.filename)
+                audio_name = os.path.basename(filename_1).split('.')[0] + '-Mix-' + \
+                             os.path.basename(filename_2).split('.')[0] + output_file
+                input_file_1.save(os.path.join(UPLOAD_FOLDER, filename_1))
+                input_file_2.save(os.path.join(UPLOAD_FOLDER, filename_2))
+                input_audio_1 = os.path.join(UPLOAD_FOLDER, filename_1)
+                input_audio_2 = os.path.join(UPLOAD_FOLDER, filename_2)
+                input_list = [input_audio_1, input_audio_2]
+                cmd = MixAudio(input_list, os.path.join(RESPONSE_FOLDER, audio_name)).convert()
+                Command(cmd).run_cmd()
+                url = DOWNLOAD_DIR + audio_name
+                return {'download_URL': url}
+            else:
+                response = {'error message': 'File is corrupted'}
+                return response, 400
+        except ConvertException as error:
+            response = {'error_message': error.get_message()}
+            return response, 400

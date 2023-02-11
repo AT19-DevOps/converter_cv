@@ -13,6 +13,7 @@
 
 from flask_restful import Resource
 from CONVERTER.src.com.jalasoft.converter.common.command_line import Command
+from CONVERTER.src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
 from CONVERTER.src.com.jalasoft.converter.controler.routes import validate_inputs
 from CONVERTER.src.com.jalasoft.converter.model.audio.audio_extract_audio import ExtractAudio
 
@@ -22,7 +23,14 @@ class VideoToAudio(Resource):
     def post(self):
         """Extracts the audio from the video"""
         files = validate_inputs('')
-        if files:
-            file_in, file_out, url = files[0], files[1], files[2]
-            Command(ExtractAudio(file_in, file_out).convert()).run_cmd()
-            return url
+        try:
+            if files:
+                file_in, file_out, url = files[0], files[1], files[2]
+                Command(ExtractAudio(file_in, file_out).convert()).run_cmd()
+                return {'download_URL': url}
+            else:
+                response = {'error message': 'File is corrupted'}
+                return response, 400
+        except ConvertException as error:
+            response = {'error_message': error.get_message()}
+            return response, 400

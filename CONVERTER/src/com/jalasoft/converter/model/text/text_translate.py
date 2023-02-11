@@ -17,6 +17,7 @@ from CONVERTER.src.com.jalasoft.converter.model.converter import Converter
 
 class TextTranslator(Converter):
     """Inherits Converter criteria"""
+
     def __init__(self, input_file: str, output_file: str):
         super().__init__(input_file, output_file)
 
@@ -24,7 +25,7 @@ class TextTranslator(Converter):
         """Translates text into a language given"""
         languages: dict = googletrans.LANGUAGES
         translator = Translator()
-        translated: TextTranslator = translator.translate(self.input_file, dest = self.output_file)
+        translated: TextTranslator = translator.translate(self.input_file, dest=self.output_file)
         translation: dict = {
             "Source language": languages[str(translated.src)].capitalize(),
             "Translation": str(translated.text),

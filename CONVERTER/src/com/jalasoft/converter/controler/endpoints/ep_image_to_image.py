@@ -11,10 +11,10 @@
 #
 
 
+from flask import request
 from flask_restful import Resource
 from CONVERTER.src.com.jalasoft.converter.common.command_line import Command
 from CONVERTER.src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
-from CONVERTER.src.com.jalasoft.converter.common.exception.input_exception import InvalidInputException
 from CONVERTER.src.com.jalasoft.converter.controler.mange_request import ManageData
 from CONVERTER.src.com.jalasoft.converter.model.image.image_to_images import ImageConverter
 
@@ -30,6 +30,9 @@ class ImageToImage(Resource):
                 Command(ImageConverter(file_in, file_out).convert()).run_cmd()
                 response = {'download_URL': url}
                 return response, 200
+            else:
+                response = {'error message': 'File is corrupted'}
+                return response, 400
         except ConvertException as error:
             response = {'error_message': error.get_message()}
             return response, 400

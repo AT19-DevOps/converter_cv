@@ -17,10 +17,12 @@ from flask import Flask
 from flask import request
 from flask import jsonify
 from flask_restful import Api
+from config import SWAGGERUI_BLUEPRINT
+from config import SWAGGER_URL
+from config import SERVER
+from config import PORT
 from CONVERTER.src.com.jalasoft.converter.common.token import Token
 from CONVERTER.src.com.jalasoft.converter.database.db_commands import CRUD
-from CONVERTER.src.com.jalasoft.converter.controler.routes import SWAGGER_URL
-from CONVERTER.src.com.jalasoft.converter.controler.routes import SWAGGERUI_BLUEPRINT
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_download import Download
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_video_to_zip_image import VideoToZipImage
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_video_to_zip import VideoToZip
@@ -42,7 +44,7 @@ from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_login import Lo
 from CONVERTER.src.com.jalasoft.converter.database.login_crud import UserCRUD
 
 app = Flask(__name__)
-app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix = SWAGGER_URL)
+app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 api = Api(app)
 
 CRUD.create_table("media")
