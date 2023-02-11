@@ -9,8 +9,10 @@
 # accordance with the terms of the license agreement you entered into
 # with Jalasoft.
 #
+from dotenv import  load_dotenv
+load_dotenv()
 
-
+from os import getenv
 from flask import Flask
 from flask import request
 from flask import jsonify
@@ -18,27 +20,27 @@ from flask_restful import Api
 from config import SWAGGERUI_BLUEPRINT
 from config import SWAGGER_URL
 from config import PORT
-from flask_cors import CORS
-from common.token import Token
-from database.db_commands import CRUD
-from controler.endpoints.ep_download import Download
-from controler.endpoints.ep_video_to_zip_image import VideoToZipImage
-from controler.endpoints.ep_video_to_zip import VideoToZip
-from controler.endpoints.ep_video_to_video import VideoToVid
-from controler.endpoints.ep_image_to_image import ImageToImage
-from controler.endpoints.ep_image_flipper import ImageFlipper
-from controler.endpoints.ep_image_bw import ImageBlackWhite
-from controler.endpoints.ep_image_resizer import ImageResizer
-from controler.endpoints.ep_image_rotater import ImageRotater
-from controler.endpoints.ep_image_to_text import ImageToText
-from controler.endpoints.ep_pdf_to_image import PdfToImage
-from controler.endpoints.ep_video_to_audio import VideoToAudio
-from controler.endpoints.ep_audio_to_audio import AudioToAudio
-from controler.endpoints.ep_incrase_audio_volume import IncreaseAudioVolume
-from controler.endpoints.ep_audio_mix_audio import AudioMixAudio
-from controler.endpoints.ep_text_translate import TextTranslate
-from controler.endpoints.ep_get_metadata import GetMetadata
-from controler.endpoints.ep_login import Login
+from CONVERTER.src.com.jalasoft.converter.common.token import Token
+from CONVERTER.src.com.jalasoft.converter.database.db_commands import CRUD
+from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_download import Download
+from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_video_to_zip_image import VideoToZipImage
+from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_video_to_zip import VideoToZip
+from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_video_to_video import VideoToVid
+from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_image_to_image import ImageToImage
+from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_image_flipper import ImageFlipper
+from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_image_bw import ImageBlackWhite
+from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_image_resizer import ImageResizer
+from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_image_rotater import ImageRotater
+from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_image_to_text import ImageToText
+from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_pdf_to_image import PdfToImage
+from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_video_to_audio import VideoToAudio
+from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_audio_to_audio import AudioToAudio
+from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_incrase_audio_volume import IncreaseAudioVolume
+from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_audio_mix_audio import AudioMixAudio
+from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_text_translate import TextTranslate
+from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_get_metadata import GetMetadata
+from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_login import Login
+from CONVERTER.src.com.jalasoft.converter.database.login_crud import UserCRUD
 
 app = Flask(__name__)
 CORS(app)
@@ -46,7 +48,7 @@ app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 api = Api(app)
 
 CRUD.create_table("media")
-
+UserCRUD().create()
 api.add_resource(VideoToZipImage, '/videotoimage/zip')
 api.add_resource(VideoToZip, '/videotoimagee/zip')
 api.add_resource(VideoToVid, '/videotovideo')
@@ -84,6 +86,6 @@ def middleware():
             response.status_code = 400
             return response
 
-
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=PORT)
+    app.run(debug=True, host = getenv("CONVERTER_HOST"), port = getenv("CONVERTER_PORT"))
+

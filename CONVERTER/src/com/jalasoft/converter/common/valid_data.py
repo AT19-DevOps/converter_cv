@@ -86,7 +86,7 @@ class Validations:
             raise InvalidInputException("Invalid input: the input is empty" + method)
         if type(file_name) != FileStorage:
             raise InvalidInputException("Invalid input: the input type is not valid" + method)
-        try:
-            method in self.extensions[file_name.mimetype.split('/')[0]]
-        except Exception as error:
-            raise InvalidInputException(f"Invalid input type -{method}")
+        #try:
+        #    method in self.extensions[file_name.mimetype.split('/')[0]]
+        #except Exception as error:
+        #    raise InvalidInputException(f"Invalid input type -{method}")

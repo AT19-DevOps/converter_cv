@@ -18,7 +18,7 @@ from CONVERTER.src.com.jalasoft.converter.database.validate_user import Validate
 
 class Login(Resource):
     """Defines user login"""
-    def post(self):
+    def get(self):
         """Verify user"""
         user_name = request.form["username"]
         password = request.form["password"]

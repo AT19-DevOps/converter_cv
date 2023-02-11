@@ -11,17 +11,18 @@
 # with Jalasoft.
 #
 
-
+from os import getenv
 import pymysql
 
 class DatabaseConnection:
     """Defines the connection to the database"""
 
     try:
-        conexion = pymysql.connect(host='127.0.0.1',
-                                   user='root',
-                                   password='',
-                                   db='converter_db')
+        conexion = pymysql.connect(host=getenv("DB_HOST"),
+                                   user=getenv("DB_USER"),
+                                   password=getenv("DB_PASSWORD"),
+                                   db=getenv("DB_NAME"),
+                                   port=int(getenv("DB_PORT")))
         print("Successful connection")
         
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
