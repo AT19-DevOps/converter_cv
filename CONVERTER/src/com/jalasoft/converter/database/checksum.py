@@ -32,7 +32,6 @@ def compare_checksum(filename, in_file):
         if not any(val == check_md5 for val in column_check):
             CRUD.insert_data(filename, check_md5, in_file)
         path_upload = CRUD.read_specific_data(f"SELECT route FROM media WHERE checksum = '{check_md5}' ")
-        print(path_upload)
         return path_upload[0]
     except Exception as error:
         raise Exception("checksum failed")

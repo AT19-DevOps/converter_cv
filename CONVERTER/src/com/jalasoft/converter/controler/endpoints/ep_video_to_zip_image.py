@@ -39,7 +39,6 @@ class VideoToZipImage(Resource):
                 file_out = file_in.split('.')[0] + file_name + '%06d.' + output_format
                 Command(VideoToImages(file_in, file_out, fps).convert()).run_cmd()
                 tmp_zip = ZipFiles(file_in.split('.')[0], file_in.split('.')[0] + os.sep, RESPONSE_FOLDER).compress()
-                print(tmp_zip)
                 url = DOWNLOAD_DIR + os.path.basename(tmp_zip)
                 return {'download_URL': url}
             else:

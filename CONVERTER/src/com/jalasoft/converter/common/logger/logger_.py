@@ -46,4 +46,3 @@ class LoggerManager(metaclass=SingletonMeta):
     def exit_method(methodName):
         """Writes logger to exit a method"""
         logging.debug('Exit Method >' + str(methodName))
-

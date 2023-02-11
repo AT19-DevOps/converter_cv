@@ -42,6 +42,7 @@ from CONVERTER.src.com.jalasoft.converter.controler.middleware import Middleware
 
 
 app = Flask(__name__)
+CORS(app)
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 app.before_request(Middleware.before_request)
 api = Api(app)
@@ -66,6 +67,7 @@ api.add_resource(AudioMixAudio, "/audiomixaudio")
 api.add_resource(TextTranslate, "/texttranslator")
 api.add_resource(GetMetadata, "/metadatageter")
 api.add_resource(Login, "/login")
+
 
 if __name__ == '__main__':
     app.run(debug=True, host = getenv("CONVERTER_HOST_ALL"), port = getenv("CONVERTER_PORT"))
