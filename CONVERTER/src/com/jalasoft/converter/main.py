@@ -42,7 +42,6 @@ from CONVERTER.src.com.jalasoft.converter.controler.middleware import Middleware
 
 
 app = Flask(__name__)
-CORS(app)
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 app.before_request(Middleware.before_request)
 api = Api(app)

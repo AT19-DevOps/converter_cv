@@ -189,6 +189,11 @@
     },
     "/videotovideo": {
       "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Video Converter"
         ],
@@ -278,6 +283,11 @@
     },
     "/imageflip": {
       "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Image Converter"
         ],
@@ -320,6 +330,11 @@
     },
     "/imagebw": {
       "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Image Converter"
         ],
@@ -362,6 +377,11 @@
     },
     "/imageresize": {
       "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Image Converter"
         ],
@@ -404,6 +424,11 @@
     },
     "/imagerotate": {
       "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Image Converter"
         ],
@@ -539,6 +564,11 @@
     },
     "/pdftoimage": {
       "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "PDF Utility"
         ],
@@ -580,6 +610,11 @@
     },
     "/audiotoaudio": {
       "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Audio Converter"
         ],
@@ -621,6 +656,11 @@
     },
     "/audioincreasevolume": {
       "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Audio Converter"
         ],
@@ -710,6 +750,11 @@
     },
     "/audiomixaudio": {
       "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Audio Converter"
         ],
@@ -920,7 +965,8 @@
       "videotovideo": {
         "required": [
           "input_file",
-          "output_file"
+          "output_file",
+          "checksum_param"
         ],
         "type": "object",
         "properties": {
@@ -940,13 +986,19 @@
               "ogg",
               "mpg"
             ]
+          },
+          "checksum_param": {
+            "type": "string",
+            "description": "Specify the checksum param</i>:",
+            "example": "12345abcdef"
           }
         }
       },
       "image": {
         "required": [
           "input_file",
-          "output_file"
+          "output_file",
+          "checksum_param"
         ],
         "type": "object",
         "properties": {
@@ -967,6 +1019,11 @@
               "bmp",
               "tiff"
             ]
+          },
+          "checksum_param": {
+            "type": "string",
+            "description": "Specify the checksum param</i>:",
+            "example": "12345abcdef"
           }
         }
       },
@@ -974,7 +1031,8 @@
         "required": [
           "input_file",
           "new_size",
-          "output_file"
+          "output_file",
+          "checksum_param"
         ],
         "type": "object",
         "properties": {
@@ -1000,6 +1058,11 @@
             "type": "string",
             "description": "Specify the new size <i>(Percentage: 25 or size 640x480)</i>:",
             "example": "25"
+          },
+          "checksum_param": {
+            "type": "string",
+            "description": "Specify the checksum param</i>:",
+            "example": "12345abcdef"
           }
         }
       },
@@ -1007,7 +1070,8 @@
         "required": [
           "grades",
           "input_file",
-          "output_file"
+          "output_file",
+          "checksum_param"
         ],
         "type": "object",
         "properties": {
@@ -1033,6 +1097,11 @@
             "type": "string",
             "description": "Specify the number of degrees to rotate:",
             "example": "30"
+          },
+          "checksum_param": {
+            "type": "string",
+            "description": "Specify the checksum param</i>:",
+            "example": "12345abcdef"
           }
         }
       },
@@ -1040,7 +1109,8 @@
         "required": [
           "input_file",
           "lang",
-          "output_file"
+          "output_file",
+          "checksum_param"
         ],
         "type": "object",
         "properties": {
@@ -1066,6 +1136,11 @@
               "spa",
               "eng+spa"
             ]
+          },
+          "checksum_param": {
+            "type": "string",
+            "description": "Specify the checksum param</i>:",
+            "example": "12345abcdef"
           }
         }
       },
@@ -1073,7 +1148,8 @@
         "required": [
           "input_file",
           "lang",
-          "output_file"
+          "output_file",
+          "checksum_param"
         ],
         "type": "object",
         "properties": {
@@ -1099,6 +1175,11 @@
               "spa",
               "eng+spa"
             ]
+          },
+          "checksum_param": {
+            "type": "string",
+            "description": "Specify the checksum param</i>:",
+            "example": "12345abcdef"
           }
         }
       },
@@ -1106,7 +1187,8 @@
         "required": [
           "input_file",
           "output_file",
-          "quality"
+          "quality",
+          "checksum_param"
         ],
         "type": "object",
         "properties": {
@@ -1134,13 +1216,19 @@
             "type": "integer",
             "description": "Specify the % quality of the generated image <i>(Recommended: 90)</i>:",
             "example": 90
+          },
+          "checksum_param": {
+            "type": "string",
+            "description": "Specify the checksum param</i>:",
+            "example": "12345abcdef"
           }
         }
       },
       "audiotoaudio": {
         "required": [
           "input_file",
-          "output_file"
+          "output_file",
+          "checksum_param"
         ],
         "type": "object",
         "properties": {
@@ -1161,6 +1249,11 @@
               "flac",
               "wma"
             ]
+          },
+          "checksum_param": {
+            "type": "string",
+            "description": "Specify the checksum param</i>:",
+            "example": "12345abcdef"
           }
         }
       },
@@ -1168,7 +1261,8 @@
         "required": [
           "input_file",
           "multiplier",
-          "output_file"
+          "output_file",
+          "checksum_param"
         ],
         "type": "object",
         "properties": {
@@ -1194,13 +1288,19 @@
             "type": "number",
             "description": "Specify the multiplier <i>(To increase volumen write a value greater then 0, to decrease, the value should be lower than 0)</i>:",
             "example": 2
+          },
+          "checksum_param": {
+            "type": "string",
+            "description": "Specify the checksum param</i>:",
+            "example": "12345abcdef"
           }
         }
       },
       "audioextractaudio": {
         "required": [
           "input_file",
-          "output_file"
+          "output_file",
+          "checksum_param"
         ],
         "type": "object",
         "properties": {
@@ -1221,6 +1321,11 @@
               "flac",
               "wma"
             ]
+          },
+          "checksum_param": {
+            "type": "string",
+            "description": "Specify the checksum param</i>:",
+            "example": "12345abcdef"
           }
         }
       },
@@ -1228,7 +1333,8 @@
         "required": [
           "input_file_1",
           "input_file_2",
-          "output_file"
+          "output_file",
+          "checksum_param"
         ],
         "type": "object",
         "properties": {
@@ -1255,6 +1361,11 @@
               "flac",
               "wma"
             ]
+          },
+          "checksum_param": {
+            "type": "string",
+            "description": "Specify the checksum param</i>:",
+            "example": "12345abcdef"
           }
         }
       },
