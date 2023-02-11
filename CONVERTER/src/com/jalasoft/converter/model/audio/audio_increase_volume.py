@@ -27,7 +27,7 @@ class IncreaseVolume(Converter):
         Validations().validate_input(self.input_file, 'audIncaud-')
         Validations().validate_output(self.output_file, 'audIncaud-')
         Validations().validate_directory(self.output_file, 'audIncaud-')
-        Validations().validate_multiplier_int(self.multiplier, 'audIncaud-')
+        Validations().validate_multiplier_str(self.multiplier, 'audIncaud-')
         try:
             cmd = f'ffmpeg -i {self.input_file} -af "volume={self.multiplier}" {self.output_file}'
             return cmd

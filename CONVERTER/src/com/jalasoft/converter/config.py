@@ -26,8 +26,8 @@ SERVER = 'localhost'
 PORT = '5000'
 DOWNLOAD_DIR = 'http://' + SERVER + ':' + PORT + '/download?file_name='
 
-SWAGGER_URL = '/swagger'
-API_URL = '/static/swagger.json'
+SWAGGER_URL = '/openapi'
+API_URL = '/static/openapi.json'
 SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
     SWAGGER_URL,
     API_URL,
