@@ -28,16 +28,21 @@ class ValidateUser:
 
     def compare(self):
         """Compares password"""
-        password_hash = self.process_password(self.password)
-        user = UserCRUD().read(self.user_name)
-        if user.password == password_hash:
-            data = {"user_name": self.user_name}
-            token = Token().write_token(data)
-            token_filtered = str(token)[2:-1]
-            response = jsonify({"token": token_filtered})
-            response.status_code = 200
-            return response
-        else:
+        try:
+            password_hash = self.process_password(self.password)
+            user = UserCRUD().read(self.user_name)
+            if user.password == password_hash:
+                data = {"user_name": self.user_name}
+                token = Token().write_token(data)
+                token_filtered = str(token)[2:-1]
+                response = jsonify({"token": token_filtered})
+                response.status_code = 200
+                return response
+            else:
+                response = jsonify({"message": "invalid user or password"})
+                response.status_code = 404
+                return response
+        except:
             response = jsonify({"message": "invalid user or password"})
             response.status_code = 404
             return response

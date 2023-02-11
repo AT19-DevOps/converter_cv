@@ -9,8 +9,10 @@
 # accordance with the terms of the license agreement you entered into
 # with Jalasoft.
 #
+from dotenv import  load_dotenv
+load_dotenv()
 
-
+from os import getenv
 from flask import Flask
 from flask import request
 from flask import jsonify
@@ -37,14 +39,14 @@ from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_audio_mix_audio
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_text_translate import TextTranslate
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_get_metadata import GetMetadata
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_login import Login
-
+from CONVERTER.src.com.jalasoft.converter.database.login_crud import UserCRUD
 
 app = Flask(__name__)
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix = SWAGGER_URL)
 api = Api(app)
 
 CRUD.create_table("media")
-
+UserCRUD().create()
 api.add_resource(VideoToZipImage, '/videotoimage/zip')
 api.add_resource(VideoToZip, '/videotoimagee/zip')
 api.add_resource(VideoToVid, '/videotovideo')
@@ -68,15 +70,19 @@ api.add_resource(Login, "/login")
 def middleware():
     """Verifies users before process request"""
     if request.method == 'POST':
-        autentification = request.headers.get("Authorization")
-        token = autentification.split(" ")[1]
-        valid = Token().validate_token(token)
-        if valid == False:
-            response = jsonify({"message": "You aren't authorizate"})
-            response.status_code = 401
+        try:
+            autentification = request.headers.get("Authorization")
+            token = autentification.split(" ")[1]
+            valid = Token().validate_token(token)
+            if valid == False:
+                response = jsonify({"message": "You aren't authorizate"})
+                response.status_code = 401
+                return response
+        except:
+            response = jsonify({"message": "Bad request"})
+            response.status_code = 400
             return response
 
-
 if __name__ == '__main__':
-    app.run(debug=True, host = '0.0.0.0', port = 5000)
+    app.run(debug=True, host = getenv("CONVERTER_HOST"), port = getenv("CONVERTER_PORT"))
 
