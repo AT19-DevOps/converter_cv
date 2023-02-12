@@ -27,7 +27,8 @@ class Validations:
                            'image': ['imaToima-', 'imaBWima-', 'imaFlima-', 'imaRoima-', 'imaReima-', 'imaPdftex-'],
                            'audio': ['audIncaud-', 'audToaud-', 'audMixaud-'],
                            'lan': ['eng', 'spa'],
-                           'video':['vidToaud-', 'vidToima-', 'vidTovid-']
+                           'video': ['vidToaud-', 'vidToima-', 'vidTovid-'],
+                           'application': ['pdfToima-']
                            }
 
     def validate_input(self, file_name, method):

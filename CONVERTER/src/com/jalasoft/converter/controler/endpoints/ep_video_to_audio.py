@@ -14,7 +14,7 @@
 from flask_restful import Resource
 from common.command_line import Command
 from common.exception.convert_exception import ConvertException
-from controler.routes import validate_inputs
+from controler.mange_request import ManageData
 from model.audio.audio_extract_audio import ExtractAudio
 
 
@@ -22,8 +22,8 @@ class VideoToAudio(Resource):
     """Defines video to audio class"""
     def post(self):
         """Extracts the audio from the video"""
-        files = validate_inputs('')
         try:
+            files = ManageData().generate_path('vidToaud-')
             if files:
                 file_in, file_out, url = files[0], files[1], files[2]
                 Command(ExtractAudio(file_in, file_out).convert()).run_cmd()

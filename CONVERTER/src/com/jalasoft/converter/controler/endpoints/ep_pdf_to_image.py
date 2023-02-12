@@ -15,7 +15,7 @@ from flask import request
 from flask_restful import Resource
 from common.command_line import Command
 from common.exception.convert_exception import ConvertException
-from controler.routes import validate_inputs
+from controler.mange_request import ManageData
 from model.image.pdf_to_image import PdfImage
 
 
@@ -23,8 +23,8 @@ class PdfToImage(Resource):
     """Defines image to black and white class"""
     def post(self):
         """Convert image to black and white image"""
-        files = validate_inputs('imJpg-')
         try:
+            files = ManageData().generate_path('pdfToima-')
             if files:
                 file_in, file_out, url = files[0], files[1], files[2]
                 quality = request.form["quality"]

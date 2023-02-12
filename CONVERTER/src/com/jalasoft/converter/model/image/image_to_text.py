@@ -14,7 +14,6 @@ from common.exception.converter_exception import ConverterException
 from common.valid_data import Validations
 from model.converter import Converter
 
-
 class ImageToTextConvert(Converter):
     """ Inherits Converter criteria"""
 

@@ -19,7 +19,7 @@ from common.exception.convert_exception import ConvertException
 from common.zip_file import ZipFiles
 from config import RESPONSE_FOLDER
 from config import DOWNLOAD_DIR
-from controler.routes import validate_inputs
+from controler.mange_request import ManageData
 from model.video.vconverter import VideoToImages
 
 
@@ -28,18 +28,13 @@ class VideoToZipImage(Resource):
 
     def post(self):
         """Create zip file containing image from video"""
-        files = validate_inputs('')
         try:
+            files = ManageData().generate_path('vidToima-')
             if files:
-                output_format = str(request.form["output_file"])
+                file_in, file_out, url = files[0], files[1], files[2]
                 fps = str(request.form["fps"])
-                file_in = files[0]
-                file_name = os.sep + os.path.basename(file_in).split('.')[0] + os.sep
-                os.makedirs(file_in.split('.')[0] + file_name, exist_ok=True)
-                file_out = file_in.split('.')[0] + file_name + '%06d.' + output_format
                 Command(VideoToImages(file_in, file_out, fps).convert()).run_cmd()
                 tmp_zip = ZipFiles(file_in.split('.')[0], file_in.split('.')[0] + os.sep, RESPONSE_FOLDER).compress()
-                print(tmp_zip)
                 url = DOWNLOAD_DIR + os.path.basename(tmp_zip)
                 return {'download_URL': url}
             else:

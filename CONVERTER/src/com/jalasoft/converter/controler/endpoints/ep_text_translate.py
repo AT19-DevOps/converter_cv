@@ -22,8 +22,8 @@ class TextTranslate(Resource):
     """Translate a text class"""
     def post(self):
         """Translate text into a given language endpoint"""
-        input_file = request.form["input_file"]
-        output_file = request.form["output_file"]
+        input_file = request.form["text"]
+        output_file = request.form['language']
         try:
             translation = TextTranslator(input_file, output_file).convert()
             return {"translation": translation}
