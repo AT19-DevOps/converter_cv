@@ -18,7 +18,7 @@ from database.validate_user import ValidateUser
 
 class Login(Resource):
     """Defines user login"""
-    def get(self):
+    def post(self):
         """Verify user"""
         user_name = request.form["username"]
         password = request.form["password"]
