@@ -14,7 +14,7 @@
 from flask_restful import Resource
 from CONVERTER.src.com.jalasoft.converter.common.command_line import Command
 from CONVERTER.src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
-from CONVERTER.src.com.jalasoft.converter.controler.routes import validate_inputs
+from CONVERTER.src.com.jalasoft.converter.controler.mange_request import ManageData
 from CONVERTER.src.com.jalasoft.converter.model.video.video_to_video import VideoToVideo
 
 
@@ -22,8 +22,8 @@ class VideoToVid(Resource):
     """Defines video to another type of video class"""
     def post(self):
         """Convert video to another type of video"""
-        files = validate_inputs('')
         try:
+            files = ManageData().generate_path('vidTovid-')
             if files:
                 file_in, file_out, url = files[0], files[1], files[2]
                 Command(VideoToVideo(file_in, file_out).convert()).run_cmd()

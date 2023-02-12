@@ -16,12 +16,12 @@ load_dotenv()
 from os import getenv
 from flask import Flask
 from flask_restful import Api
+from flask_cors import CORS
 from config import SWAGGERUI_BLUEPRINT
 from config import SWAGGER_URL
 from CONVERTER.src.com.jalasoft.converter.database.db_commands import CRUD
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_download import Download
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_video_to_zip_image import VideoToZipImage
-from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_video_to_zip import VideoToZip
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_video_to_video import VideoToVid
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_image_to_image import ImageToImage
 from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_image_flipper import ImageFlipper
@@ -49,14 +49,13 @@ api = Api(app)
 CRUD.create_table("media")
 UserCRUD().create()
 api.add_resource(VideoToZipImage, '/videotoimage/zip')
-api.add_resource(VideoToZip, '/videotoimagee/zip')
 api.add_resource(VideoToVid, '/videotovideo')
 api.add_resource(ImageToImage, '/imagetoimage')
 api.add_resource(ImageFlipper, '/imageflip')
 api.add_resource(ImageBlackWhite, '/imagebw')
 api.add_resource(ImageResizer, '/imageresize')
 api.add_resource(ImageRotater, '/imagerotate')
-api.add_resource(ImageToText, '/imagetopdf')
+api.add_resource(ImageToText, '/imagetotext')
 api.add_resource(PdfToImage, '/pdftoimage')
 api.add_resource(Download, '/download')
 api.add_resource(VideoToAudio, '/audioextractaudio')
@@ -66,7 +65,6 @@ api.add_resource(AudioMixAudio, "/audiomixaudio")
 api.add_resource(TextTranslate, "/texttranslator")
 api.add_resource(GetMetadata, "/metadatageter")
 api.add_resource(Login, "/login")
-
 
 if __name__ == '__main__':
     app.run(debug=True, host = getenv("CONVERTER_HOST_ALL"), port = getenv("CONVERTER_PORT"))

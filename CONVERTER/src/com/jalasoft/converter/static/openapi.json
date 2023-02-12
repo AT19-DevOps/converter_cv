@@ -1163,7 +1163,8 @@
             "type": "string",
             "example": "txt",
             "enum": [
-              "txt"
+              "txt",
+              "pdf"
             ]
           },
           "lang": {
