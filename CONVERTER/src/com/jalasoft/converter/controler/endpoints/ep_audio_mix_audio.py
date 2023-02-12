@@ -15,12 +15,12 @@ import os
 from flask import request
 from flask_restful import Resource
 from werkzeug.utils import secure_filename
-from CONVERTER.src.com.jalasoft.converter.common.command_line import Command
-from CONVERTER.src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
-from CONVERTER.src.com.jalasoft.converter.config import UPLOAD_FOLDER
-from CONVERTER.src.com.jalasoft.converter.config import RESPONSE_FOLDER
-from CONVERTER.src.com.jalasoft.converter.config import DOWNLOAD_DIR
-from CONVERTER.src.com.jalasoft.converter.model.audio.audio_mix_audio import MixAudio
+from common.command_line import Command
+from common.exception.convert_exception import ConvertException
+from config import UPLOAD_FOLDER
+from config import RESPONSE_FOLDER
+from config import DOWNLOAD_DIR
+from model.audio.audio_mix_audio import MixAudio
 
 
 class AudioMixAudio(Resource):

@@ -13,9 +13,9 @@
 
 from werkzeug.datastructures import FileStorage
 from pathlib import Path
-from CONVERTER.src.com.jalasoft.converter.common.common_validations import CommonValidator
-from CONVERTER.src.com.jalasoft.converter.common.exception.input_exception import InvalidInputException
-from CONVERTER.src.com.jalasoft.converter.common.get_file_type import MimeTypeGetter
+from common.common_validations import CommonValidator
+from common.exception.input_exception import InvalidInputException
+from common.get_file_type import MimeTypeGetter
 
 
 class Validations:

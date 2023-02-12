@@ -22,7 +22,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(RESPONSE_FOLDER, exist_ok=True)
 
 """Server configuration"""
-SERVER = 'localhost'
+SERVER = '127.0.0.1'
 PORT = '5000'
 DOWNLOAD_DIR = 'http://' + SERVER + ':' + PORT + '/download?file_name='
 

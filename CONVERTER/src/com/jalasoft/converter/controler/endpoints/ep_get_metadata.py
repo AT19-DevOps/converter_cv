@@ -12,10 +12,10 @@
 
 from flask import request
 from flask_restful import Resource
-from CONVERTER.src.com.jalasoft.converter.common.command_line import Command
-from CONVERTER.src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
-from CONVERTER.src.com.jalasoft.converter.common.get_metadata import MetadataGetter
-from CONVERTER.src.com.jalasoft.converter.controler.routes import validate_inputs
+from common.command_line import Command
+from common.exception.convert_exception import ConvertException
+from common.get_metadata import MetadataGetter
+from controler.routes import validate_inputs
 
 
 class GetMetadata(Resource):

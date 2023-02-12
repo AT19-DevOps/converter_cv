@@ -12,10 +12,10 @@
 #
 
 from flask_restful import Resource
-from CONVERTER.src.com.jalasoft.converter.common.command_line import Command
-from CONVERTER.src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
-from CONVERTER.src.com.jalasoft.converter.controler.routes import validate_inputs
-from CONVERTER.src.com.jalasoft.converter.model.video.video_to_video import VideoToVideo
+from common.command_line import Command
+from common.exception.convert_exception import ConvertException
+from controler.routes import validate_inputs
+from model.video.video_to_video import VideoToVideo
 
 
 class VideoToVid(Resource):

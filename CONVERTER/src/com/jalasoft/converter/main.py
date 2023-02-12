@@ -21,27 +21,27 @@ from config import SWAGGERUI_BLUEPRINT
 from config import SWAGGER_URL
 from config import SERVER
 from config import PORT
-from CONVERTER.src.com.jalasoft.converter.common.token import Token
-from CONVERTER.src.com.jalasoft.converter.database.db_commands import CRUD
-from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_download import Download
-from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_video_to_zip_image import VideoToZipImage
-from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_video_to_zip import VideoToZip
-from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_video_to_video import VideoToVid
-from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_image_to_image import ImageToImage
-from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_image_flipper import ImageFlipper
-from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_image_bw import ImageBlackWhite
-from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_image_resizer import ImageResizer
-from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_image_rotater import ImageRotater
-from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_image_to_text import ImageToText
-from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_pdf_to_image import PdfToImage
-from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_video_to_audio import VideoToAudio
-from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_audio_to_audio import AudioToAudio
-from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_incrase_audio_volume import IncreaseAudioVolume
-from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_audio_mix_audio import AudioMixAudio
-from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_text_translate import TextTranslate
-from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_get_metadata import GetMetadata
-from CONVERTER.src.com.jalasoft.converter.controler.endpoints.ep_login import Login
-from CONVERTER.src.com.jalasoft.converter.database.login_crud import UserCRUD
+from common.token import Token
+from database.db_commands import CRUD
+from controler.endpoints.ep_download import Download
+from controler.endpoints.ep_video_to_zip_image import VideoToZipImage
+from controler.endpoints.ep_video_to_zip import VideoToZip
+from controler.endpoints.ep_video_to_video import VideoToVid
+from controler.endpoints.ep_image_to_image import ImageToImage
+from controler.endpoints.ep_image_flipper import ImageFlipper
+from controler.endpoints.ep_image_bw import ImageBlackWhite
+from controler.endpoints.ep_image_resizer import ImageResizer
+from controler.endpoints.ep_image_rotater import ImageRotater
+from controler.endpoints.ep_image_to_text import ImageToText
+from controler.endpoints.ep_pdf_to_image import PdfToImage
+from controler.endpoints.ep_video_to_audio import VideoToAudio
+from controler.endpoints.ep_audio_to_audio import AudioToAudio
+from controler.endpoints.ep_incrase_audio_volume import IncreaseAudioVolume
+from controler.endpoints.ep_audio_mix_audio import AudioMixAudio
+from controler.endpoints.ep_text_translate import TextTranslate
+from controler.endpoints.ep_get_metadata import GetMetadata
+from controler.endpoints.ep_login import Login
+from database.login_crud import UserCRUD
 
 app = Flask(__name__)
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
@@ -86,5 +86,5 @@ def middleware():
             return response
 
 if __name__ == '__main__':
-    app.run(debug=True, host = getenv("CONVERTER_HOST"), port = getenv("CONVERTER_PORT"))
+    app.run(debug=True, host = getenv("CONVERTER_HOST_ALL"), port = getenv("CONVERTER_PORT"))
 

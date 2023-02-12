@@ -18,7 +18,6 @@ from sqlalchemy import Integer
 from sqlalchemy import String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from os import getenv
 
 
 Base = declarative_base()

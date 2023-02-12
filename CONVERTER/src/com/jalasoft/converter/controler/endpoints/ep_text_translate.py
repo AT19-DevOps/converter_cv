@@ -14,8 +14,8 @@
 from flask import request
 from flask_restful import Resource
 
-from CONVERTER.src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
-from CONVERTER.src.com.jalasoft.converter.model.text.text_translate import TextTranslator
+from common.exception.convert_exception import ConvertException
+from model.text.text_translate import TextTranslator
 
 
 class TextTranslate(Resource):

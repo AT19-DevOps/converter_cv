@@ -12,7 +12,7 @@
 
 import googletrans
 from googletrans import Translator
-from CONVERTER.src.com.jalasoft.converter.model.converter import Converter
+from model.converter import Converter
 
 
 class TextTranslator(Converter):

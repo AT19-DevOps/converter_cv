@@ -14,12 +14,12 @@
 from flask import request
 from werkzeug.utils import secure_filename
 import os
-from CONVERTER.src.com.jalasoft.converter.common.exception.input_exception import InvalidInputException
-from CONVERTER.src.com.jalasoft.converter.config import DOWNLOAD_DIR
-from CONVERTER.src.com.jalasoft.converter.config import UPLOAD_FOLDER
-from CONVERTER.src.com.jalasoft.converter.config import RESPONSE_FOLDER
-from CONVERTER.src.com.jalasoft.converter.common.valid_data import Validations
-from CONVERTER.src.com.jalasoft.converter.database.checksum import compare_checksum, checksum_generator_md5
+from common.exception.input_exception import InvalidInputException
+from config import DOWNLOAD_DIR
+from config import UPLOAD_FOLDER
+from config import RESPONSE_FOLDER
+from common.valid_data import Validations
+from database.checksum import compare_checksum, checksum_generator_md5
 
 
 class ManageData:
@@ -69,7 +69,8 @@ class ManageData:
             self.output_extension = file_prefix + self.filename.split('.')[0] + str(self.output_extension)
         port = os.getenv("CONVERTER_PORT")
         url = os.getenv("CONVERTER_HOST")
-        download_url = f"{url}:{port}/download?file_name={os.path.basename(self.output_extension)}"
+        download_url = f"{url}{port}/download?file_name={os.path.basename(self.output_extension)}"
         self.output_extension = os.path.join(RESPONSE_FOLDER, self.output_extension)
         return [self.in_file, self.output_extension, download_url]
+
 

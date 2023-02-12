@@ -13,10 +13,10 @@
 
 from flask import request
 from flask_restful import Resource
-from CONVERTER.src.com.jalasoft.converter.common.command_line import Command
-from CONVERTER.src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
-from CONVERTER.src.com.jalasoft.converter.controler.routes import validate_inputs
-from CONVERTER.src.com.jalasoft.converter.model.image.pdf_to_image import PdfImage
+from common.command_line import Command
+from common.exception.convert_exception import ConvertException
+from controler.routes import validate_inputs
+from model.image.pdf_to_image import PdfImage
 
 
 class PdfToImage(Resource):

@@ -9,7 +9,7 @@
 # accordance with the terms of the license agreement you entered into
 # with Jalasoft.
 #
-from CONVERTER.src.com.jalasoft.converter.common.exception.input_exception import InvalidInputException
+from common.exception.input_exception import InvalidInputException
 
 
 class AllowedExtensions:

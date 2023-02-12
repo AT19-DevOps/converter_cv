@@ -13,12 +13,12 @@
 import os
 from flask import request
 from werkzeug.utils import secure_filename
-from CONVERTER.src.com.jalasoft.converter.config import UPLOAD_FOLDER
-from CONVERTER.src.com.jalasoft.converter.config import RESPONSE_FOLDER
-from CONVERTER.src.com.jalasoft.converter.config import DOWNLOAD_DIR
-from CONVERTER.src.com.jalasoft.converter.common.allowed_files import AllowedExtensions
-from CONVERTER.src.com.jalasoft.converter.database.checksum import checksum_generator_md5
-from CONVERTER.src.com.jalasoft.converter.database.checksum import compare_checksum
+from config import UPLOAD_FOLDER
+from config import RESPONSE_FOLDER
+from config import DOWNLOAD_DIR
+from common.allowed_files import AllowedExtensions
+from database.checksum import checksum_generator_md5
+from database.checksum import compare_checksum
 
 
 def validate_inputs(file_prefix):
@@ -43,7 +43,7 @@ def validate_inputs(file_prefix):
             out_file = file_prefix + filename.split('.')[0] + str(out_file)
         port = os.getenv("CONVERTER_PORT")
         url = os.getenv("CONVERTER_HOST")
-        download_url = f"{url}:{port}/download?file_name={os.path.basename(out_file)}"
+        download_url = f"http://{url}:{port}/download?file_name={os.path.basename(out_file)}"
         out_file = os.path.join(RESPONSE_FOLDER, out_file)
         return [in_file, out_file, download_url]
     else:

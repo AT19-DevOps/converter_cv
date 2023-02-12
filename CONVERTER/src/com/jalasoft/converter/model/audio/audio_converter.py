@@ -10,9 +10,9 @@
 # with Jalasoft.
 #
 
-from CONVERTER.src.com.jalasoft.converter.model.converter import Converter
-from CONVERTER.src.com.jalasoft.converter.common.exception.converter_exception import ConverterException
-from CONVERTER.src.com.jalasoft.converter.common.valid_data import Validations
+from model.converter import Converter
+from common.exception.converter_exception import ConverterException
+from common.valid_data import Validations
 
 
 class AudioConvert(Converter):

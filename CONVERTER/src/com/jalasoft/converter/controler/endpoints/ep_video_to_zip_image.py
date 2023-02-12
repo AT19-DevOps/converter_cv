@@ -14,13 +14,13 @@
 import os
 from flask import request
 from flask_restful import Resource
-from CONVERTER.src.com.jalasoft.converter.common.command_line import Command
-from CONVERTER.src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
-from CONVERTER.src.com.jalasoft.converter.common.zip_file import ZipFiles
-from CONVERTER.src.com.jalasoft.converter.config import RESPONSE_FOLDER
-from CONVERTER.src.com.jalasoft.converter.config import DOWNLOAD_DIR
-from CONVERTER.src.com.jalasoft.converter.controler.routes import validate_inputs
-from CONVERTER.src.com.jalasoft.converter.model.video.vconverter import VideoToImages
+from common.command_line import Command
+from common.exception.convert_exception import ConvertException
+from common.zip_file import ZipFiles
+from config import RESPONSE_FOLDER
+from config import DOWNLOAD_DIR
+from controler.routes import validate_inputs
+from model.video.vconverter import VideoToImages
 
 
 class VideoToZipImage(Resource):
