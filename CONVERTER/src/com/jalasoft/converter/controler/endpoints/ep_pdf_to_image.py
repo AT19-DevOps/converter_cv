@@ -24,14 +24,15 @@ class PdfToImage(Resource):
     def post(self):
         """Convert image to black and white image"""
         try:
-            files = ManageData().generate_path('pdfToima-')
+            files, checksum = ManageData().generate_path('pdfToima-')
             if files:
                 file_in, file_out, url = files[0], files[1], files[2]
                 quality = request.form["quality"]
                 Command(PdfImage(file_in, file_out, quality).convert()).run_cmd()
                 return {'download_URL': url}
             else:
-                response = {'error message': 'File is corrupted'}
+                response = {'error message': 'File is corrupted',
+                            'checksum': checksum}
                 return response, 400
         except ConvertException as error:
             response = {'error_message': error.get_message()}

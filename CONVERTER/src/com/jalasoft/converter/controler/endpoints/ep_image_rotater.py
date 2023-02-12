@@ -23,7 +23,7 @@ class ImageRotater(Resource):
     def post(self):
         """Convert image to black and white image"""
         try:
-            files = ManageData().generate_path('imaRotima-')
+            files, checksum = ManageData().generate_path('imaRotima-')
             if files:
                 file_in, file_out, url = files[0], files[1], files[2]
                 grades = request.form["grades"]
@@ -31,7 +31,8 @@ class ImageRotater(Resource):
                 response = {'download_URL': url}
                 return response, 200
             else:
-                response = {'error message': 'File is corrupted'}
+                response = {'error message': 'File is corrupted',
+                            'checksum': checksum}
                 return response, 400
         except ConvertException as error:
             response = {'error_message': error.get_message()}

@@ -24,14 +24,15 @@ class ImageToImage(Resource):
     def post(self):
         """Convert image to another type of image"""
         try:
-            files = ManageData().generate_path('imaToima-')
+            files, checksum = ManageData().generate_path('imaToima-')
             if files:
                 file_in, file_out, url = files[0], files[1], files[2]
                 Command(ImageConverter(file_in, file_out).convert()).run_cmd()
                 response = {'download_URL': url}
                 return response, 200
             else:
-                response = {'error message': 'File is corrupted'}
+                response = {'error message': 'File is corrupted',
+                            'checksum': checksum}
                 return response, 400
         except ConvertException as error:
             response = {'error_message': error.get_message()}

@@ -23,7 +23,7 @@ class ImageToText(Resource):
     def post(self):
         """Convert image to black and white image"""
         try:
-            files = ManageData().generate_path('imaPdftex-')
+            files, checksum = ManageData().generate_path('imaPdftex-')
             if files:
                 file_in, file_out, url = files[0], files[1].split('.')[0], files[2]
                 output_extension = files[1].split('.')[1]
@@ -32,7 +32,8 @@ class ImageToText(Resource):
                 response = {'download_URL': url}
                 return response, 200
             else:
-                response = {'error message': 'File is corrupted'}
+                response = {'error message': 'File is corrupted',
+                            'checksum': checksum}
                 return response, 400
         except ConvertException as error:
             response = {'error_message': error.get_message()}

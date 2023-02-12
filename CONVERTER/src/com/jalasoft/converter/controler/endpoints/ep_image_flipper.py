@@ -23,14 +23,15 @@ class ImageFlipper(Resource):
     def post(self):
         """Convert image to flipped image"""
         try:
-            files = ManageData().generate_path('imaFlima-')
+            files, checksum = ManageData().generate_path('imaFlima-')
             if files:
                 file_in, file_out, url = files[0], files[1], files[2]
                 Command(ImageFlip(file_in, file_out).convert()).run_cmd()
                 response = {'download_URL': url}
                 return response, 200
             else:
-                response = {'error message': f'File is corrupted'}
+                response = {'error message': 'File is corrupted',
+                            'checksum': checksum}
                 return response, 400
         except ConvertException as error:
             response = {'error_message': error.get_message()}

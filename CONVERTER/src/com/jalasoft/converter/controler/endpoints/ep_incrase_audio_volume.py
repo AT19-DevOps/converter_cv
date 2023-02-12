@@ -23,7 +23,7 @@ class IncreaseAudioVolume(Resource):
     """Defines increse audio volume class"""
     def post(self):
         """Increases the audio volume"""
-        files = ManageData().generate_path('audInaud-')
+        files, checksum = ManageData().generate_path('audInaud-')
         multiplier = request.form["multiplier"]
         try:
             if files and multiplier is not None:
@@ -31,7 +31,8 @@ class IncreaseAudioVolume(Resource):
                 Command(IncreaseVolume(file_in, file_out, multiplier).convert()).run_cmd()
                 return {'download_URL': url}
             else:
-                response = {'error message': 'File is corrupted'}
+                response = {'error message': 'File is corrupted',
+                            'checksum': checksum}
                 return response, 400
         except ConvertException as error:
             response = {'error_message': error.get_message()}

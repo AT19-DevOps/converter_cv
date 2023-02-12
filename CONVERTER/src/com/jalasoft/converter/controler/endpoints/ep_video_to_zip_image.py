@@ -29,7 +29,7 @@ class VideoToZipImage(Resource):
     def post(self):
         """Create zip file containing image from video"""
         try:
-            files = ManageData().generate_path('vidToima-')
+            files, checksum = ManageData().generate_path('vidToima-')
             if files:
                 file_in, file_out, url = files[0], files[1], files[2]
                 fps = str(request.form["fps"])
@@ -38,7 +38,8 @@ class VideoToZipImage(Resource):
                 url = DOWNLOAD_DIR + os.path.basename(tmp_zip)
                 return {'download_URL': url}
             else:
-                response = {'error message': 'File is corrupted'}
+                response = {'error message': 'File is corrupted',
+                            'checksum': checksum}
                 return response, 400
         except ConvertException as error:
             response = {'error_message': error.get_message()}
