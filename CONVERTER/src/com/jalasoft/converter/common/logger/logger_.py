@@ -10,7 +10,7 @@
 # with Jalasoft.
 #
 
-from CONVERTER.src.com.jalasoft.converter.common.logger.Singleton import SingletonMeta
+from src.com.jalasoft.converter.common.logger.Singleton import SingletonMeta
 import logging
 import logging.config
 

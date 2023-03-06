@@ -27,11 +27,3 @@ services:
     depends_on:
       - mysql
     restart: always
-#  web_converter:
-#    image: roretar/front-end-converter:bandeja_paisa
-#    container_name: front_end_converter
-#    ports:
-#      - 5017:5017
-#    depends_on:
-#      - converter
-#    restart: always
