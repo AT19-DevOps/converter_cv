@@ -84,7 +84,7 @@ class ManageData:
         if file_prefix == 'vidToima-':
             new_folder = UPLOAD_FOLDER + os.sep + self.filename.split('.')[0] + os.sep + self.filename.split('.')[0] + os.sep
             os.makedirs(new_folder, exist_ok=True)
-            self.output_extension = new_folder + '%06d.' + str(self.output_extension)
+            self.output_extension = new_folder + '%06d' + str(self.output_extension)
         else:
             self.output_extension = file_prefix + self.filename.split('.')[0] + str(self.output_extension)
         port = os.getenv("CONVERTER_PORT")
