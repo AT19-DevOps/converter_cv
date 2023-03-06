@@ -19,7 +19,7 @@ from flask_restful import Api
 from flask_cors import CORS
 from src.com.jalasoft.converter.config import SWAGGERUI_BLUEPRINT
 from src.com.jalasoft.converter.config import SWAGGER_URL
-#from src.com.jalasoft.converter.database.db_commands import CRUD
+from src.com.jalasoft.converter.database.db_commands import CRUD
 from src.com.jalasoft.converter.controler.endpoints.ep_download import Download
 from src.com.jalasoft.converter.controler.endpoints.ep_video_to_zip_image import VideoToZipImage
 from src.com.jalasoft.converter.controler.endpoints.ep_video_to_video import VideoToVid
@@ -46,7 +46,7 @@ app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 app.before_request(Middleware.before_request)
 api = Api(app)
 
-#CRUD.create_table("media")
+CRUD.create_table("media")
 UserCRUD().create()
 api.add_resource(VideoToZipImage, '/videotoimage/zip')
 api.add_resource(VideoToVid, '/videotovideo')
