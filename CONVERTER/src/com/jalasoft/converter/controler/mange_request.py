@@ -14,11 +14,11 @@
 from flask import request
 from werkzeug.utils import secure_filename
 import os
-from common.exception.input_exception import InvalidInputException
-from config import UPLOAD_FOLDER
-from config import RESPONSE_FOLDER
-from common.valid_data import Validations
-from database.checksum import compare_checksum, checksum_generator_md5
+from src.com.jalasoft.converter.common.exception.input_exception import InvalidInputException
+from src.com.jalasoft.converter.config import UPLOAD_FOLDER
+from src.com.jalasoft.converter.config import RESPONSE_FOLDER
+from src.com.jalasoft.converter.common.valid_data import Validations
+from src.com.jalasoft.converter.database.checksum import compare_checksum, checksum_generator_md5
 
 
 class ManageData:

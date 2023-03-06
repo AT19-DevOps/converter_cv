@@ -12,10 +12,10 @@
 #
 
 from flask_restful import Resource
-from common.command_line import Command
-from common.exception.convert_exception import ConvertException
-from controler.mange_request import ManageData
-from model.audio.audio_extract_audio import ExtractAudio
+from src.com.jalasoft.converter.common.command_line import Command
+from src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
+from src.com.jalasoft.converter.controler.mange_request import ManageData
+from src.com.jalasoft.converter.model.audio.audio_extract_audio import ExtractAudio
 
 
 class VideoToAudio(Resource):

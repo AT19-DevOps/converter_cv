@@ -12,9 +12,9 @@
 #
 
 
-from database.database_connection import DatabaseConnection as db
+from src.com.jalasoft.converter.database.database_connection import DatabaseConnection as db
 
-my_Cursor = db.conexion.cursor()
+my_Cursor = db().conexion.cursor()
 
 
 class CRUD:

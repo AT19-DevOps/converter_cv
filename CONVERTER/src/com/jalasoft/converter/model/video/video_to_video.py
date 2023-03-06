@@ -10,11 +10,11 @@
 # accordance with the terms of the license agreement you entered into
 # with Jalasoft.
 #
-from common.exception.converter_exception import ConverterException
-from common.valid_data import Validations
-from model.converter import Converter
-from common.exception.converter_exception import ConverterException
-from common.valid_data import Validations
+from src.com.jalasoft.converter.common.exception.converter_exception import ConverterException
+from src.com.jalasoft.converter.common.valid_data import Validations
+from src.com.jalasoft.converter.model.converter import Converter
+from src.com.jalasoft.converter.common.exception.converter_exception import ConverterException
+from src.com.jalasoft.converter.common.valid_data import Validations
 
 
 

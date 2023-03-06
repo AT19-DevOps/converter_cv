@@ -12,7 +12,7 @@
 #
 
 import hashlib
-from database.db_commands import CRUD
+from src.com.jalasoft.converter.database.db_commands import CRUD
 
 
 def checksum_generator_md5(in_file):

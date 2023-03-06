@@ -14,7 +14,7 @@
 from flask import request
 from flask_restful import Resource
 from flask import send_from_directory
-from config import RESPONSE_FOLDER
+from src.com.jalasoft.converter.config import RESPONSE_FOLDER
 
 
 class Download(Resource):
