@@ -11,9 +11,8 @@ pipeline {
         PYTHONPATH = "/var/jenkins_home/workspace/task4_task4@2/CONVERTER"
       }            
       steps {
-        sh 'pwd'
-        sh 'ls -la'
-        sh 'pytest --cov=CONVERTER/src/com/jalasoft/converter/model'
+
+        sh 'pytest --cov=CONVERTER/src/com/jalasoft/converter/model --cov-report html'
       }
     }
     stage('Code Inspection'){
