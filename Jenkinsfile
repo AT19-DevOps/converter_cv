@@ -13,6 +13,7 @@ pipeline {
       steps {
 
         sh 'pytest --cov=CONVERTER/src/com/jalasoft/converter/model'
+        
         sh 'pytest --cov=CONVERTER/src/com/jalasoft/converter/model --cov-report html'
       }
     }
