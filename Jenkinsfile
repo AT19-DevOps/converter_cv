@@ -15,7 +15,7 @@ pipeline {
       }
       post {
         always {
-          archiveArtifacts artifacts: 'htmlcov/**', fingerprint: true
+          archiveArtifacts artifacts: 'test.log', fingerprint: true
         }
     }}
     stage('Code Inspection'){
