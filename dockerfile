@@ -11,9 +11,9 @@
 #
 
 FROM python:3.8-alpine3.16
-#WORKDIR /app
+WORKDIR /app
 
-COPY requirements.txt .
+COPY . .
 
 RUN apk update \
     && apk add --no-cache \
@@ -25,5 +25,6 @@ RUN apk update \
     && apk del .tmp-build-deps \
     && rm -rf /var/cache/apk/*
 
+EXPOSE 5000
 
-#CMD ["python3", "CONVERTER/src/com/jalasoft/converter/main.py", "ffmpeg", "libmagickwand", "tesseract"]
+CMD ["python3", "CONVERTER/src/com/jalasoft/converter/main.py", "ffmpeg", "libmagickwand", "tesseract"]

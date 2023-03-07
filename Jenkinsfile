@@ -8,7 +8,7 @@ pipeline {
         }
       }
       environment {
-        PYTHONPATH = "/var/jenkins_home/workspace/test_task4_myapp@2/CONVERTER"
+        PYTHONPATH = "/var/jenkins_home/workspace/task4_task4_myapp@2/CONVERTER"
       }
       steps {
         sh 'pwd'
