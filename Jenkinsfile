@@ -11,7 +11,7 @@ pipeline {
         PYTHONPATH = "/var/jenkins_home/workspace/task4_task4@2/CONVERTER"
       }            
       steps {
-        sh 'pytest -v --cov=CONVERTER/src/com/jalasoft/converter/model --cov-report html'
+        sh 'pytest --result-log=test.log --cov=CONVERTER/src/com/jalasoft/converter/model --cov-report html'
       }
       post {
         always {
