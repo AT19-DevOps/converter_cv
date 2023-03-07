@@ -16,12 +16,11 @@ WORKDIR /app
 COPY . .
 
 RUN apk update \
-    && apk add --no-cache python3-dev \
+    && apk add --no-cache \
     --virtual .tmp-build-deps \
     gcc libc-dev linux-headers postgresql-dev musl-dev zlib zlib-dev \
     libressl-dev libffi-dev \
     && apk add exiftool ffmpeg imagemagick tesseract-ocr \
-    && pip3 install --upgrade pip \
     && pip install -r requirements.txt --no-cache \
     && apk del .tmp-build-deps \
     && rm -rf /var/cache/apk/*

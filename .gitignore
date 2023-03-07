@@ -7,6 +7,7 @@ __pycache__/
 venv_conv/*
 workdir
 *.coverage
+htmlcov/
 *.pdf
 *.wav
 *.exe
