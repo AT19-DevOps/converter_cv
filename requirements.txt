@@ -34,3 +34,4 @@ urllib3==1.26.13
 Werkzeug==2.2.2
 flask_cors==3.0.10
 cryptography==39.0.2
+pytest-html 

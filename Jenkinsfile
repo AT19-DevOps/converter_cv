@@ -4,18 +4,18 @@ pipeline {
     stage('Test'){
       agent{
         docker{
-          image 'roretar/python_converter:1.0'
+          image 'roretar/python_converter:unittest'
         }
       }
       environment {
-        PYTHONPATH = "/var/jenkins_home/workspace/task4_task4@2/CONVERTER"
+        PYTHONPATH = "/var/jenkins_home/workspace/task4_task5@2/CONVERTER"
       }            
       steps {
-        sh 'pytest --result-log=test.log --cov=CONVERTER/src/com/jalasoft/converter/model --cov-report html'
+        sh 'pytest -v --html=report.html --show-capture=all /var/jenkins_home/workspace/task4_task5@2/'
       }
       post {
         always {
-          archiveArtifacts artifacts: 'htmlcov/**', fingerprint: true
+          archiveArtifacts artifacts: 'report.html', fingerprint: true
         }
     }}
     stage('Code Inspection'){
