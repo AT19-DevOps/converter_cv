@@ -17,7 +17,7 @@ pipeline {
         always {
           archiveArtifacts artifacts: 'htmlcov/**', fingerprint: true
         }
-    }
+    }}
     stage('Code Inspection'){
       steps {
         sh 'echo Code inspection stage'
