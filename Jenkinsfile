@@ -11,11 +11,12 @@ pipeline {
         PYTHONPATH = "/var/jenkins_home/workspace/task4_task4@2/CONVERTER"
       }            
       steps {
-
-        sh 'pytest --cov=CONVERTER/src/com/jalasoft/converter/model'
-        
         sh 'pytest --cov=CONVERTER/src/com/jalasoft/converter/model --cov-report html'
       }
+      post {
+        always {
+          archiveArtifacts artifacts: 'htmlcov/**', fingerprint: true
+        }
     }
     stage('Code Inspection'){
       steps {
