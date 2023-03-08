@@ -17,11 +17,11 @@ from src.com.jalasoft.converter.model.video.vconverter import VideoToImages
 
 class TestImageResize(unittest.TestCase):
     """Defines unit tests for image_resize.py module"""
-    #def test_video_converter_valid_data(self):
-    #    """Test the happy path"""
-    #    video_converter = VideoToImages(r'E:\Users\Leo\AT\Programming\AT19_CONVERTER\AT19_CONVERTER\AT19_CONVERTER_UT\AT19_CONVERTER\CONVERTER\test\com\resources\Whats.mp4', r'../../../resources/Whats.jpg', '2')
-    #    expected = r'ffmpeg -i E:\Users\Leo\AT\Programming\AT19_CONVERTER\AT19_CONVERTER\AT19_CONVERTER_UT\AT19_CONVERTER\CONVERTER\test\com\resources\Whats.mp4 -r 2 ../../../resources/Whats.jpg'
-    #    self.assertEqual(expected, video_converter.convert())
+    def test_video_converter_valid_data(self):
+        """Test the happy path"""
+        video_converter = VideoToImages(r'E:\Users\Leo\AT\Programming\AT19_CONVERTER\AT19_CONVERTER\AT19_CONVERTER_UT\AT19_CONVERTER\CONVERTER\test\com\resources\Whats.mp4', r'../../../resources/Whats.jpg', '2')
+        expected = r'ffmpeg -i E:\Users\Leo\AT\Programming\AT19_CONVERTER\AT19_CONVERTER\AT19_CONVERTER_UT\AT19_CONVERTER\CONVERTER\test\com\resources\Whats.mp4 -r 2 ../../../resources/Whats.jpg'
+        self.assertEqual(expected, video_converter.convert())
 
     def test_video_converter_none_input(self):
         """Test when input is None"""
