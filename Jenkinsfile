@@ -11,11 +11,11 @@ pipeline {
         PYTHONPATH = "/var/jenkins_home/workspace/task4_task5@2/CONVERTER"
       }            
       steps {
-        sh 'pytest -v --html=report.html --show-capture=all /var/jenkins_home/workspace/task4_task5@2/'
+        sh 'pytest -v --html=rep.html --show-capture=all /var/jenkins_home/workspace/task4_task5@2/'
       }
       post {
         always {
-          archiveArtifacts artifacts: 'report.html', fingerprint: true
+          archiveArtifacts artifacts: 'rep.html', fingerprint: true
         }
     }}
     stage('Code Inspection'){
