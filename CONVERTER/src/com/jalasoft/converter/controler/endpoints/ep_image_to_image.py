@@ -13,10 +13,10 @@
 
 from flask import request
 from flask_restful import Resource
-from CONVERTER.src.com.jalasoft.converter.common.command_line import Command
-from CONVERTER.src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
-from CONVERTER.src.com.jalasoft.converter.controler.mange_request import ManageData
-from CONVERTER.src.com.jalasoft.converter.model.image.image_to_images import ImageConverter
+from src.com.jalasoft.converter.common.command_line import Command
+from src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
+from src.com.jalasoft.converter.controler.mange_request import ManageData
+from src.com.jalasoft.converter.model.image.image_to_images import ImageConverter
 
 
 class ImageToImage(Resource):
@@ -24,14 +24,15 @@ class ImageToImage(Resource):
     def post(self):
         """Convert image to another type of image"""
         try:
-            files = ManageData().generate_path('imaToima-')
+            files, checksum = ManageData().generate_path('imaToima-')
             if files:
                 file_in, file_out, url = files[0], files[1], files[2]
                 Command(ImageConverter(file_in, file_out).convert()).run_cmd()
                 response = {'download_URL': url}
                 return response, 200
             else:
-                response = {'error message': 'File is corrupted'}
+                response = {'error message': 'File is corrupted',
+                            'checksum': checksum}
                 return response, 400
         except ConvertException as error:
             response = {'error_message': error.get_message()}

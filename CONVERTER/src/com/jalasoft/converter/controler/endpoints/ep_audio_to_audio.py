@@ -13,24 +13,25 @@
 
 from flask import request
 from flask_restful import Resource
-from CONVERTER.src.com.jalasoft.converter.common.command_line import Command
-from CONVERTER.src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
-from CONVERTER.src.com.jalasoft.converter.controler.mange_request import ManageData
-from CONVERTER.src.com.jalasoft.converter.model.audio.audio_converter import AudioConvert
+from src.com.jalasoft.converter.common.command_line import Command
+from src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
+from src.com.jalasoft.converter.controler.mange_request import ManageData
+from src.com.jalasoft.converter.model.audio.audio_converter import AudioConvert
 
 
 class AudioToAudio(Resource):
     """Defines audio to audio class"""
     def post(self):
         """Convert audio to another type of audio"""
-        files = ManageData().generate_path('audToaud-')
+        files, checksum = ManageData().generate_path('audToaud-')
         try:
             if files:
                 file_in, file_out, url = files[0], files[1], files[2]
                 Command(AudioConvert(file_in, file_out).convert()).run_cmd()
                 return {'download_URL': url}
             else:
-                response = {'error message': 'File is corrupted'}
+                response = {'error message': 'File is corrupted',
+                            'checksum': checksum}
                 return response, 400
         except ConvertException as error:
             response = {'error_message': error.get_message()}

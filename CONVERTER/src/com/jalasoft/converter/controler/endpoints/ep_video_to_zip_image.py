@@ -14,13 +14,13 @@
 import os
 from flask import request
 from flask_restful import Resource
-from CONVERTER.src.com.jalasoft.converter.common.command_line import Command
-from CONVERTER.src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
-from CONVERTER.src.com.jalasoft.converter.common.zip_file import ZipFiles
-from CONVERTER.src.com.jalasoft.converter.config import RESPONSE_FOLDER
-from CONVERTER.src.com.jalasoft.converter.config import DOWNLOAD_DIR
-from CONVERTER.src.com.jalasoft.converter.controler.mange_request import ManageData
-from CONVERTER.src.com.jalasoft.converter.model.video.vconverter import VideoToImages
+from src.com.jalasoft.converter.common.command_line import Command
+from src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
+from src.com.jalasoft.converter.common.zip_file import ZipFiles
+from src.com.jalasoft.converter.config import RESPONSE_FOLDER
+from src.com.jalasoft.converter.config import DOWNLOAD_DIR
+from src.com.jalasoft.converter.controler.mange_request import ManageData
+from src.com.jalasoft.converter.model.video.vconverter import VideoToImages
 
 
 class VideoToZipImage(Resource):
@@ -29,7 +29,7 @@ class VideoToZipImage(Resource):
     def post(self):
         """Create zip file containing image from video"""
         try:
-            files = ManageData().generate_path('vidToima-')
+            files, checksum = ManageData().generate_path('vidToima-')
             if files:
                 file_in, file_out, url = files[0], files[1], files[2]
                 fps = str(request.form["fps"])
@@ -38,7 +38,8 @@ class VideoToZipImage(Resource):
                 url = DOWNLOAD_DIR + os.path.basename(tmp_zip)
                 return {'download_URL': url}
             else:
-                response = {'error message': 'File is corrupted'}
+                response = {'error message': 'File is corrupted',
+                            'checksum': checksum}
                 return response, 400
         except ConvertException as error:
             response = {'error_message': error.get_message()}

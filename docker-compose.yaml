@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:debian
+    container_name: converter_db
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=converter_db
+    restart: always
+
+  converter:
+    image: prueba:chairo
+    container_name: converter_api
+    ports:
+      - 5000:5000
+    environment:
+      - CONVERTER_HOST_ALL=0.0.0.0
+      - CONVERTER_HOST=0.0.0.0
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=converter_db
+      - PYTHONPATH=/app/CONVERTER
+    volumes:
+      - $PWD:/app
+    depends_on:
+      - mysql
+    restart: always

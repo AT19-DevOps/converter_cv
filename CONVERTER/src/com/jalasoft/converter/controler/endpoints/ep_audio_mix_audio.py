@@ -15,13 +15,13 @@ import os
 from flask import request
 from flask_restful import Resource
 from werkzeug.utils import secure_filename
-from CONVERTER.src.com.jalasoft.converter.common.command_line import Command
-from CONVERTER.src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
-from CONVERTER.src.com.jalasoft.converter.config import UPLOAD_FOLDER
-from CONVERTER.src.com.jalasoft.converter.config import RESPONSE_FOLDER
-from CONVERTER.src.com.jalasoft.converter.config import DOWNLOAD_DIR
-from CONVERTER.src.com.jalasoft.converter.controler.mange_request import ManageData
-from CONVERTER.src.com.jalasoft.converter.model.audio.audio_mix_audio import MixAudio
+from src.com.jalasoft.converter.common.command_line import Command
+from src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
+from src.com.jalasoft.converter.config import UPLOAD_FOLDER
+from src.com.jalasoft.converter.config import RESPONSE_FOLDER
+from src.com.jalasoft.converter.config import DOWNLOAD_DIR
+from src.com.jalasoft.converter.controler.mange_request import ManageData
+from src.com.jalasoft.converter.model.audio.audio_mix_audio import MixAudio
 
 
 class AudioMixAudio(Resource):
@@ -30,7 +30,7 @@ class AudioMixAudio(Resource):
     def post(self):
         """Mixes two audios"""
         try:
-            files = ManageData().generate_path('audMixaud-')
+            files, checksum = ManageData().generate_path('audMixaud-')
 
             if files:
                 file_in, file_in_2, file_out, url = files[0], files[1], files[2], files[3]
@@ -38,7 +38,8 @@ class AudioMixAudio(Resource):
                 response = {'download_URL': url}
                 return response, 200
             else:
-                response = {'error message': 'File is corrupted'}
+                response = {'error message': 'File is corrupted',
+                            'checksum': checksum}
                 return response, 400
         except ConvertException as error:
             response = {'error_message': error.get_message()}

@@ -18,7 +18,7 @@ from os import getenv
 from datetime import datetime
 from datetime import timedelta
 from datetime import timezone
-from CONVERTER.src.com.jalasoft.converter.database.login_crud import UserCRUD
+from src.com.jalasoft.converter.database.login_crud import UserCRUD
 
 
 class Token:

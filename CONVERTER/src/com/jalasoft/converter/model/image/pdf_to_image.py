@@ -10,7 +10,7 @@
 # with Jalasoft.
 #
 
-from CONVERTER.src.com.jalasoft.converter.model.converter import Converter
+from src.com.jalasoft.converter.model.converter import Converter
 
 
 class PdfImage(Converter):

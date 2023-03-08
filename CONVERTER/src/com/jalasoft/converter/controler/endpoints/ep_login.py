@@ -13,7 +13,7 @@
 
 from flask import request
 from flask_restful import Resource
-from CONVERTER.src.com.jalasoft.converter.database.validate_user import ValidateUser
+from src.com.jalasoft.converter.database.validate_user import ValidateUser
 
 
 class Login(Resource):

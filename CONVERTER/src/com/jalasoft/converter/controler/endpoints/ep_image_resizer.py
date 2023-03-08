@@ -12,10 +12,10 @@
 
 from flask import request
 from flask_restful import Resource
-from CONVERTER.src.com.jalasoft.converter.common.command_line import Command
-from CONVERTER.src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
-from CONVERTER.src.com.jalasoft.converter.controler.mange_request import ManageData
-from CONVERTER.src.com.jalasoft.converter.model.image.image_resize import ImageResize
+from src.com.jalasoft.converter.common.command_line import Command
+from src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
+from src.com.jalasoft.converter.controler.mange_request import ManageData
+from src.com.jalasoft.converter.model.image.image_resize import ImageResize
 
 
 class ImageResizer(Resource):
@@ -23,7 +23,7 @@ class ImageResizer(Resource):
     def post(self):
         """Convert image to black and white image"""
         try:
-            files = ManageData().generate_path('imaReima-')
+            files, checksum = ManageData().generate_path('imaReima-')
             if files:
                 file_in, file_out, url = files[0], files[1], files[2]
                 new_size = request.form["new_size"]
@@ -31,7 +31,8 @@ class ImageResizer(Resource):
                 response = {'download_URL': url}
                 return response, 200
             else:
-                response = {'error message': 'File is corrupted'}
+                response = {'error message': 'File is corrupted',
+                            'checksum': checksum}
                 return response, 400
         except ConvertException as error:
             response = {'error_message': error.get_message()}

@@ -12,10 +12,10 @@
 
 from flask import request
 from flask_restful import Resource
-from CONVERTER.src.com.jalasoft.converter.common.command_line import Command
-from CONVERTER.src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
-from CONVERTER.src.com.jalasoft.converter.controler.mange_request import ManageData
-from CONVERTER.src.com.jalasoft.converter.model.image.image_rotate import ImageRotate
+from src.com.jalasoft.converter.common.command_line import Command
+from src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
+from src.com.jalasoft.converter.controler.mange_request import ManageData
+from src.com.jalasoft.converter.model.image.image_rotate import ImageRotate
 
 
 class ImageRotater(Resource):
@@ -23,7 +23,7 @@ class ImageRotater(Resource):
     def post(self):
         """Convert image to black and white image"""
         try:
-            files = ManageData().generate_path('imaRotima-')
+            files, checksum = ManageData().generate_path('imaRotima-')
             if files:
                 file_in, file_out, url = files[0], files[1], files[2]
                 grades = request.form["grades"]
@@ -31,7 +31,8 @@ class ImageRotater(Resource):
                 response = {'download_URL': url}
                 return response, 200
             else:
-                response = {'error message': 'File is corrupted'}
+                response = {'error message': 'File is corrupted',
+                            'checksum': checksum}
                 return response, 400
         except ConvertException as error:
             response = {'error_message': error.get_message()}

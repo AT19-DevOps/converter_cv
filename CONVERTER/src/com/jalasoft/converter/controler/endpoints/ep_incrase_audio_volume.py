@@ -13,17 +13,17 @@
 
 from flask import request
 from flask_restful import Resource
-from CONVERTER.src.com.jalasoft.converter.common.command_line import Command
-from CONVERTER.src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
-from CONVERTER.src.com.jalasoft.converter.controler.mange_request import ManageData
-from CONVERTER.src.com.jalasoft.converter.model.audio.audio_increase_volume import IncreaseVolume
+from src.com.jalasoft.converter.common.command_line import Command
+from src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
+from src.com.jalasoft.converter.controler.mange_request import ManageData
+from src.com.jalasoft.converter.model.audio.audio_increase_volume import IncreaseVolume
 
 
 class IncreaseAudioVolume(Resource):
     """Defines increse audio volume class"""
     def post(self):
         """Increases the audio volume"""
-        files = ManageData().generate_path('audInaud-')
+        files, checksum = ManageData().generate_path('audInaud-')
         multiplier = request.form["multiplier"]
         try:
             if files and multiplier is not None:
@@ -31,7 +31,8 @@ class IncreaseAudioVolume(Resource):
                 Command(IncreaseVolume(file_in, file_out, multiplier).convert()).run_cmd()
                 return {'download_URL': url}
             else:
-                response = {'error message': 'File is corrupted'}
+                response = {'error message': 'File is corrupted',
+                            'checksum': checksum}
                 return response, 400
         except ConvertException as error:
             response = {'error_message': error.get_message()}

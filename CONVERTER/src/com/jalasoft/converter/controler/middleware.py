@@ -13,7 +13,7 @@
 
 from flask import request
 from flask import jsonify
-from CONVERTER.src.com.jalasoft.converter.common.token import Token
+from src.com.jalasoft.converter.common.token import Token
 
 class Middleware:
     @staticmethod

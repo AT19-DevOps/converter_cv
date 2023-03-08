@@ -14,11 +14,11 @@
 from flask import request
 from werkzeug.utils import secure_filename
 import os
-from CONVERTER.src.com.jalasoft.converter.common.exception.input_exception import InvalidInputException
-from CONVERTER.src.com.jalasoft.converter.config import UPLOAD_FOLDER
-from CONVERTER.src.com.jalasoft.converter.config import RESPONSE_FOLDER
-from CONVERTER.src.com.jalasoft.converter.common.valid_data import Validations
-from CONVERTER.src.com.jalasoft.converter.database.checksum import compare_checksum, checksum_generator_md5
+from src.com.jalasoft.converter.common.exception.input_exception import InvalidInputException
+from src.com.jalasoft.converter.config import UPLOAD_FOLDER
+from src.com.jalasoft.converter.config import RESPONSE_FOLDER
+from src.com.jalasoft.converter.common.valid_data import Validations
+from src.com.jalasoft.converter.database.checksum import compare_checksum, checksum_generator_md5
 
 
 class ManageData:
@@ -73,8 +73,9 @@ class ManageData:
         """Generates the input file path, the output file path, and the download file link"""
         self.manege_data(file_prefix)
         self.save_data(file_prefix)
+        checksum = str(checksum_generator_md5(self.in_file))
         if self.checksum_param != str(checksum_generator_md5(self.in_file)):
-            return None
+            return None, checksum
         else:
             self.in_file = compare_checksum(self.filename, self.in_file)
 
@@ -88,9 +89,10 @@ class ManageData:
             self.output_extension = file_prefix + self.filename.split('.')[0] + str(self.output_extension)
         port = os.getenv("CONVERTER_PORT")
         url = os.getenv("CONVERTER_HOST")
-        download_url = f"{url}:{port}/download?file_name={os.path.basename(self.output_extension)}"
+        download_url = f"{url}{port}/download?file_name={os.path.basename(self.output_extension)}"
         self.output_extension = os.path.join(RESPONSE_FOLDER, self.output_extension)
         if file_prefix == 'audMixaud-':
-            return [self.in_file, self.in_file_2, self.output_extension, download_url]
-        return [self.in_file, self.output_extension, download_url]
+            return [self.in_file, self.in_file_2, self.output_extension, download_url], checksum
+        return [self.in_file, self.output_extension, download_url], checksum
+
 

@@ -14,10 +14,10 @@ from dotenv import load_dotenv
 from flask import request
 from flask_restful import Resource
 from werkzeug.utils import secure_filename
-from CONVERTER.src.com.jalasoft.converter.common.command_line import Command
-from CONVERTER.src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
-from CONVERTER.src.com.jalasoft.converter.common.get_metadata import MetadataGetter
-from CONVERTER.src.com.jalasoft.converter.config import UPLOAD_FOLDER, RESPONSE_FOLDER
+from src.com.jalasoft.converter.common.command_line import Command
+from src.com.jalasoft.converter.common.exception.convert_exception import ConvertException
+from src.com.jalasoft.converter.common.get_metadata import MetadataGetter
+from src.com.jalasoft.converter.config import UPLOAD_FOLDER, RESPONSE_FOLDER
 
 load_dotenv()
 
